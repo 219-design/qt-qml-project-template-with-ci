@@ -8,8 +8,11 @@
 
 #include "lib.h"
 
-namespace project {
-
-int LibraryFunction() { return 5; }
+namespace project
+{
+int LibraryFunction()
+{
+    return 5;
+}
 
 } // namespace project

@@ -12,13 +12,14 @@
 #include "lib/lib.h"
 #include "lib/resources.h"
 
-int main(int argc, char *argv[  ]  ) {
-  project::initLibResources();
+int main( int argc, char* argv[] )
+{
+    project::initLibResources();
 
-     QGuiApplication app(argc, argv);
+    QGuiApplication app( argc, argv );
 
-  QQmlApplicationEngine engine  ;
-  engine.load(QUrl(QStringLiteral("qrc:///qml/homepage.qml")));
+    QQmlApplicationEngine engine;
+    engine.load( QUrl( QStringLiteral( "qrc:///qml/homepage.qml" ) ) );
 
-  return app.exec();
+    return app.exec();
 }

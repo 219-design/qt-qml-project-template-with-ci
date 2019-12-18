@@ -11,16 +11,19 @@
 
 // Q_INIT_RESOURCE cannot be called from inside a named namespace.  See:
 // http://doc.qt.io/qt-5/qdir.html#Q_INIT_RESOURCE
-static inline void init() { Q_INIT_RESOURCE(libresources); }
+static inline void init()
+{
+    Q_INIT_RESOURCE( libresources );
+}
 
+namespace project
+{
+void initLibResources()
+{
+    init();
 
-namespace project {
-
-void initLibResources() {
-  init();
-
-  // Any other qregister things we wish...
-  // qRegisterMetaType<CustomType*>("CustomType*");
+    // Any other qregister things we wish...
+    // qRegisterMetaType<CustomType*>("CustomType*");
 }
 
 } // namespace project

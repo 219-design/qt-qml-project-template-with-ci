@@ -8,8 +8,8 @@
 #ifndef PROJ_LIB_RESOURCES_H
 #define PROJ_LIB_RESOURCES_H
 
-namespace project {
-
+namespace project
+{
 void initLibResources();
 
 } // namespace project

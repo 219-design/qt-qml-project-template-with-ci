@@ -9,9 +9,9 @@
 #ifndef PROJ_LIB_LIB_H
 #define PROJ_LIB_LIB_H
 
-namespace project {
-
-int LibraryFunction   (   )   ;
+namespace project
+{
+int LibraryFunction();
 
 } // namespace project
 
