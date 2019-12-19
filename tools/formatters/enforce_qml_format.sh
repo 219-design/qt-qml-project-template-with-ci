@@ -19,6 +19,7 @@ then
     only_report=1
 fi
 
+export LD_LIBRARY_PATH="$CUR_GIT_ROOT/build_qt_binaries/qt5_opt_install/lib"
 qml_formatter="${CUR_GIT_ROOT}/build_qt_binaries/qmlfmt_install/qmlfmt"
 
 check_format() {

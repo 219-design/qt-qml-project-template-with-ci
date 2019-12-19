@@ -1,6 +1,10 @@
-# This is a sample build configuration for Other.
-# Check our guides at https://confluence.atlassian.com/x/5Q4SMw for more examples.
-# Only use spaces to indent your .yml configuration.
+#
+# Copyright (c) 2020, 219 Design, LLC
+# See LICENSE.txt
+#
+# https://www.219design.com
+# Software | Electrical | Mechanical | Product Design
+#
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
 image: ubuntu:18.04
@@ -9,4 +13,4 @@ pipelines:
   default:
     - step:
         script:
-          - echo "Everything is awesome!"
+          - ./run_all_tests.sh
