@@ -6,6 +6,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.12
 import QtQuick.Controls.Universal 2.2
+import libstyles 1.0
 
 ApplicationWindow {
   id: rootx
@@ -31,7 +32,7 @@ ApplicationWindow {
 
       background: Image {
         id: logoImage
-        source: blacknwhite.checked ? "qrc:///images/blacknwhite.png" : "qrc:///images/219Design.png"
+        source: blacknwhite.checked ? "qrc:///libstyles/images/blacknwhite.png" : "qrc:///libstyles/images/219Design.png"
         fillMode: Image.PreserveAspectFit
       }
 
@@ -80,6 +81,7 @@ ApplicationWindow {
       }
       Label {
         text: 'TAB: iterates focus over each item'
+        color: Theme.darkishText
       }
       Label {
         text: 'SPACEBAR (on checkbox): toggles checkbox'

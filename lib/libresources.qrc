@@ -1,8 +1,6 @@
 <RCC>
   <qresource prefix="">
     <!-- PLEASE OBEY ALPHABETICAL ORDER -->
-    <file>images/219Design.png</file>
-    <file>images/blacknwhite.png</file>
     <file>qml/homepage.qml</file>
   </qresource>
 </RCC>
