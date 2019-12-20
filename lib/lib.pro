@@ -13,6 +13,8 @@ HEADERS += \
     lib.h \
     resources.h
 
+# 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
+include(../libstyles/libstyles.pri)
 
 target.path = $$top_builddir/app
 INSTALLS += target

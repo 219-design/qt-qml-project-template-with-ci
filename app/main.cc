@@ -19,6 +19,7 @@ int main( int argc, char* argv[] )
     QGuiApplication app( argc, argv );
 
     QQmlApplicationEngine engine;
+    engine.addImportPath( "qrc:///" ); // needed for finding qml in our plugins
     engine.load( QUrl( QStringLiteral( "qrc:///qml/homepage.qml" ) ) );
 
     return app.exec();

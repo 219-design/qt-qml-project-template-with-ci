@@ -7,6 +7,7 @@
 #
 
 TEMPLATE = subdirs
-SUBDIRS = app lib
+SUBDIRS = app lib libstyles
 # NOTE: using 'CONFIG += ordered' is considered a bad practice—prefer using .depends instead.
-app.depends = lib
+app.depends = lib libstyles
+lib.depends = libstyles

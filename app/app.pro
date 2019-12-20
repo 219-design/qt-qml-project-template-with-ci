@@ -5,6 +5,7 @@ SOURCES += \
 
 # 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
 include(../lib/lib.pri)
+include(../libstyles/libstyles.pri)
 
 unix:{
     # So the exe will launch if we put all our '*.so' dylibs side-by-side with it.
