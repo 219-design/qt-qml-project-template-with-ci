@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.6.2)
 
 project( googletest-distribution )
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 enable_testing()
 
 option(BUILD_GTEST "Builds the googletest subproject" OFF)
