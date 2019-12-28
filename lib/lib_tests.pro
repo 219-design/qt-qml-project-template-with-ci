@@ -8,6 +8,9 @@ include(./lib.pri)
 include(../libtests/libtestmain.pri)
 include(../third_party/googletest-release-1.8.0_install_ubuntu18/googletest.pri)
 
+target.path = $$top_builddir/app
+INSTALLS += target
+
 unix:{
     # So the exe will launch if we put all our '*.so' dylibs side-by-side with it.
     # Based on https://stackoverflow.com/a/27393241/10278
