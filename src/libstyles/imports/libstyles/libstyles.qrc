@@ -4,6 +4,7 @@
     <file>Theme.qml</file>
     <file>images/219Design.png</file>
     <file>images/blacknwhite.png</file>
+    <file>images/home.png</file>
     <file>qmldir</file>
   </qresource>
 </RCC>

@@ -32,7 +32,9 @@ ApplicationWindow {
 
       background: Image {
         id: logoImage
-        source: blacknwhite.checked ? "qrc:///libstyles/images/blacknwhite.png" : "qrc:///libstyles/images/219Design.png"
+        source: blacknwhite.checked ? resourceHelper.imageSourcePrefix
+                                      + "images/blacknwhite.png" : resourceHelper.imageSourcePrefix
+                                      + "images/219Design.png"
         fillMode: Image.PreserveAspectFit
       }
 

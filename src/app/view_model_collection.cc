@@ -7,6 +7,7 @@
 //
 #include "view_model_collection.h"
 
+#include "src/lib/resource_helper.h"
 #include "src/lib/resources.h"
 
 namespace project
@@ -24,6 +25,7 @@ ViewModelCollection::~ViewModelCollection() = default;
 void ViewModelCollection::ExportContextPropertiesToQml( QQmlEngine* engine )
 {
     // m_navigation->ExportContextPropertiesToQml( engine );
+    ResourceHelper::ExportContextPropertiesToQml( engine );
 }
 
 } // namespace project

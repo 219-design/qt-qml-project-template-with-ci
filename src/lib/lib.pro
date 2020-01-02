@@ -7,10 +7,12 @@ RESOURCES = libresources.qrc
 
 SOURCES += \
     lib.cc \
+    resource_helper.cc \
     resources.cc
 
 HEADERS += \
     lib.h \
+    resource_helper.h \
     resources.h
 
 # 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
