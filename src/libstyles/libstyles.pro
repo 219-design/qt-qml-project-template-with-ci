@@ -16,6 +16,6 @@ HEADERS += \
     resources.h
 
 
-target.path = $$top_builddir/app
+target.path = $$top_exe_dir
 
 INSTALLS += target
