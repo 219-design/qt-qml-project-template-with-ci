@@ -15,11 +15,11 @@ SUBDIRS = \
     libstyles \
     libtestmain
 
-app.file = app/app.pro
-lib.file = lib/lib.pro
-lib_tests.file = lib/lib_tests.pro
-libstyles.file = libstyles/libstyles.pro
-libtestmain.file = libtests/libtestmain.pro
+app.file = src/app/app.pro
+lib.file = src/lib/lib.pro
+lib_tests.file = src/lib/lib_tests.pro
+libstyles.file = src/libstyles/libstyles.pro
+libtestmain.file = src/libtests/libtestmain.pro
 
 # The 'app' does not directly depend on this entire set of libraries.
 # Instead, think of this massive dependency list as a way for us to tell qmake

@@ -9,8 +9,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include "lib/lib.h"
-#include "lib/resources.h"
+#include "src/lib/lib.h"
+#include "src/lib/resources.h"
 
 int main( int argc, char* argv[] )
 {

@@ -9,7 +9,7 @@
 
 #include <QDir>
 
-#include "libstyles/resources.h"
+#include "src/libstyles/resources.h"
 
 // Q_INIT_RESOURCE cannot be called from inside a named namespace.  See:
 // http://doc.qt.io/qt-5/qdir.html#Q_INIT_RESOURCE
