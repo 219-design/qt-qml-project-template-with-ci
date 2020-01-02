@@ -1,7 +1,11 @@
 QT += core qml
 
 SOURCES += \
-    main.cc
+    main.cc \
+    view_model_collection.cc
+
+HEADERS += \
+    view_model_collection.h
 
 # 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
 include(../lib/lib.pri)

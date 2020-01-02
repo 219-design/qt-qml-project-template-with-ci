@@ -9,16 +9,20 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include "src/lib/lib.h"
-#include "src/lib/resources.h"
+#include "view_model_collection.h"
 
 int main( int argc, char* argv[] )
 {
-    project::initLibResources();
-
     QGuiApplication app( argc, argv );
 
+    // ViewModels must OUTLIVE the qml engine, so create them first:
+    project::ViewModelCollection vms;
+
+    // Created after vms, so that we avoid null vm qml warnings upon vm dtors
     QQmlApplicationEngine engine;
+
+    vms.ExportContextPropertiesToQml( &engine );
+
     engine.addImportPath( "qrc:///" ); // needed for finding qml in our plugins
     engine.load( QUrl( QStringLiteral( "qrc:///qml/homepage.qml" ) ) );
 
