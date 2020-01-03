@@ -15,10 +15,10 @@ namespace project
 {
 class ResourceHelper : public QObject
 {
-    Q_OBJECT;
+    Q_OBJECT
 
     // Should correspond to content in qml/dummydata/resourceHelper.qml
-    Q_PROPERTY( QString imageSourcePrefix MEMBER imageSourcePrefix CONSTANT );
+    Q_PROPERTY( QString imageSourcePrefix MEMBER imageSourcePrefix CONSTANT )
 
 public:
     ResourceHelper() = default;

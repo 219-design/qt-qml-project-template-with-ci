@@ -1,3 +1,5 @@
+include($$top_srcdir/compiler_flags.pri)
+
 QT += core qml
 
 SOURCES += \
