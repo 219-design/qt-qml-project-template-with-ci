@@ -53,3 +53,5 @@ unix:{
          -Wwrite-strings \
          "
 }
+
+include($$top_srcdir/src/assert/assert.pri) # allows all code to include util-assert.h
