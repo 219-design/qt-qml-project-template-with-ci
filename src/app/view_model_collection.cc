@@ -7,12 +7,14 @@
 //
 #include "view_model_collection.h"
 
+#include "qml_message_interceptor.h"
 #include "src/lib/resource_helper.h"
 #include "src/lib/resources.h"
 
 namespace project
 {
 ViewModelCollection::ViewModelCollection()
+    : m_qml_logger( std::make_unique<QmlMessageInterceptor>() )
 {
     project::initLibResources();
 

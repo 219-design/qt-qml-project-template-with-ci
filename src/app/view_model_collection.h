@@ -14,6 +14,8 @@
 
 namespace project
 {
+class QmlMessageInterceptor;
+
 class ViewModelCollection
 {
 public:
@@ -27,6 +29,7 @@ public:
 
 private:
     // std::unique_ptr<Navigation> m_navigation;
+    std::unique_ptr<QmlMessageInterceptor> m_qml_logger;
 };
 } // namespace project
 
