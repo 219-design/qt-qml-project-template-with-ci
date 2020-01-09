@@ -65,6 +65,12 @@ unix:{
          -Wvariadic-macros \
          -Wwrite-strings \
          "
+
+    # Do the 'no-' flags in their own statement, to ensure that they always happen last:
+    QMAKE_CXXFLAGS += "\
+         -Wno-error=inline \
+         "
+    # Rationale for 'Wno-error=inline' is that a failure to inline is information, and never truly 'wrong'
 }
 
 include($$top_srcdir/src/assert/assert.pri) # allows all code to include util-assert.h
