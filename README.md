@@ -1,0 +1,40 @@
+## Qt/QML Project Template by 219 Design, LLC
+
+A template for building a Qt/QML application with **many batteries included**,
+such as:
+
+ - project folder layout for creating one custom app that uses one or more of your custom libraries
+ - clang-format checking of C++ code
+ - qmlfmt checking of QML code
+ - runtime "flexible asserts" to ensure you do not miss any QML runtime warnings
+ - a wrapper script to make iterating on QML layouts painless with qmlscene
+ - test-runner code to run any unit tests you add. (googletest is provided)
+ - a basic '.github/workflow' to run tests on github for each commit
+ - a basic GUI Test that launches the app in CI using Xvfb
+
+The minimal application that this project initially builds is the demo app that
+we originally blogged about at
+https://www.219design.com/a-tale-of-efficient-keyboard-navigation-code-in-qml/
+
+When using this template project, you can build that app once or twice to make
+sure you understand the project structure. Then delete `homepage.qml` and
+replace it with your own app (adding supporting C++ view model classes as you
+see fit).
+
+## How to build and launch the app
+
+1. Use the operating system: Ubuntu 18.04 LTS "bionic"
+
+2. Visually inspect the file `tools/ci/provision.sh` to learn which `apt`
+   packages are required. Use your own preferred `apt` commands or equivalent
+   methods to install those required packages. (`provision.sh` is executed on
+   the Bitbucket docker instance prior to running the continuous integration
+   build-and-test routines)
+
+3. In a terminal, run `build_app.sh`
+
+4. Assuming step (3) was successful, you can launch the app at
+   `./build/src/app/app`
+
+5. (Optional) Assuming step (3) was successful, you can also invoke
+   `run_all_tests.sh` to check that the binaries you built pass all their tests.
