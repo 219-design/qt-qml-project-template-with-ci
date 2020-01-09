@@ -12,9 +12,3 @@ include(../../third_party/googletest-release-1.8.0_install_ubuntu18/googletest.p
 
 target.path = $$top_exe_dir
 INSTALLS += target
-
-unix:{
-    # So the exe will launch if we put all our '*.so' dylibs side-by-side with it.
-    # Based on https://stackoverflow.com/a/27393241/10278
-    QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
-}

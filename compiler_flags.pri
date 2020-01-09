@@ -11,6 +11,12 @@
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]
 
 unix:{
+    # So the exe will launch if we put all our '*.so' dylibs side-by-side with it.
+    # Based on https://stackoverflow.com/a/27393241/10278
+    QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
+}
+
+unix:{
     # some inspired by: https://kristerw.blogspot.com/2017/09/useful-gcc-warning-options-not-enabled.html
     # others inspired by: https://stackoverflow.com/questions/5088460/flags-to-enable-thorough-and-verbose-g-warnings
     QMAKE_CXXFLAGS += "\
