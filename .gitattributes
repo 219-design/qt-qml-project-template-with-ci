@@ -1,0 +1,42 @@
+# Starting out using the template suggested at:
+#   https://help.github.com/en/github/using-git/configuring-git-to-handle-line-endings#per-repository-settings
+
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.c text
+*.cc text
+*.cpp text
+*.h text
+*.qml text
+
+# Declare files that will always have Unix LF line endings on checkout.
+*.md text eol=lf
+*.pbxproj text eol=lf
+*.plist text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.xcconfig text eol=lf
+*.yml text eol=lf
+.clang-format text eol=lf
+
+# Declare files that will always have CRLF line endings on checkout.
+*.cbproj text eol=crlf
+*.groupproj text eol=crlf
+*.props text eol=crlf
+*.sln text eol=crlf
+*.vcproj text eol=crlf
+*.vcxproj text eol=crlf
+*.vsprops text eol=crlf
+/third_party/googletest-release-1.8.0/googletest/codegear/* text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.a binary
+*.eps binary
+*.jpg binary
+*.pdf binary
+*.png binary
+*.svg binary
+*.zip binary
