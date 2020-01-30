@@ -36,5 +36,15 @@ see fit).
 4. Assuming step (3) was successful, you can launch the app at
    `./build/src/app/app`
 
+   If the app fails with a message such as `qt.qpa.plugin: Could not
+   load the Qt platform plugin "xcb" in
+   "/home/daniel/Qt/5.14.0/gcc_64/plugins" even though it was found.`,
+   you need to set `QT_QPA_PLATFORM_PLUGIN_PATH` to the correct
+   location. And when you set that, you must ensure that
+   `LD_LIBRARY_PATH` also points to the same Qt build.
+
+        export QT_QPA_PLATFORM_PLUGIN_PATH="$(pwd)/build_qt_binaries/qt5_opt_install/plugins/platforms
+        export LD_LIBRARY_PATH="$(pwd)/build_qt_binaries/qt5_opt_install/lib:$LD_LIBRARY_PATH"
+
 5. (Optional) Assuming step (3) was successful, you can also invoke
    `run_all_tests.sh` to check that the binaries you built pass all their tests.
