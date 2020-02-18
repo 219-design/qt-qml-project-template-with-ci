@@ -17,7 +17,7 @@ ApplicationWindow {
 
   Rectangle {
     id: root
-    color: "white"
+    color: Theme.accentOtherMedium
     width: 400
     height: 400
 
@@ -62,7 +62,14 @@ ApplicationWindow {
       }
 
       Button {
+        id: reset
         text: 'Reset'
+
+        background: Rectangle {
+          color: Theme.primaryButtonFill
+          border.width: reset.activeFocus ? 2 : 0
+          border.color: Universal.accent
+        }
 
         onClicked: {
           blacknwhite.checked = false
@@ -80,10 +87,10 @@ ApplicationWindow {
       Label {
         text: 'Keyboard Controls:'
         font.bold: true
+        color: Theme.primaryDark
       }
       Label {
         text: 'TAB: iterates focus over each item'
-        color: Theme.darkishText
       }
       Label {
         text: 'SPACEBAR (on checkbox): toggles checkbox'
