@@ -6,9 +6,20 @@
 # https://www.219design.com
 # Software | Electrical | Mechanical | Product Design
 #
+```
 
-# In order that all the qml 'import' statements for our supporting libraries can
-# successfully load, you must feed some additional paths to qmlscene like so:
+qmlscene is a Qt utility that loads and displays QML documents even before the
+application is complete. It is also a great time-saver for doing small layout
+touch-ups even on a completed app.
 
-qmlscene -I ../../libstyles/imports/ main.qml
+qmlscene accepts arguments that add import paths.
+
+For convenience, we have packaged all our necessary import paths into a wrapper
+script.
+
+Therefore, instead of trying something like `qmlscene main.qml`, please use our
+script like so:
+
+```
+./runscene main.qml
 ```
