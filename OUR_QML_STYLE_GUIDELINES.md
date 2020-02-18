@@ -113,6 +113,8 @@ if the height and width of an item are both ZERO, then QML often refuses to
 acknowledge your empty item's presence (and purpose) at all. When it is
 necessary to avoid a ZERO size, we adopt the convention of always using `1`.
 
+A comment that the item is a spacer, while optional, is helpful for reviewers.
+
 ```
         Item {
           // this is a 'spacer' to force other items to the outer edges
@@ -215,5 +217,25 @@ showing "OPEN" on a button instead of "Open"). When working on such designs,
 prefer to apply ALL_CAPS by using QML's built-in `font.capitalization` property
 and setting it to `Font.AllUppercase`. This will alleviate the need to remember
 to TYPE OUR UI STRINGS IN ALL CAPS (which is exhausting).
+
+--------------------------------------------------------------------------------
+### instantiation-properties ###
+
+All properties that are user-accessible at the instantiation site should be
+placed directly underneath the id of the Item encapsulating the type, like so:
+
+```
+//Add your imports here
+...
+Item {
+  id: root
+
+  property int firstInstantiationProperty: 0
+  property var secondInstantionProperty: "hello"
+
+  //rest of the qml file
+}
+```
+Don't sprinkle them throughout the file.
 
 --------------------------------------------------------------------------------
