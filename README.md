@@ -28,7 +28,7 @@ see fit).
 2. Visually inspect the file `tools/ci/provision.sh` to learn which `apt`
    packages are required. Use your own preferred `apt` commands or equivalent
    methods to install those required packages. (`provision.sh` is executed on
-   the Bitbucket docker instance prior to running the continuous integration
+   the github docker instance prior to running the continuous integration
    build-and-test routines)
 
 3. In a terminal, run `build_app.sh`
