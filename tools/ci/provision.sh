@@ -13,8 +13,21 @@ cat /etc/issue || true
 # What environment variables did the C.I. system set? Print them:
 env
 
-apt-get update
-apt-get --assume-yes install \
+# bitbucket CANNOT tolerate sudo
+WITHSUDO=""
+if [[ -n ${GITHUB_ACTIONS-} ]];
+then
+   # github REQUIRES it
+   WITHSUDO="sudo"
+
+   # A workaround (for github action) from: https://github.com/Microsoft/azure-pipelines-image-generation/issues/672
+   $WITHSUDO apt-get remove -y clang-6.0 libclang-common-6.0-dev libclang1-6.0 libllvm6.0
+   $WITHSUDO apt-get autoremove
+   # end workaround
+fi
+
+$WITHSUDO apt-get update
+$WITHSUDO apt-get --assume-yes install \
   build-essential \
   clang-format-6.0 \
   git \

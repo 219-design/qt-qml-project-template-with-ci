@@ -11,11 +11,11 @@
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
 # https://web.archive.org/web/20191121235402/https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html
-if [[ -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REPO_FULL_NAME-} ]];
+if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REPO_FULL_NAME-} ]];
 # The '-' hyphens above test without angering the 'set -u' about unbound variables
 then
   echo "Assuming C.I. environment."
-  echo "Found at least one of BITBUCKET_REPO_OWNER, BITBUCKET_REPO_FULL_NAME in env."
+  echo "Found at least one of GITHUB_ACTIONS, BITBUCKET_REPO_OWNER, BITBUCKET_REPO_FULL_NAME in env."
 
   ./tools/ci/provision.sh
   git submodule update --init # avoid '--recursive' (as long as we can) due to inner qmlfmt deps
