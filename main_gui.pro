@@ -5,7 +5,7 @@
 # https://www.219design.com
 # Software | Electrical | Mechanical | Product Design
 #
-include($$top_srcdir/compiler_flags.pri) # each subproject must also include this
+!include($$top_srcdir/compiler_flags.pri) { error() } # each subproject must also include this
 
 TEMPLATE = subdirs
 

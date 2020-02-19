@@ -1,4 +1,4 @@
-include($$top_srcdir/compiler_flags.pri)
+!include($$top_srcdir/compiler_flags.pri) { error() }
 
 QT += core qml
 
@@ -14,5 +14,5 @@ HEADERS += \
     view_model_collection.h
 
 # 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
-include(../lib/lib.pri)
-include(../libstyles/libstyles.pri)
+!include(../lib/lib.pri) { error() }
+!include(../libstyles/libstyles.pri) { error() }

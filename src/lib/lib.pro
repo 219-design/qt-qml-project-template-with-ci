@@ -1,4 +1,4 @@
-include($$top_srcdir/compiler_flags.pri)
+!include($$top_srcdir/compiler_flags.pri) { error() }
 
 QT += core
 
@@ -22,8 +22,8 @@ HEADERS += \
     resources.h
 
 # 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
-include(../libstyles/libstyles.pri)
-include(../util/util.pri)
+!include(../libstyles/libstyles.pri) { error() }
+!include(../util/util.pri) { error() }
 
 target.path = $$top_exe_dir
 INSTALLS += target

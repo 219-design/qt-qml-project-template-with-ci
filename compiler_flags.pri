@@ -91,4 +91,4 @@ unix:{
     # Rationale for 'Wno-error=inline' is that a failure to inline is information, and never truly 'wrong'
 }
 
-include($$top_srcdir/src/assert/assert.pri) # allows all code to include util-assert.h
+!include($$top_srcdir/src/assert/assert.pri) { error() } # allows all code to include util-assert.h

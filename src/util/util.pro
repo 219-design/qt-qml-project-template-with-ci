@@ -1,4 +1,4 @@
-include($$top_srcdir/compiler_flags.pri)
+!include($$top_srcdir/compiler_flags.pri) { error() }
 
 QT += core
 
