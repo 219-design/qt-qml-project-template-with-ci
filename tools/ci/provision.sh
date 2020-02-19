@@ -13,6 +13,9 @@ cat /etc/issue || true
 # What environment variables did the C.I. system set? Print them:
 env
 
+# This only comes into play for certain dconf-able(s) like tzdata
+export DEBIAN_FRONTEND=noninteractive # in addition to --assume-yes
+
 # bitbucket CANNOT tolerate sudo
 WITHSUDO=""
 if [[ -n ${GITHUB_ACTIONS-} ]];
