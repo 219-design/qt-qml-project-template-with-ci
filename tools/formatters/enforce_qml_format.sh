@@ -28,9 +28,14 @@ check_format() {
         for fl in "$filenames"; do
           result=$("$qml_formatter" -l "$fl")
           if [[ ! -z "$result" ]]; then
-              echo "You need to qmlfmt this file:"
-              echo "$fl"
-              return -1
+              # https://stackoverflow.com/a/34066473/10278 (find string in bash array)
+              if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
+                echo "INTENTIONAL FORGIVENESS OF $fl"
+              else
+                echo "You need to qmlfmt this file:"
+                echo "$fl"
+                return -1
+              fi
           fi
         done
       done
@@ -41,10 +46,22 @@ check_format() {
   while read filenames; do
     for fl in "$filenames"; do
       echo $fl
-      "$qml_formatter" -w "$fl"
+
+      # https://stackoverflow.com/a/34066473/10278 (find string in bash array)
+      if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
+        echo "INTENTIONAL EXLUSION OF $fl"
+      else
+        "$qml_formatter" -w "$fl"
+      fi
     done
   done
 }
+
+if [ -f "${THISDIR}/enforce_qml_format.exclusions" ]; then
+  readarray -t the_exclusions < "${THISDIR}/enforce_qml_format.exclusions"
+else
+  the_exclusions=()
+fi
 
 cd $CUR_GIT_ROOT
 top_level_dirs=(*/)
