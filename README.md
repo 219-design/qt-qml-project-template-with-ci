@@ -11,6 +11,7 @@ such as:
  - test-runner code to run any unit tests you add. (googletest is provided)
  - a basic '.github/workflow' to run tests on github for each commit
  - a basic GUI Test that launches the app in CI using Xvfb
+ - automated Linux deployment via AppImage folder
 
 The minimal application that this project initially builds is the demo app that
 we originally blogged about at

@@ -15,6 +15,18 @@ DISPLAY_ID=$1
 
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
+cd $CUR_GIT_ROOT
+./install_linux.sh # build the AppImage folder structure
+
+if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REPO_FULL_NAME-} ]];
+# The '-' hyphens above test without angering the 'set -u' about unbound variables
+then
+  echo "Assuming C.I. environment."
+  echo "Deleting various binaries except for AppImage (to prove AppImage works)"
+  rm -rf build # highly destructive! we want to prove the AppImage is standalone
+  rm -rf build_qt_binaries # highly destructive! we want to prove the AppImage is standalone
+fi
+
 # bitbucket CANNOT tolerate sudo
 WITHSUDO=""
 if [[ -n ${GITHUB_ACTIONS-} ]];
@@ -35,7 +47,7 @@ cd $CUR_GIT_ROOT
 rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps locally.
 
 # -g flag causes app to close when test is done:
-DISPLAY=${DISPLAY_ID} build/src/app/app -g 2>&1 |& tee gui_test.log
+DISPLAY=${DISPLAY_ID} AppImage_staging/usr/bin/app -g 2>&1 |& tee gui_test.log
 
 tools/gui_test/check_gui_test_log.py gui_test.log
 rm -f gui_test.log
@@ -48,4 +60,4 @@ fi
 
 echo 'We assume this was run with '\''set -x'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'
-echo 'launch_gui_for_display SUCCESS'
+echo 'test_AppImage SUCCESS'
