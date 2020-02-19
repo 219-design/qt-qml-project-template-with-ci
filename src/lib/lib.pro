@@ -23,6 +23,7 @@ HEADERS += \
 
 # 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
 include(../libstyles/libstyles.pri)
+include(../util/util.pri)
 
 target.path = $$top_exe_dir
 INSTALLS += target
