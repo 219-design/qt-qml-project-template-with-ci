@@ -336,7 +336,7 @@ const char* UntypedFunctionMockerBase::Name() const
 // arguments, prints it, and returns it.  The caller is responsible
 // for deleting the result.
 UntypedActionResultHolderBase*
-UntypedFunctionMockerBase::UntypedInvokeWith(const void* const untyped_args)
+UntypedFunctionMockerBase::UntypedInvokeWith(const void* untyped_args)
     GTEST_LOCK_EXCLUDED_(g_gmock_mutex) {
   if (untyped_expectations_.size() == 0) {
     // No expectation is set on this mock method - we have an
