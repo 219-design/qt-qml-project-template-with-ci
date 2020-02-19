@@ -11,6 +11,10 @@
 
 #include "util-assert.h"
 
+#ifdef _MSC_VER
+#    define strcasecmp _stricmp
+#endif
+
 namespace project
 {
 namespace
