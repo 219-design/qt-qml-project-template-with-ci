@@ -7,14 +7,17 @@
 //
 #include "view_model_collection.h"
 
+#include "gui_tests.h"
 #include "qml_message_interceptor.h"
+#include "src/lib/cli_options.h"
+#include "src/lib/logging_tags.h"
 #include "src/lib/resource_helper.h"
 #include "src/lib/resources.h"
 
 namespace project
 {
-ViewModelCollection::ViewModelCollection()
-    : m_qml_logger( std::make_unique<QmlMessageInterceptor>() )
+ViewModelCollection::ViewModelCollection( const QGuiApplication& app )
+    : m_opts( std::make_unique<CliOptions>( app ) ), m_qmlLogger( std::make_unique<QmlMessageInterceptor>() ), m_logging( std::make_unique<LoggingTags>( *m_opts ) )
 {
     project::initLibResources();
 
@@ -24,10 +27,17 @@ ViewModelCollection::ViewModelCollection()
 
 ViewModelCollection::~ViewModelCollection() = default;
 
-void ViewModelCollection::ExportContextPropertiesToQml( QQmlEngine* engine )
+void ViewModelCollection::ExportContextPropertiesToQml( QQmlApplicationEngine* engine )
 {
     // m_navigation->ExportContextPropertiesToQml( engine );
+    m_logging->ExportContextPropertiesToQml( engine );
     ResourceHelper::ExportContextPropertiesToQml( engine );
+
+    // Keep this at the END of the 'ExportContext...' method, so all view models are exported before any tests run
+    if( m_opts->RunningGuiTests() )
+    {
+        m_guiTests = std::make_unique<GuiTests>( *engine );
+    }
 }
 
 } // namespace project

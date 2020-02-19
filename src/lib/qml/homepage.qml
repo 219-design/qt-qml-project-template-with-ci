@@ -15,6 +15,11 @@ ApplicationWindow {
   height: 400
   visible: true
 
+  Component.onCompleted: {
+    // Don't mess with 'guiTests' log statements, or you risk breaking a test.
+    console.log(LogTags.guiTests, "ApplicationWindow onCompleted")
+  }
+
   Rectangle {
     id: root
     color: Theme.accentOtherMedium

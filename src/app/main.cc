@@ -16,7 +16,7 @@ int main( int argc, char* argv[] )
     QGuiApplication app( argc, argv );
 
     // ViewModels must OUTLIVE the qml engine, so create them first:
-    project::ViewModelCollection vms;
+    project::ViewModelCollection vms( app );
 
     // Created after vms, so that we avoid null vm qml warnings upon vm dtors
     QQmlApplicationEngine engine;

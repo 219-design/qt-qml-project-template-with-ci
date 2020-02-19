@@ -3,11 +3,13 @@ include($$top_srcdir/compiler_flags.pri)
 QT += core qml
 
 SOURCES += \
+    gui_tests.cc \
     main.cc \
     qml_message_interceptor.cc \
     view_model_collection.cc
 
 HEADERS += \
+    gui_tests.h \
     qml_message_interceptor.h \
     view_model_collection.h
 

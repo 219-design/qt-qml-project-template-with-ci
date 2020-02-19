@@ -23,8 +23,11 @@ then
   # kind of hacky to have this PATH bit as bitbucket-only.
   # once all developers are on 18.04 we can do this elsewhere
   PATH="$PWD/build_qt_binaries/qt5_opt_install/bin:$PATH"
+
+  XDISPLAY=":1"
 else
   echo "Assuming we are NOT on bitbucket. Did not find BITBUCKET_REPO_OWNER nor BITBUCKET_REPO_FULL_NAME in env."
+  XDISPLAY=":0"
 fi
 
 tools/formatters/enforce_clang_format.sh check_only
@@ -34,3 +37,6 @@ tools/formatters/enforce_qml_format.sh check_only
 
 # run all test binaries that got built in the expected dir:
 tools/auto_test/run_cpp_auto_tests.sh
+
+# run gui tests which execute the actual app binary:
+tools/gui_test/launch_gui_for_display.sh "${XDISPLAY}"

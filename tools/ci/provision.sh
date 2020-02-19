@@ -32,11 +32,25 @@ $WITHSUDO apt-get --assume-yes install \
   clang-format-6.0 \
   git \
   libc-bin \
+  libdbus-1-3 \
   libdouble-conversion1 \
+  libfontconfig1 \
   libgl1-mesa-dev \
   libgl1-mesa-glx \
   libglib2.0-0 \
   libglu1-mesa-dev \
   libharfbuzz0b \
   libicu60 \
-  mesa-common-dev
+  libxcb-icccm4 \
+  libxcb-image0 \
+  libxcb-keysyms1 \
+  libxcb-render-util0 \
+  libxcb-render0 \
+  libxcb-xinerama0 \
+  libxcb-xkb1 \
+  libxkbcommon-x11-0 \
+  libxkbcommon0 \
+  mesa-common-dev \
+  psmisc \
+  python3 \
+  xvfb

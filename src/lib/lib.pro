@@ -8,12 +8,16 @@ CONFIG += shared
 RESOURCES = libresources.qrc
 
 SOURCES += \
+    cli_options.cc \
     lib.cc \
+    logging_tags.cc \
     resource_helper.cc \
     resources.cc
 
 HEADERS += \
+    cli_options.h \
     lib.h \
+    logging_tags.h \
     resource_helper.h \
     resources.h
 
