@@ -34,7 +34,7 @@ then
   XDISPLAY=":1"
 else
   echo "Assuming we are NOT on bitbucket. Did not find BITBUCKET_REPO_OWNER nor BITBUCKET_REPO_FULL_NAME in env."
-  XDISPLAY=":0"
+  XDISPLAY=""
 fi
 
 tools/formatters/enforce_clang_format.sh check_only
@@ -45,8 +45,18 @@ tools/formatters/enforce_qml_format.sh check_only
 # run all test binaries that got built in the expected dir:
 tools/auto_test/run_cpp_auto_tests.sh
 
+if [[ -n ${XDISPLAY-} ]]; then
+  sudo Xvfb ${XDISPLAY} -screen 0 1024x768x16 &
+  VIRT_FB_PID=$!
+  sleep 4 # time to (probabilistically) ensure that Xvfb has started
+fi
+
 # run gui tests which execute the actual app binary:
 tools/gui_test/launch_gui_for_display.sh "${XDISPLAY}"
 
 # this MUST happen last because (on the C.I. server) it destroys folders (intentionally)
 tools/gui_test/test_AppImage.sh "${XDISPLAY}"
+
+if [[ -n ${XDISPLAY-} ]]; then
+  sudo kill $VIRT_FB_PID || true
+fi
