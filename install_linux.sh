@@ -27,6 +27,11 @@ cp "$DIR/tools/AppImage/logo256.png" usr/share/icons/hicolor/256x256/apps/app.pn
 cp "$DIR/tools/AppImage/app.desktop" usr/share/applications/
 cp "$DIR/build/src/app/"* usr/bin/
 
+# unless you run linuxdeployqt with '-bundle-non-qt-libs', the end user on
+# target install machine will need to run provision.sh, too. So put it in the
+# image:
+cp "$DIR/tools/ci/provision.sh" usr/bin/
+
 cd $DIR  # enter this script's directory.
 
 if [ -f linuxdeployqt-6-x86_64.AppImage ]; then
