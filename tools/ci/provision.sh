@@ -16,21 +16,22 @@ env
 # This only comes into play for certain dconf-able(s) like tzdata
 export DEBIAN_FRONTEND=noninteractive # in addition to --assume-yes
 
-# bitbucket CANNOT tolerate sudo
-WITHSUDO=""
+# Deal with environments (such as bitbucket CI) that lack sudo
+if ! [ -x "$(command -v sudo)" ]; then
+  apt-get update
+  apt-get --assume-yes install sudo
+fi
+
 if [[ -n ${GITHUB_ACTIONS-} ]];
 then
-   # github REQUIRES it
-   WITHSUDO="sudo"
-
    # A workaround (for github action) from: https://github.com/Microsoft/azure-pipelines-image-generation/issues/672
-   $WITHSUDO apt-get remove -y clang-6.0 libclang-common-6.0-dev libclang1-6.0 libllvm6.0
-   $WITHSUDO apt-get autoremove
+   sudo apt-get remove -y clang-6.0 libclang-common-6.0-dev libclang1-6.0 libllvm6.0
+   sudo apt-get autoremove
    # end workaround
 fi
 
-$WITHSUDO apt-get update
-$WITHSUDO apt-get --assume-yes install \
+sudo apt-get update
+sudo apt-get --assume-yes install \
   build-essential \
   clang-format-6.0 \
   git \
@@ -38,6 +39,7 @@ $WITHSUDO apt-get --assume-yes install \
   libdbus-1-3 \
   libdouble-conversion1 \
   libfontconfig1 \
+  libfuse2 \
   libgl1-mesa-dev \
   libgl1-mesa-glx \
   libglib2.0-0 \
@@ -56,4 +58,7 @@ $WITHSUDO apt-get --assume-yes install \
   mesa-common-dev \
   psmisc \
   python3 \
+  wget \
   xvfb
+
+sudo modprobe fuse # fuse is needed for our AppImage creation script
