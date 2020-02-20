@@ -23,10 +23,7 @@ else
   git submodule update --init --recursive
 fi
 
-# set qt5 path to the submodule contents
-PATH="$DIR/build_qt_binaries/qt5_opt_install/bin:$PATH"
-# comment out next line if you wish to prefer 'opt' in place of 'dbg':
-PATH="$DIR/build_qt_binaries/qt5_dbg_install/bin:$PATH"
+source $DIR/path_to_qmake.bash
 
 cd build
 qmake "$DIR"

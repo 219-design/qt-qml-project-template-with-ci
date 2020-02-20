@@ -31,10 +31,6 @@ then
   ./tools/ci/provision.sh
   git submodule update --init # avoid '--recursive' (as long as we can) due to inner qmlfmt deps
 
-  # kind of hacky to have this PATH bit as bitbucket-only.
-  # once all developers are on 18.04 we can do this elsewhere
-  PATH="$PWD/build_qt_binaries/qt5_opt_install/bin:$PATH"
-
   XDISPLAY=":1"
 else
   echo "Assuming we are NOT on bitbucket. Did not find BITBUCKET_REPO_OWNER nor BITBUCKET_REPO_FULL_NAME in env."
