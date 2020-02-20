@@ -17,6 +17,17 @@ then
   echo "Assuming C.I. environment."
   echo "Found at least one of GITHUB_ACTIONS, BITBUCKET_REPO_OWNER, BITBUCKET_REPO_FULL_NAME in env."
 
+  # Try various ways to print OS version info.
+  # This lets us keep a record of this in our CI logs,
+  # in case the CI docker images change.
+  uname -a       || true
+  lsb_release -a || true
+  gcc --version  || true  # oddly, gcc often prints great OS information
+  cat /etc/issue || true
+
+  # What environment variables did the C.I. system set? Print them:
+  env
+
   ./tools/ci/provision.sh
   git submodule update --init # avoid '--recursive' (as long as we can) due to inner qmlfmt deps
 
