@@ -27,18 +27,10 @@ then
   rm -rf build_qt_binaries # highly destructive! we want to prove the AppImage is standalone
 fi
 
-# bitbucket CANNOT tolerate sudo
-WITHSUDO=""
-if [[ -n ${GITHUB_ACTIONS-} ]];
-then
-   # github REQUIRES it
-   WITHSUDO="sudo"
-fi
-
 if [ ${DISPLAY_ID} = ":0" ]; then
   echo "assuming there is NOT a need for Xvfb"
 else
-  $WITHSUDO Xvfb ${DISPLAY_ID} -screen 0 1024x768x16 &
+  sudo Xvfb ${DISPLAY_ID} -screen 0 1024x768x16 &
   VIRT_FB_PID=$!
   sleep 4 # time to (probabilistically) ensure that Xvfb has started
 fi
@@ -55,7 +47,7 @@ rm -f gui_test.log
 if [ ${DISPLAY_ID} = ":0" ]; then
   echo "we didn't launch Xvfb, so we don't try to kill it"
 else
-  $WITHSUDO kill $VIRT_FB_PID || true
+  sudo kill $VIRT_FB_PID || true
 fi
 
 echo 'We assume this was run with '\''set -x'\'' (look at upper lines of this script).'
