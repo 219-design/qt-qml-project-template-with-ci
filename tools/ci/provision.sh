@@ -2,17 +2,6 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
-# Try various ways to print OS version info.
-# This lets us keep a record of this in our CI logs,
-# in case the CI docker images change.
-uname -a       || true
-lsb_release -a || true
-gcc --version  || true  # oddly, gcc often prints great OS information
-cat /etc/issue || true
-
-# What environment variables did the C.I. system set? Print them:
-env
-
 # This only comes into play for certain dconf-able(s) like tzdata
 export DEBIAN_FRONTEND=noninteractive # in addition to --assume-yes
 
