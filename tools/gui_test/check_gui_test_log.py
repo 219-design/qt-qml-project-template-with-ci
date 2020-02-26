@@ -18,6 +18,7 @@ MUST_NOT = [
     "Detected anchors on an item that is managed by a layout",
     "ReferenceError:",
     "Unable to assign",
+    "unregistered datatype",
 ]
 
 
