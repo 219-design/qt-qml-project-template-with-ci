@@ -41,9 +41,14 @@ else
   chmod 0755 linuxdeployqt-6-x86_64.AppImage
 fi
 
+# if we extract linuxdeployqt instead of "running the AppImage", it works on
+# more machines (in particular it will work even on those Docker boxes where
+# FUSE is disabled)
+./linuxdeployqt-6-x86_64.AppImage --appimage-extract
+
 # '-unsupported-allow-new-glibc' enables running this script on Ubuntu 18
 # ^^ BE ADVISED ^^ The above means your image ONLY RUNS ON 18 AND UP.
-./linuxdeployqt-6-x86_64.AppImage \
+squashfs-root/usr/bin/linuxdeployqt \
     AppImage_staging/usr/share/applications/app.desktop \
     -extra-plugins=imageformats,platformthemes/libqgtk3.so,platforms/libqxcb.so,xcbglintegrations/libqxcb-glx-integration.so,platforminputcontexts/libibusplatforminputcontextplugin.so \
     -qmldir=src/ \

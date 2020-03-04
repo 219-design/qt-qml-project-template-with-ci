@@ -33,8 +33,11 @@ sudo apt-get --assume-yes install \
   libgl1-mesa-glx \
   libglib2.0-0 \
   libglu1-mesa-dev \
+  libgtk-3-0 \
   libharfbuzz0b \
   libicu60 \
+  libjpeg8 \
+  libtiff5 \
   libxcb-icccm4 \
   libxcb-image0 \
   libxcb-keysyms1 \
@@ -49,5 +52,3 @@ sudo apt-get --assume-yes install \
   python3 \
   wget \
   xvfb
-
-sudo modprobe fuse # fuse is needed for our AppImage creation script
