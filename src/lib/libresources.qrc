@@ -2,6 +2,7 @@
   <qresource prefix="">
     <!-- PLEASE OBEY ALPHABETICAL ORDER -->
     <file>qml/homepage.qml</file>
+    <file>qml/ImageSvgHelper.qml</file>
     <file>qml/LogTags.qml</file>
     <file>qml/qmldir</file>
   </qresource>
