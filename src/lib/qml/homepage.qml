@@ -34,7 +34,7 @@ ApplicationWindow {
 
       focusPolicy: Qt.StrongFocus
 
-      background: Image {
+      background: ImageSvgHelper {
         id: logoImage
         source: blacknwhite.checked ? resourceHelper.imageSourcePrefix
                                       + "images/blacknwhite.png" : resourceHelper.imageSourcePrefix
@@ -63,7 +63,7 @@ ApplicationWindow {
 
       focusPolicy: Qt.StrongFocus
 
-      background: Image {
+      background: ImageSvgHelper {
         id: smileyImage
         source: resourceHelper.imageSourcePrefix + "images/smile.svg"
         fillMode: Image.PreserveAspectFit
