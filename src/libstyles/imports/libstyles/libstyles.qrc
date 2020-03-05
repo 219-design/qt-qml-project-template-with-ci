@@ -5,6 +5,7 @@
     <file>images/219Design.png</file>
     <file>images/blacknwhite.png</file>
     <file>images/home.png</file>
+    <file>images/smile.svg</file>
     <file>qmldir</file>
   </qresource>
 </RCC>
