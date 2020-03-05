@@ -12,7 +12,7 @@ ApplicationWindow {
   id: rootx
   title: "Hello World"
   width: 400
-  height: 400
+  height: 520
   visible: true
 
   Component.onCompleted: {
@@ -23,8 +23,7 @@ ApplicationWindow {
   Rectangle {
     id: root
     color: Theme.accentOtherMedium
-    width: 400
-    height: 400
+    anchors.fill: parent
 
     Pane {
       id: logo
@@ -55,10 +54,37 @@ ApplicationWindow {
       border.color: Universal.accent
     }
 
+    Pane {
+      id: smiley
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: logo.bottom
+      height: 140
+      width: height
+
+      focusPolicy: Qt.StrongFocus
+
+      background: Image {
+        id: smileyImage
+        source: resourceHelper.imageSourcePrefix + "images/smile.svg"
+        fillMode: Image.PreserveAspectFit
+      }
+
+      Keys.onSpacePressed: {
+        smileyImage.rotation = smileyImage.rotation + 90
+      }
+    }
+
+    Rectangle {
+      anchors.fill: smiley
+      color: 'transparent'
+      border.width: smiley.activeFocus ? 2 : 0
+      border.color: Universal.accent
+    }
+
     Row {
       id: row
       anchors.horizontalCenter: parent.horizontalCenter
-      anchors.top: logo.bottom
+      anchors.top: smiley.bottom
       spacing: 40
 
       CheckBox {
@@ -79,6 +105,7 @@ ApplicationWindow {
         onClicked: {
           blacknwhite.checked = false
           logoImage.rotation = 0
+          smileyImage.rotation = 0
         }
       }
     }
