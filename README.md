@@ -22,6 +22,9 @@ sure you understand the project structure. Then delete `homepage.qml` and
 replace it with your own app (adding supporting C++ view model classes as you
 see fit).
 
+Higher-level rationale was discussed in our [hello-world-template-toolchain blog
+post.](https://www.219design.com/hello-world-template-toolchain/)
+
 ## How to build and launch the app
 
 1. Use the operating system: Ubuntu 18.04 LTS "bionic"
