@@ -132,6 +132,8 @@ ApplicationWindow {
       }
       Label {
         text: 'SPACEBAR (on logo): rotates logo'
+        DebugRectangle {
+        }
       }
     }
   }
