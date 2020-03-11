@@ -19,6 +19,7 @@ MUST_NOT = [
     "ReferenceError:",
     "Unable to assign",
     "unregistered datatype",
+    "Model size of",  # "...is less than 0" AND/OR "...is bigger than upper limit"
 ]
 
 
