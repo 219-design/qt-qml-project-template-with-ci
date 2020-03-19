@@ -46,7 +46,8 @@ tools/formatters/enforce_qml_format.sh check_only
 tools/auto_test/run_cpp_auto_tests.sh
 
 if [[ -n ${XDISPLAY-} ]]; then
-  sudo Xvfb ${XDISPLAY} -screen 0 1024x768x16 &
+  # 'coproc' so that SIGINT will still work (https://unix.stackexchange.com/a/478697/11592)
+  coproc Xvfb ${XDISPLAY} -screen 0 1024x768x16
   VIRT_FB_PID=$!
   sleep 4 # time to (probabilistically) ensure that Xvfb has started
 fi
@@ -58,5 +59,5 @@ tools/gui_test/launch_gui_for_display.sh "${XDISPLAY}"
 tools/gui_test/test_AppImage.sh "${XDISPLAY}"
 
 if [[ -n ${XDISPLAY-} ]]; then
-  sudo kill $VIRT_FB_PID || true
+   kill -SIGINT $VIRT_FB_PID
 fi
