@@ -1,0 +1,12 @@
+{
+  "project_name": "QT/QML Project Template With CI",
+  "folder_name": "{{ cookiecutter.project_name.lower().replace('/', '_').replace(' ', '_') }}",
+  "cpp_namespace": "com::two_one_nine::my_project",
+  "who_am_I": "219 Design, LLC",
+  "website": "219design.com",
+  "email": "getstarted@219design.com",
+  "year": "2020",
+  "_copy_without_render": [
+    "*third_party"
+  ]
+}
