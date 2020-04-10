@@ -12,7 +12,7 @@ ApplicationWindow {
   id: rootx
   title: "Hello World"
   width: 400
-  height: 520
+  height: 540
   visible: true
 
   Component.onCompleted: {
@@ -135,6 +135,12 @@ ApplicationWindow {
         DebugRectangle {
         }
       }
+    }
+
+    VersionLabel {
+      anchors.bottom: parent.bottom
+      anchors.bottomMargin: 20
+      anchors.horizontalCenter: parent.horizontalCenter
     }
   }
 }

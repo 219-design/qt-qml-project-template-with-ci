@@ -7,12 +7,15 @@
 //
 #include "view_model_collection.h"
 
+#include <QtQml/QQmlContext>
+
 #include "gui_tests.h"
 #include "qml_message_interceptor.h"
 #include "src/lib/cli_options.h"
 #include "src/lib/logging_tags.h"
 #include "src/lib/resource_helper.h"
 #include "src/lib/resources.h"
+#include "src/util/version.h" // USE THIS SPARINGLY. IT CAN TRIGGER MANY REBUILDS.
 
 namespace project
 {
@@ -29,6 +32,10 @@ ViewModelCollection::~ViewModelCollection() = default;
 
 void ViewModelCollection::ExportContextPropertiesToQml( QQmlApplicationEngine* engine )
 {
+    engine->rootContext()->setContextProperty( "versionInfoBuildDateString", BUILD_ON_DATE );
+    engine->rootContext()->setContextProperty( "versionInfoGitHash", GIT_HASH_WHEN_BUILT );
+    fprintf( stderr, "GUI Build Info: %s %s\n", BUILD_ON_DATE, GIT_HASH_WHEN_BUILT );
+
     // m_navigation->ExportContextPropertiesToQml( engine );
     m_logging->ExportContextPropertiesToQml( engine );
     ResourceHelper::ExportContextPropertiesToQml( engine );
