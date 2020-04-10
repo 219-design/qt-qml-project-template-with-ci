@@ -13,6 +13,8 @@
 
 int main( int argc, char* argv[] )
 {
+    qSetMessagePattern(
+        "[QT-%{type}][thr:%{threadid}]%{if-category}%{category}: %{endif}%{file}(%{line}): %{message}" );
     QGuiApplication app( argc, argv );
 
     // ViewModels must OUTLIVE the qml engine, so create them first:
