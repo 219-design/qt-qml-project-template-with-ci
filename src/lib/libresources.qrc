@@ -5,6 +5,7 @@
     <file>qml/DebugRectangle.qml</file>
     <file>qml/ImageSvgHelper.qml</file>
     <file>qml/LogTags.qml</file>
+    <file>qml/VersionLabel.qml</file>
     <file>qml/qmldir</file>
   </qresource>
 </RCC>

@@ -8,7 +8,8 @@ CONFIG += shared
 #SOURCES += \
 
 HEADERS += \
-    qml_list_property_helper.h
+    qml_list_property_helper.h \
+    version.h
 
 target.path = $$top_exe_dir
 INSTALLS += target
