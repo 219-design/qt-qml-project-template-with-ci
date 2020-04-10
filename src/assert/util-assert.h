@@ -91,10 +91,10 @@ static inline void OptionToContinue(
 
 #elif defined( __APPLE__ )
 
-    printf( "%s:\n", title );
-    printf( "%s\n", funcname );
-    printf( "%s:%d\n", filename, line );
-    printf( "%s\n", message );
+    fprintf( stderr, "%s:\n", title );
+    fprintf( stderr, "%s\n", funcname );
+    fprintf( stderr, "%s:%d\n", filename, line );
+    fprintf( stderr, "%s\n", message );
 
     CFStringRef headerRef = CFStringCreateWithCString( NULL, title, kCFStringEncodingUTF8 );
     CFStringRef messageRef = CFStringCreateWithCString( NULL, message, kCFStringEncodingUTF8 );
@@ -138,15 +138,15 @@ static inline void OptionToContinue(
         // either the notification timed out by itself (no user interaction),
         // or else the user hit the ESCAPE key
 
-        printf( "ignoring opportunity to debug the FAIL (either due to inaction or ESC key)\n" );
+        fprintf( stderr, "ignoring opportunity to debug the FAIL (either due to inaction or ESC key)\n" );
     }
 
 #elif defined( __linux__ )
 
-    printf( "%s:\n", title );
-    printf( "%s\n", funcname );
-    printf( "%s:%d\n", filename, line );
-    printf( "%s\n", message );
+    fprintf( stderr, "%s:\n", title );
+    fprintf( stderr, "%s\n", funcname );
+    fprintf( stderr, "%s:%d\n", filename, line );
+    fprintf( stderr, "%s\n", message );
 
     char buf[ 16 ];
     bool retry = true;
@@ -155,10 +155,10 @@ static inline void OptionToContinue(
     {
         retry = false;
 
-        printf( "[t] to trap/debug,\n"
-                "[x] to exit/abort,\n"
-                "[c] to continue,\n"
-                "[s] to suppress further assertions\n" );
+        fprintf( stderr, "[t] to trap/debug,\n"
+                         "[x] to exit/abort,\n"
+                         "[c] to continue,\n"
+                         "[s] to suppress further assertions\n" );
 
         if( isatty( 0 ) && isatty( 1 ) )
         {
