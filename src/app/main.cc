@@ -26,7 +26,7 @@ int main( int argc, char* argv[] )
     vms.ExportContextPropertiesToQml( &engine );
 
     engine.addImportPath( "qrc:///" ); // needed for finding qml in our plugins
-    engine.load( QUrl( QStringLiteral( "qrc:///qml/homepage.qml" ) ) );
+    engine.load( QUrl( QStringLiteral( "qrc:///qml/main.qml" ) ) );
 
     return app.exec();
 }

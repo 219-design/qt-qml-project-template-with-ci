@@ -20,7 +20,7 @@ namespace
     // isn't for the purpose of enforcing the precise NAME. Rather, this is used
     // only to give confirmation that we understand what the
     // QQmlApplicationEngine creates/loads when the app is run.
-    constexpr char EXPECTED_FIRST_LOADED_FILE[] = "homepage.qml";
+    constexpr char EXPECTED_FIRST_LOADED_FILE[] = "main.qml";
 } // namespace
 
 GuiTests::GuiTests( const QQmlApplicationEngine& engine )

@@ -11,7 +11,7 @@
 import sys
 
 MUST_HAVE = [
-    "homepage.qml(20): ApplicationWindow onCompleted",
+    "main.qml(20): ApplicationWindow onCompleted",
 ]
 
 MUST_NOT = [
