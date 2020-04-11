@@ -18,9 +18,8 @@ we originally blogged about at
 https://www.219design.com/a-tale-of-efficient-keyboard-navigation-code-in-qml/
 
 When using this template project, you can build that app once or twice to make
-sure you understand the project structure. Then delete `homepage.qml` and
-replace it with your own app (adding supporting C++ view model classes as you
-see fit).
+sure you understand the project structure. Then delete `main.qml` and replace it
+with your own app (adding supporting C++ view model classes as you see fit).
 
 Higher-level rationale was discussed in our [hello-world-template-toolchain blog
 post.](https://www.219design.com/hello-world-template-toolchain/)
