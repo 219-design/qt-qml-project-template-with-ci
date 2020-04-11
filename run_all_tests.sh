@@ -55,8 +55,10 @@ fi
 # run gui tests which execute the actual app binary:
 tools/gui_test/launch_gui_for_display.sh "${XDISPLAY}"
 
-# this MUST happen last because (on the C.I. server) it destroys folders (intentionally)
-tools/gui_test/test_AppImage.sh "${XDISPLAY}"
+if [[ -z ${MYAPP_TEMPLATE_SKIP_APPIMAGE-} ]]; then
+  # this MUST happen last because (on the C.I. server) it destroys folders (intentionally)
+  tools/gui_test/test_AppImage.sh "${XDISPLAY}"
+fi
 
 if [[ -n ${XDISPLAY-} ]]; then
    kill -SIGINT $VIRT_FB_PID
