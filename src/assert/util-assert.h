@@ -1,4 +1,3 @@
-
 #ifndef CROSSPLATFORM_UTILITY_CODE_CASSERT_WRAPPER
 #define CROSSPLATFORM_UTILITY_CODE_CASSERT_WRAPPER
 
@@ -277,16 +276,16 @@ static inline bool GetEnv_WinOnly( const char* name )
   If you have a Qt QString, then you need to pass it to FASSERT
   by doing something like this:
 
-	 QString message;
+         QString message;
 
-	 FASSERT( 1 == 2, message.toUtf8() );
+         FASSERT( 1 == 2, message.toUtf8() );
 
   If you are using std::string, then you will want to pass it in the following
   way:
 
-	 std::string message;
+         std::string message;
 
-	 FASSERT( 1 == 2, message.c_str() );
+         FASSERT( 1 == 2, message.c_str() );
 
 */
 #ifdef FLEX_DISABLE_ASSERT
