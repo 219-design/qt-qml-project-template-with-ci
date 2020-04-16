@@ -17,10 +17,27 @@
 
 namespace project
 {
+struct QmlMessageInterceptor::Pimpl // "effectively private" due to no definition in header, but provides full access to
+    // Interceptor
+{
+    explicit Pimpl( QmlMessageInterceptor* o )
+        : owner( o )
+    {
+        FASSERT( owner, "cannot be nullptr" );
+    }
+
+    void DecoratorFunc( QtMsgType type, const QMessageLogContext& context, const QString& message )
+    {
+        owner->DecoratorFunction( type, context, message ); // pass through to PRIVATE method of interceptor.
+    }
+
+    QmlMessageInterceptor* const owner;
+};
 namespace
 {
     // QtMessageHandler is a typedef qtbase/src/corelib/global/qlogging.h
     QtMessageHandler original_handler = nullptr;
+    QmlMessageInterceptor::Pimpl* our_interceptor = nullptr;
 
     bool EndsWith( const char* string_to_search, const char* target_suffix )
     {
@@ -49,37 +66,23 @@ namespace
         }
     }
 
-    void DecoratorFunction( QtMsgType type, const QMessageLogContext& context,
-        const QString& message )
+    void DecoratorFunc( QtMsgType type, const QMessageLogContext& context, const QString& message )
     {
-        // always pass through to original Qt handler first:
-        original_handler( type, context, message );
-
-        switch( type )
-        {
-            // debug and info messages don't need special treatment
-        case QtDebugMsg:
-        case QtInfoMsg:
-            break;
-
-            // warnings (and worse) get extra attention
-        case QtWarningMsg:
-        case QtCriticalMsg:
-        case QtFatalMsg:
-            FilterQmlWarnings( context.file );
-            break;
-
-        default:
-            FFAIL( "impossible. there are no other enum values to test for" );
-        }
+        FASSERT( our_interceptor, "you must assign to our_interceptor before we get here" );
+        our_interceptor->DecoratorFunc( type, context, message );
     }
 
 } // namespace
 
-QmlMessageInterceptor::QmlMessageInterceptor()
+QmlMessageInterceptor::QmlMessageInterceptor( const bool suppressDefaultLogWhenSinkIsPresent )
+    : m_pimpl( new Pimpl( this ) ), m_suppressDefaultLogWhenSinkIsPresent( suppressDefaultLogWhenSinkIsPresent )
 {
-    FASSERT( original_handler == nullptr, "Qt supports just one handler at a time, so it would be an error to construct more than one of these" );
-    original_handler = qInstallMessageHandler( DecoratorFunction );
+    FASSERT( original_handler == nullptr,
+        "Qt supports just one handler at a time, so it would be an error to construct more than one of these" );
+    FASSERT( our_interceptor == nullptr,
+        "Qt supports just one handler at a time, so it would be an error to construct more than one of these" );
+    our_interceptor = m_pimpl;
+    original_handler = qInstallMessageHandler( DecoratorFunc );
 }
 
 QmlMessageInterceptor::~QmlMessageInterceptor()
@@ -87,6 +90,70 @@ QmlMessageInterceptor::~QmlMessageInterceptor()
     FASSERT( original_handler, "should be impossible for this to be null here" );
     qInstallMessageHandler( original_handler );
     original_handler = nullptr;
+    delete m_pimpl;
+}
+
+void QmlMessageInterceptor::AddMessageSink(
+    std::weak_ptr<std::function<void( QtMsgType type, const QMessageLogContext& context, const QString& message )>>
+        sink )
+{
+    m_sinks.push_back( sink );
+}
+
+void QmlMessageInterceptor::DecoratorFunction(
+    QtMsgType type, const QMessageLogContext& context, const QString& message )
+{
+    const int activeTees = TeeToSinks( type, context, message );
+
+    if( 0 == activeTees || !m_suppressDefaultLogWhenSinkIsPresent )
+    {
+        // pass through to original Qt handler:
+        original_handler( type, context, message );
+    }
+
+    switch( type )
+    {
+        // debug and info messages don't need special treatment
+    case QtDebugMsg:
+    case QtInfoMsg:
+        break;
+
+        // warnings (and worse) get extra attention
+    case QtWarningMsg:
+    case QtCriticalMsg:
+    case QtFatalMsg:
+        FilterQmlWarnings( context.file );
+        break;
+
+    default:
+        FFAIL( "impossible. there are no other enum values to test for" );
+    }
+}
+
+int QmlMessageInterceptor::TeeToSinks( QtMsgType type, const QMessageLogContext& context, const QString& message )
+{
+    int sinksThatWereLoggedTo = 0;
+    for( auto& sink : m_sinks )
+    {
+        auto p = sink.lock();
+        if( p && ( *p ) )
+        {
+            ( *p )( type, context, message );
+            sinksThatWereLoggedTo++;
+        }
+    }
+    CullDeadSinks();
+
+    return sinksThatWereLoggedTo;
+}
+
+void QmlMessageInterceptor::CullDeadSinks()
+{
+    using weakPtr = std::weak_ptr<
+        std::function<void( QtMsgType type, const QMessageLogContext& context, const QString& message )>>;
+    m_sinks.erase(
+        std::remove_if( m_sinks.begin(), m_sinks.end(), []( weakPtr sinkPtr ) { return sinkPtr.expired(); } ),
+        m_sinks.end() );
 }
 
 } // namespace project

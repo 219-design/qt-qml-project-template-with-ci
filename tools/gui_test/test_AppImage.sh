@@ -31,7 +31,7 @@ cd $CUR_GIT_ROOT
 rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps locally.
 
 # -g flag causes app to close when test is done:
-AppImage_staging/usr/bin/app -g 2>&1 |& tee gui_test.log
+AppImage_staging/usr/bin/app -g -v 2>&1 |& tee gui_test.log
 
 tools/gui_test/check_gui_test_log.py gui_test.log
 rm -f gui_test.log
