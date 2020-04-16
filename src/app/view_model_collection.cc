@@ -19,8 +19,12 @@
 
 namespace project
 {
+// clang-format off
 ViewModelCollection::ViewModelCollection( const QGuiApplication& app )
-    : m_opts( std::make_unique<CliOptions>( app ) ), m_qmlLogger( std::make_unique<QmlMessageInterceptor>() ), m_logging( std::make_unique<LoggingTags>( *m_opts ) )
+    : m_opts( std::make_unique<CliOptions>( app ) ),
+      m_qmlLogger( std::make_unique<QmlMessageInterceptor>( !m_opts->MaximumQtLogging() ) ),
+      m_logging( std::make_unique<LoggingTags>( *m_opts ) )
+// clang-format on
 {
     project::initLibResources();
 
