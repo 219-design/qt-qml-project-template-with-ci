@@ -23,6 +23,7 @@ sudo apt-get update
 sudo apt-get --assume-yes install \
   build-essential \
   clang-format-6.0 \
+  gdb \
   git \
   libc-bin \
   libdbus-1-3 \
