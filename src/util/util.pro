@@ -5,10 +5,12 @@ QT += core
 TEMPLATE = lib
 CONFIG += shared
 
-#SOURCES += \
+SOURCES += \
+    qml_message_interceptor.cc
 
 HEADERS += \
     qml_list_property_helper.h \
+    qml_message_interceptor.h \
     version.h
 
 target.path = $$top_exe_dir
