@@ -16,13 +16,15 @@ SUBDIRS = \
     libstyles \
     libtestmain \
     third_party/googletest-release-1.8.0/googlemock \
-    third_party/googletest-release-1.8.0/googletest
+    third_party/googletest-release-1.8.0/googletest \
+    util
 
 app.file = src/app/app.pro
 lib.file = src/lib/lib.pro
 lib_tests.file = src/lib/lib_tests.pro
 libstyles.file = src/libstyles/libstyles.pro
 libtestmain.file = src/libtests/libtestmain.pro
+util.file = src/util/util.pro
 
 # third_party projects
 googlemock.file = third_party/googletest-release-1.8.0/googlemock/googlemock.pro
@@ -38,7 +40,8 @@ app.depends = \
     libstyles \
     libtestmain \
     third_party/googletest-release-1.8.0/googlemock \
-    third_party/googletest-release-1.8.0/googletest
+    third_party/googletest-release-1.8.0/googletest \
+    util
 
 # The remaining 'depends' lines are used in the 'traditional' sense of actually
 # specifying the miminum link-time dependencies of each item:
