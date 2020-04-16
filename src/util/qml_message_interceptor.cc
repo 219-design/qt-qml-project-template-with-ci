@@ -53,6 +53,12 @@ namespace
             return true;
         }
 
+        const char* fslash = strrchr( string_to_search, '/' );
+        if( fslash && !strcasecmp( fslash, target_suffix ) )
+        {
+            return true;
+        }
+
         return false;
     }
 
@@ -60,7 +66,11 @@ namespace
     // Rationale: historically, a majority of QML warnings have indicated bugs.
     void FilterQmlWarnings( const char* file )
     {
-        if( EndsWith( file, ".qml" ) || EndsWith( file, ".js" ) )
+        // NOTE: when using Qt RELEASE libraries (not debug), it may be
+        // IMPOSSIBLE to ever match on '/qqmlapplicationengine.cpp' because they
+        // seem to strip out file info (it shows "unknown") for the filename in
+        // certain RELEASE/optimized qt builds.
+        if( EndsWith( file, ".qml" ) || EndsWith( file, ".js" ) || EndsWith( file, "/qqmlapplicationengine.cpp" ) )
         {
             FFAIL( "qml warning detected (in *qml or *js file). please fix it." );
         }
