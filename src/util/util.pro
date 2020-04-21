@@ -10,8 +10,7 @@ SOURCES += \
 
 HEADERS += \
     qml_list_property_helper.h \
-    qml_message_interceptor.h \
-    version.h
+    qml_message_interceptor.h
 
 target.path = $$top_exe_dir
 INSTALLS += target

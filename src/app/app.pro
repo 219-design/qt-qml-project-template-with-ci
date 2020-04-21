@@ -11,6 +11,8 @@ HEADERS += \
     gui_tests.h \
     view_model_collection.h
 
+INCLUDEPATH += $${top_srcdir}/build/generated_files # for version.h
+
 # 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
 !include(../lib/lib.pri) { error() }
 !include(../libstyles/libstyles.pri) { error() }
