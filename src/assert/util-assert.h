@@ -15,6 +15,7 @@
 
 #include <signal.h> // for raise
 #include <stdlib.h> // for getenv
+#include <string.h>
 
 #if defined( _WIN32 )
 #    include <Windows.h>
