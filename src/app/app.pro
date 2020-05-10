@@ -3,11 +3,13 @@
 QT += core qml
 
 SOURCES += \
+    event_filter.cc \
     gui_tests.cc \
     main.cc \
     view_model_collection.cc
 
 HEADERS += \
+    event_filter.h \
     gui_tests.h \
     view_model_collection.h
 

@@ -17,6 +17,7 @@
 namespace project
 {
 class CliOptions;
+class EventFilter;
 class GuiTests;
 class LoggingTags;
 class QmlMessageInterceptor;
@@ -32,8 +33,11 @@ public:
 
     void ExportContextPropertiesToQml( QQmlApplicationEngine* engine );
 
+    void SetRootObject( QObject* object );
+
 private:
     const std::unique_ptr<const CliOptions> m_opts;
+    std::unique_ptr<EventFilter> m_eventFilter;
     std::unique_ptr<QmlMessageInterceptor> m_qmlLogger;
     std::unique_ptr<LoggingTags> m_logging;
 
