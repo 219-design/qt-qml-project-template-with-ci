@@ -7,6 +7,7 @@
 //
 #include "logging_tags.h"
 
+#include <QDebug>
 #include <QtQml/QQmlContext>
 
 #include "src/lib/cli_options.h"
@@ -40,6 +41,7 @@ void LoggingTags::ExportContextPropertiesToQml( QQmlEngine* engine )
 {
     // refer to the comments in our header file to understand why we do this
     engine->rootContext()->setContextProperty( "customLoggingCategories", this );
+    qDebug() << "Exported customLoggingCategories";
 }
 
 QString LoggingTags::GuiTestingLogTag() const
