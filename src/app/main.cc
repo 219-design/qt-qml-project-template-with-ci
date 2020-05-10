@@ -22,6 +22,20 @@ int main( int argc, char* argv[] )
     // ViewModels must OUTLIVE the qml engine, so create them first:
     project::ViewModelCollection vms( app );
 
+    // For antialiasing: https://stackoverflow.com/a/49576756/10278
+    // QSurfaceFormat format;
+    // format.setSamples( 8 );
+    //   LEAVING THIS HERE AS A "WARNING". This gave us good antialiasing on
+    //   the QML ShapePath that it was intended to help. It DID help where we
+    //   wanted it to help. But it also caused weird tiny lines to intermittently
+    //   appear around some of our SVG icons.
+    //   So now we use a different, QML-only tactic in the ShapePath.
+    // QSurfaceFormat::setDefaultFormat( format );
+    //
+    // Instead, do this in the QML of your ShapePath:
+    //    layer.enabled: true // Without this, the edges look "jaggy" and pixelated
+    //    layer.samples: 4 // Without this, the edges look "jaggy" and pixelated
+
     // Created after vms, so that we avoid null vm qml warnings upon vm dtors
     QQmlApplicationEngine engine;
 
