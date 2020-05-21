@@ -48,6 +48,6 @@ app.depends = \
 
 # NOTE: using 'CONFIG += ordered' is considered a bad practice—prefer using .depends instead.
 googlemock.depends = third_party/googletest-release-1.8.0/googletest
-lib.depends = libstyles
+lib.depends = libstyles util
 lib_tests.depends = lib libtestmain third_party/googletest-release-1.8.0/googletest third_party/googletest-release-1.8.0/googlemock
 libtestmain.depends = third_party/googletest-release-1.8.0/googletest third_party/googletest-release-1.8.0/googlemock
