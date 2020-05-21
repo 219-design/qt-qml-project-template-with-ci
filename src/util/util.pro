@@ -12,7 +12,8 @@ SOURCES += \
 HEADERS += \
     every_so_often.h \
     qml_list_property_helper.h \
-    qml_message_interceptor.h
+    qml_message_interceptor.h \
+    usage_log_t.hpp
 
 target.path = $$top_exe_dir
 INSTALLS += target

@@ -1,12 +1,24 @@
 include($$top_srcdir/compiler_flags.pri)
 
 # relax some of the checks that compiler_flags.pri normally enables:
+linux:!android {
+    QMAKE_CXXFLAGS += "\
+        -Wno-error=duplicated-branches \
+        -Wno-error=suggest-attribute=format \
+        -Wno-error=suggest-attribute=noreturn \
+        "
+}
+
+linux:android {
+    QMAKE_CXXFLAGS += "\
+        -Wno-format-nonliteral \
+        "
+}
+
+# relax some of the checks that compiler_flags.pri normally enables:
 QMAKE_CXXFLAGS += "\
     -Wno-error=conversion \
-    -Wno-error=duplicated-branches \
     -Wno-error=missing-declarations \
-    -Wno-error=suggest-attribute=format \
-    -Wno-error=suggest-attribute=noreturn \
     -Wno-error=switch-default \
     -Wno-error=switch-enum \
     -Wno-error=undef \

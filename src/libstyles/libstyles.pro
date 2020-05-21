@@ -1,6 +1,6 @@
 !include($$top_srcdir/compiler_flags.pri) { error() }
 
-QT += core qml quick
+QT += core qml quick svg widgets
 
 TEMPLATE = lib
 CONFIG += plugin

@@ -19,10 +19,13 @@ then
    # end workaround
 fi
 
+sudo dpkg --add-architecture i386
+
 sudo apt-get update
 sudo apt-get --assume-yes install \
   build-essential \
   clang-format-6.0 \
+  curl \
   gdb \
   git \
   libc-bin \
@@ -30,6 +33,7 @@ sudo apt-get --assume-yes install \
   libdouble-conversion1 \
   libfontconfig1 \
   libfuse2 \
+  libgcc1:i386 \
   libgl1-mesa-dev \
   libgl1-mesa-glx \
   libglib2.0-0 \
@@ -38,6 +42,9 @@ sudo apt-get --assume-yes install \
   libharfbuzz0b \
   libicu60 \
   libjpeg8 \
+  libncurses5:i386 \
+  libsdl1.2debian:i386 \
+  libstdc++6:i386 \
   libtiff5 \
   libxcb-icccm4 \
   libxcb-image0 \
@@ -49,7 +56,12 @@ sudo apt-get --assume-yes install \
   libxkbcommon-x11-0 \
   libxkbcommon0 \
   mesa-common-dev \
+  openjdk-8-jdk \
+  openjdk-8-jre \
+  p7zip-full \
   psmisc \
   python3 \
+  unzip \
   wget \
-  xvfb
+  xvfb \
+  zlib1g:i386
