@@ -111,6 +111,7 @@ ApplicationWindow {
     }
 
     Column {
+      id: directionsCol
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.top: row.bottom
       topPadding: 40
@@ -135,6 +136,19 @@ ApplicationWindow {
         DebugRectangle {
         }
       }
+      Label {
+        text: Fonts.fa_regular_gem // refer to Cheatsheet_Font_Awesome_Regular.pdf
+        font: Theme.regIconFont
+      }
+    }
+
+    Label {
+      anchors.top: directionsCol.bottom
+      width: parent.width
+      height: 150
+      text: Fonts.fa_solid_dna // refer to Cheatsheet_Font_Awesome_Solid.pdf
+      font: Theme.solidIconStretchToMaxFitFont
+      fontSizeMode: Text.Fit
     }
 
     VersionLabel {
