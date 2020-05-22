@@ -12,9 +12,11 @@ RESOURCES += \
     imports/libstyles/libstyles.qrc
 
 SOURCES += \
+    resource_helper.cc \
     resources.cc
 
 HEADERS += \
+    resource_helper.h \
     resources.h
 
 

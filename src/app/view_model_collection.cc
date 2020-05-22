@@ -14,8 +14,8 @@
 #include "src/app/event_filter.h"
 #include "src/lib/cli_options.h"
 #include "src/lib/logging_tags.h"
-#include "src/lib/resource_helper.h"
 #include "src/lib/resources.h"
+#include "src/libstyles/resource_helper.h"
 #include "src/util/qml_message_interceptor.h"
 #include "src/util/usage_log_t.hpp"
 
