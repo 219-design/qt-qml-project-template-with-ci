@@ -28,7 +28,7 @@ public:
     ~QmlMessageInterceptor();
 
     struct Pimpl; // "effectively private" due to no definition.
-    friend class Pimpl; // thusly, Pimpl provides access to private data
+    friend struct Pimpl; // thusly, Pimpl provides access to private data
 private:
     void DecoratorFunction( QtMsgType type, const QMessageLogContext& context, const QString& message );
     int TeeToSinks( QtMsgType type, const QMessageLogContext& context, const QString& message );
