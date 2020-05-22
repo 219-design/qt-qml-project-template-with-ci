@@ -57,4 +57,28 @@ QtObject {
   basicFont.underline: false
   basicFont.pixelSize: 14
   basicFont.family: "arial"
+
+  property font regIconFont
+  regIconFont.bold: false
+  regIconFont.underline: false
+  regIconFont.pixelSize: 48
+  regIconFont.family: Fonts.fAwesomeFamily
+
+  property font solidIconFont
+  solidIconFont.bold: false
+  solidIconFont.underline: false
+  solidIconFont.pixelSize: 48
+  solidIconFont.family: Fonts.fAwesomeSolidFamily
+
+  property font regIconStretchToMaxFitFont
+  regIconStretchToMaxFitFont.bold: regIconFont.bold
+  regIconStretchToMaxFitFont.underline: regIconFont.underline
+  regIconStretchToMaxFitFont.pixelSize: 1000 // intentionally ridiculous. use with 'fontSizeMode: Text.Fit'
+  regIconStretchToMaxFitFont.family: regIconFont.family
+
+  property font solidIconStretchToMaxFitFont
+  solidIconStretchToMaxFitFont.bold: solidIconFont.bold
+  solidIconStretchToMaxFitFont.underline: solidIconFont.underline
+  solidIconStretchToMaxFitFont.pixelSize: 1000 // intentionally ridiculous. use with 'fontSizeMode: Text.Fit'
+  solidIconStretchToMaxFitFont.family: solidIconFont.family
 }
