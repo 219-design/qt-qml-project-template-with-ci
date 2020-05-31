@@ -24,6 +24,38 @@ with your own app (adding supporting C++ view model classes as you see fit).
 Higher-level rationale was discussed in our [hello-world-template-toolchain blog
 post.](https://www.219design.com/hello-world-template-toolchain/)
 
+## How to Start Using this Template Repository
+
+There are two recommended ways for you to begin your own project based off of
+this repository. You need only choose one.
+
+### Use via GitHub
+
+To use via GitHub, log in at github.com, visit this project's hompage
+(https://github.com/219-design/qt-qml-project-template-with-ci), and click the
+"Use this template" button in the GitHub web UI.
+
+### Use via Cookiecutter
+
+Get [cookiecutter](https://cookiecutter.readthedocs.io/).
+
+Pull down our cookiecutter-ized branch using cookiecutter directly, like so:
+
+```
+cookiecutter https://github.com/219-design/qt-qml-project-template-with-ci --checkout origin/cookiecutter
+```
+
+Follow the cookiecutter prompts to provide your own project name and author
+infomation. Doing so will customize the source files with your own information.
+
+Once cookiecutter has completed its work, `cd` into the project directory and run:
+
+```
+./init_repo.sh
+```
+
+After that, please proceed to "How to build" (below) before continuing further:
+
 ## How to build and launch the app
 
 1. Use the operating system: Ubuntu 18.04 LTS "bionic"
@@ -34,9 +66,13 @@ post.](https://www.219design.com/hello-world-template-toolchain/)
    the github docker instance prior to running the continuous integration
    build-and-test routines)
 
-3. In a terminal, run `build_app.sh`
+3. If you do not wish to build for Android, then you can avoid unnecessary
+   lengthening of the build times by issuing: `export
+   MYAPP_TEMPLATE_SKIP_ANDROID=1`
 
-4. Assuming step (3) was successful, you can launch the app at
+4. In a terminal, run `build_app.sh`
+
+5. Assuming step (4) was successful, you can launch the app at
    `./build/src/app/app`
 
    If the app fails with a message such as `qt.qpa.plugin: Could not
@@ -49,7 +85,7 @@ post.](https://www.219design.com/hello-world-template-toolchain/)
         export QT_QPA_PLATFORM_PLUGIN_PATH="$(pwd)/dl_third_party/Qt_desktop/5.15.0/gcc_64/plugins/platforms
         export LD_LIBRARY_PATH="$(pwd)/dl_third_party/Qt_desktop/5.15.0/gcc_64/lib:$LD_LIBRARY_PATH"
 
-5. (Optional) Assuming step (3) was successful, you can also invoke
+6. (Optional) Assuming step (4) was successful, you can also invoke
    `run_all_tests.sh` to check that the binaries you built pass all their tests.
 
 ### Notes About Qt Version
