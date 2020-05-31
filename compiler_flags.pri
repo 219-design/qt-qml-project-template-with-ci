@@ -22,9 +22,6 @@ QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtCore
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtFontDatabaseSupport
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtGui
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtHelp
-QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtMultimedia
-QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtMultimediaQuick
-QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtMultimediaWidgets
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtQml
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtQmlDebug
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtQmlModels
@@ -34,7 +31,6 @@ QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtQuickWidgets
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtTest
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtWidgets
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtXml
-QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtXmlPatterns
 
 unix:!android {
     # So the exe will launch if we put all our '*.so' dylibs side-by-side with it.

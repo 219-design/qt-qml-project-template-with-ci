@@ -14,4 +14,4 @@ DL_FOLDER_ANDROID=$DL_FOLDER/android_kits
 export ANDROID_SDK_ROOT=$DL_FOLDER_ANDROID
 export ANDROID_NDK_ROOT=$DL_FOLDER_ANDROID/ndk-bundle
 
-export PATH="$DL_FOLDER/Qt/5.14.0/android/bin/:$PATH"
+export PATH="$DL_FOLDER/Qt/5.15.0/android/bin/:$PATH"

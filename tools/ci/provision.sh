@@ -2,6 +2,8 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
+CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+
 # This only comes into play for certain dconf-able(s) like tzdata
 export DEBIAN_FRONTEND=noninteractive # in addition to --assume-yes
 
@@ -65,3 +67,5 @@ sudo apt-get --assume-yes install \
   wget \
   xvfb \
   zlib1g:i386
+
+${CUR_GIT_ROOT}/tools/ci/get_qt_libs.sh
