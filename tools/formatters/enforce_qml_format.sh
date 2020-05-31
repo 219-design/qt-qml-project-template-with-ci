@@ -29,9 +29,9 @@ check_format() {
           set +xe
           result=$("$qml_formatter" "$fl")
           diff  <(echo "$result") <(cat "$fl")
+          diff_rslt=$?
           set -Eeuxo pipefail
 
-          diff_rslt=$?
           # per 'man diff': Exit status is 0 if inputs are the same
           if [ $diff_rslt != 0 ]; then
               # https://stackoverflow.com/a/34066473/10278 (find string in bash array)
