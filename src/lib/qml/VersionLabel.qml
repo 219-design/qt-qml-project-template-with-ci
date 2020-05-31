@@ -5,5 +5,6 @@ import libstyles 1.0
 
 Label {
     font: Theme.basicFont
+    color: Theme.primaryDark
     text: versionInfoGitHash + " - Built on: " + versionInfoBuildDateString
 }
