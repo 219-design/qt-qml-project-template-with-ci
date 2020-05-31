@@ -13,7 +13,7 @@ ApplicationWindow {
 
     title: "Hello World"
     width: 400
-    height: 540
+    height: 720
     visible: true
     Component.onCompleted: {
         // Don't mess with 'guiTests' log statements, or you risk breaking a test.
@@ -23,7 +23,7 @@ ApplicationWindow {
     Rectangle {
         id: root
 
-        color: Theme.accentOtherMedium
+        color: Theme.neutralLight
         anchors.fill: parent
 
         Pane {
@@ -106,7 +106,7 @@ ApplicationWindow {
                 }
 
                 background: Rectangle {
-                    color: Theme.primaryButtonFill
+                    color: Theme.successColor
                     border.width: reset.activeFocus ? 2 : 0
                     border.color: Universal.accent
                 }
@@ -126,7 +126,7 @@ ApplicationWindow {
             Label {
                 text: "Keyboard Controls:"
                 font.bold: true
-                color: Theme.primaryDark
+                color: Theme.accentOtherDark
             }
 
             Label {
@@ -149,20 +149,39 @@ ApplicationWindow {
 
             }
 
+            Item {
+                width: 1
+                height: 10
+            }
+
             Label {
-                text: Fonts.fa_regular_gem // refer to Cheatsheet_Font_Awesome_Regular.pdf
-                font: Theme.regIconFont
+                text: "Font Awesome Demo:"
+                font.bold: true
+                color: Theme.accentOtherDark
             }
 
         }
 
-        Label {
+        Row {
             anchors.top: directionsCol.bottom
-            width: parent.width
-            height: 150
-            text: Fonts.fa_solid_dna // refer to Cheatsheet_Font_Awesome_Solid.pdf
-            font: Theme.solidIconStretchToMaxFitFont
-            fontSizeMode: Text.Fit
+            anchors.topMargin: 5
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: directionsCol.width
+
+            Label {
+                text: Fonts.fa_regular_gem // refer to Cheatsheet_Font_Awesome_Regular.pdf
+                font: Theme.regIconFont
+                color: Theme.successColor
+            }
+
+            Label {
+                height: 130
+                text: Fonts.fa_solid_dna // refer to Cheatsheet_Font_Awesome_Solid.pdf
+                font: Theme.solidIconStretchToMaxFitFont
+                fontSizeMode: Text.Fit
+                color: Theme.accentDark
+            }
+
         }
 
         VersionLabel {
