@@ -38,7 +38,7 @@ else
 fi
 
 tools/formatters/enforce_clang_format.sh check_only
-tools/formatters/enforce_qml_format.sh check_only
+#tools/formatters/enforce_qml_format.sh check_only
 
 ./build_app.sh
 

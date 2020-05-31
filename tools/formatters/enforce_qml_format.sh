@@ -19,7 +19,8 @@ then
     only_report=1
 fi
 
-qml_formatter="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/bin/qmlformat"
+# locally running qmlformat version: qtdeclarative 7064e09e3a 2020-05-29
+qml_formatter="/opt/repositories/xqt5_dbg_install/bin/qmlformat"
 
 check_format() {
   if [ $only_report != 0 ]; then

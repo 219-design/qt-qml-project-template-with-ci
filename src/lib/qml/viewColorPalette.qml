@@ -10,19 +10,22 @@ import libstyles 1.0
 Rectangle {
     height: 600
     width: 600
-
-    color: '#CCCCCC'
+    color: "#CCCCCC"
 
     GridLayout {
         id: grid
+
+        readonly property int swatchHeight_: 80
+        property var primarySwatches: [Theme.primaryDark, Theme.primaryMediumDark, Theme.primaryMedium, Theme.primaryMediumLight, Theme.primaryLight]
+        property var secondarySwatches: [Theme.secondaryDark, Theme.secondaryMediumDark, Theme.secondaryMedium, Theme.secondaryMediumLight, Theme.secondaryLight]
+        property var neutralSwatches: [Theme.neutralDark, Theme.neutralMediumDark, Theme.neutralMedium, Theme.neutralMediumLight, Theme.neutralLight]
+        property var accentSwatches: [Theme.accentDark, Theme.accentMediumDark, Theme.accentMedium, Theme.accentMediumLight, Theme.accentLight]
+        property var accentOtherSwatches: [Theme.accentOtherDark, Theme.accentOtherMediumDark, Theme.accentOtherMedium, Theme.accentOtherMediumLight, Theme.accentOtherLight]
+
         columns: 5
         anchors.top: parent.top
         width: (swatchHeight_ + 10) * columns
-        height: parent.height * .8
-
-        readonly property int swatchHeight_: 80
-
-        property var primarySwatches: [Theme.primaryDark, Theme.primaryMediumDark, Theme.primaryMedium, Theme.primaryMediumLight, Theme.primaryLight]
+        height: parent.height * 0.8
 
         Repeater {
             model: grid.primarySwatches
@@ -32,9 +35,8 @@ Rectangle {
                 width: height
                 color: grid.primarySwatches[index]
             }
-        }
 
-        property var secondarySwatches: [Theme.secondaryDark, Theme.secondaryMediumDark, Theme.secondaryMedium, Theme.secondaryMediumLight, Theme.secondaryLight]
+        }
 
         Repeater {
             model: grid.secondarySwatches
@@ -44,9 +46,8 @@ Rectangle {
                 width: height
                 color: grid.secondarySwatches[index]
             }
-        }
 
-        property var neutralSwatches: [Theme.neutralDark, Theme.neutralMediumDark, Theme.neutralMedium, Theme.neutralMediumLight, Theme.neutralLight]
+        }
 
         Repeater {
             model: grid.neutralSwatches
@@ -56,9 +57,8 @@ Rectangle {
                 width: height
                 color: grid.neutralSwatches[index]
             }
-        }
 
-        property var accentSwatches: [Theme.accentDark, Theme.accentMediumDark, Theme.accentMedium, Theme.accentMediumLight, Theme.accentLight]
+        }
 
         Repeater {
             model: grid.accentSwatches
@@ -68,9 +68,8 @@ Rectangle {
                 width: height
                 color: grid.accentSwatches[index]
             }
-        }
 
-        property var accentOtherSwatches: [Theme.accentOtherDark, Theme.accentOtherMediumDark, Theme.accentOtherMedium, Theme.accentOtherMediumLight, Theme.accentOtherLight]
+        }
 
         Repeater {
             model: grid.accentOtherSwatches
@@ -80,7 +79,9 @@ Rectangle {
                 width: height
                 color: grid.accentOtherSwatches[index]
             }
+
         }
+
     }
 
     RowLayout {
@@ -95,25 +96,31 @@ Rectangle {
             Layout.fillHeight: true
             color: Theme.genericButtonFill
             radius: 10
+
             Text {
                 text: "button"
             }
+
         }
+
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: Theme.primaryButtonFill
             radius: 10
+
             Text {
                 text: "hi-button" // the 'recommended' button if there are 2+
             }
+
         }
 
         Rectangle {
             id: spacer
+
             Layout.minimumWidth: 10
             Layout.fillHeight: true
-            color: 'transparent'
+            color: "transparent"
         }
 
         Rectangle {
@@ -121,36 +128,49 @@ Rectangle {
             Layout.fillHeight: true
             color: Theme.helpOrInfoColor
             radius: 10
+
             Text {
                 text: "help/info"
             }
+
         }
+
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: Theme.successColor
             radius: 10
+
             Text {
                 text: "success"
             }
+
         }
+
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: Theme.warningColor
             radius: 10
+
             Text {
                 text: "warn"
             }
+
         }
+
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: Theme.dangerColor
             radius: 10
+
             Text {
                 text: "danger"
             }
+
         }
+
     }
+
 }
