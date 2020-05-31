@@ -1,3 +1,0 @@
-[submodule "build_qt_binaries"]
-	path = build_qt_binaries
-	url = https://github.com/219-design/build_qt_binaries.git

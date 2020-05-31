@@ -24,7 +24,7 @@ then
   echo "Assuming C.I. environment."
   echo "Deleting various binaries except for AppImage (to prove AppImage works)"
   rm -rf build # highly destructive! we want to prove the AppImage is standalone
-  rm -rf build_qt_binaries # highly destructive! we want to prove the AppImage is standalone
+  rm -rf dl_third_party # highly destructive! we want to prove the AppImage is standalone
 fi
 
 cd $CUR_GIT_ROOT
