@@ -32,7 +32,6 @@ sudo apt-get --assume-yes install \
   git \
   libc-bin \
   libdbus-1-3 \
-  libdouble-conversion1 \
   libfontconfig1 \
   libfuse2 \
   libgcc1:i386 \
@@ -42,7 +41,6 @@ sudo apt-get --assume-yes install \
   libglu1-mesa-dev \
   libgtk-3-0 \
   libharfbuzz0b \
-  libicu60 \
   libjpeg8 \
   libncurses5:i386 \
   libsdl1.2debian:i386 \
