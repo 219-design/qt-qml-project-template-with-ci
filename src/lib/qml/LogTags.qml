@@ -1,3 +1,4 @@
+import QtQuick 2.12
 // Copyright (c) 2020, 219 Design, LLC
 // See LICENSE.txt
 // https://www.219design.com
@@ -10,14 +11,14 @@
 // needed."
 pragma Singleton
 
-import QtQuick 2.12
-
 Item {
-  property alias guiTests: gui
+    property alias guiTests: gui
 
-  LoggingCategory {
-    id: gui
-    name: customLoggingCategories.guiTestingLogTag
-    defaultLogLevel: LoggingCategory.Info
-  }
+    LoggingCategory {
+        id: gui
+
+        name: customLoggingCategories.guiTestingLogTag
+        defaultLogLevel: LoggingCategory.Info
+    }
+
 }
