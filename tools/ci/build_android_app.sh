@@ -9,13 +9,13 @@ DL_FOLDER_ANDROID=$DL_FOLDER/android_kits
 
 mkdir -p $DL_FOLDER_ANDROID
 
-if [ -d $DL_FOLDER/Qt/5.14.0/android/bin ]; then
+if [ -d $DL_FOLDER/Qt/5.15.0/android/bin ]; then
     echo "no need to download qt5"
 else
 
   bash -x $CUR_GIT_ROOT/tools/ci/install-qt.sh \
    --directory $DL_FOLDER/Qt \
-   --version 5.14.0 \
+   --version 5.15.0 \
    --target android \
    --toolchain any \
    qtandroidextras \

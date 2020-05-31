@@ -8,7 +8,6 @@ fi
 
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
-# set qt5 path to the submodule contents
-PATH="$CUR_GIT_ROOT/build_qt_binaries/qt5_opt_install/bin:$PATH"
-# comment out next line if you wish to prefer 'opt' in place of 'dbg':
-PATH="$CUR_GIT_ROOT/build_qt_binaries/qt5_dbg_install/bin:$PATH"
+DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
+
+export PATH="$DL_FOLDER/Qt_desktop/5.15.0/gcc_64/bin/:$PATH"
