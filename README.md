@@ -5,7 +5,7 @@ such as:
 
  - project folder layout for creating one custom app that uses one or more of your custom libraries
  - clang-format checking of C++ code
- - qmlfmt checking of QML code
+ - qmlformat checking of QML code
  - runtime "flexible asserts" to ensure you do not miss any QML runtime warnings
  - a wrapper script to make iterating on QML layouts painless with qmlscene
  - test-runner code to run any unit tests you add. (googletest is provided)
@@ -46,25 +46,20 @@ post.](https://www.219design.com/hello-world-template-toolchain/)
    location. And when you set that, you must ensure that
    `LD_LIBRARY_PATH` also points to the same Qt build.
 
-        export QT_QPA_PLATFORM_PLUGIN_PATH="$(pwd)/build_qt_binaries/qt5_opt_install/plugins/platforms
-        export LD_LIBRARY_PATH="$(pwd)/build_qt_binaries/qt5_opt_install/lib:$LD_LIBRARY_PATH"
+        export QT_QPA_PLATFORM_PLUGIN_PATH="$(pwd)/dl_third_party/Qt_desktop/5.15.0/gcc_64/plugins/platforms
+        export LD_LIBRARY_PATH="$(pwd)/dl_third_party/Qt_desktop/5.15.0/gcc_64/lib:$LD_LIBRARY_PATH"
 
 5. (Optional) Assuming step (3) was successful, you can also invoke
    `run_all_tests.sh` to check that the binaries you built pass all their tests.
 
 ### Notes About Qt Version
 
-This project includes pre-built Qt modules via a git submodule. This is one way to
-satisfy projects that:
- - require building Qt from source (for any reason)
- - require excluding various Qt modules. (e.g. we have skipped qtpurchasing, qtspeech)
- - require assurance that all teammembers have precisely the same Qt binaries
+The build scripts of this project download pre-built Qt modules using a local
+copy of the
+[script provided by Qbs](https://github.com/qbs/qbs/blob/495d7767af8/scripts/install-qt.sh).
 
-Git submodules are not the only way to meet those requirements. It is simply the
-approach employed here.
-
-Because the Qt modules are included via submodule, you do not need to install Qt
-before using this repository. Just follow "How to build" above.
+Because the Qt modules are downloaded during the build, you do not need to
+install Qt before using this repository. Just follow "How to build" above.
 
 ### To Use Your Own Qt Version Instead
 
