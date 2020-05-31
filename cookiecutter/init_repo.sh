@@ -14,3 +14,4 @@ git add .
 git commit -m "init"
 
 ./tools/formatters/enforce_clang_format.sh
+echo "Examine git status to see if clang-format made changes. Refer to README.md for build instructions."
