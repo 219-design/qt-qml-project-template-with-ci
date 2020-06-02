@@ -19,27 +19,22 @@ then
     only_report=1
 fi
 
-qml_formatter="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/bin/qmlformat"
+export LD_LIBRARY_PATH="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/lib"
+qml_formatter="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/extrabin/qmlfmt"
 
 check_format() {
   if [ $only_report != 0 ]; then
       while read filenames; do
         for fl in "$filenames"; do
           echo checking format of "$fl"
-          set +xe
-          result=$("$qml_formatter" "$fl")
-          diff  <(echo "$result") <(cat "$fl")
-          diff_rslt=$?
-          set -Eeuxo pipefail
-
-          # per 'man diff': Exit status is 0 if inputs are the same
-          if [ $diff_rslt != 0 ]; then
+          result=$("$qml_formatter" -l "$fl")
+          if [[ ! -z "$result" ]]; then
               # https://stackoverflow.com/a/34066473/10278 (find string in bash array)
               if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
                 echo "INTENTIONAL FORGIVENESS OF $fl"
               else
                 # If someone disables 'set -x', then explicitly fail here regardless:
-                echo "You need to qmlformat this file:"
+                echo "You need to qmlfmt this file:"
                 echo "$fl"
                 return -1
               fi
@@ -58,7 +53,7 @@ check_format() {
       if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
         echo "INTENTIONAL EXLUSION OF $fl"
       else
-        "$qml_formatter" -i "$fl"
+        "$qml_formatter" -w "$fl"
       fi
     done
   done

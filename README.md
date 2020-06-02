@@ -5,7 +5,7 @@ such as:
 
  - project folder layout for creating one custom app that uses one or more of your custom libraries
  - clang-format checking of C++ code
- - qmlformat checking of QML code
+ - qmlfmt checking of QML code
  - runtime "flexible asserts" to ensure you do not miss any QML runtime warnings
  - a wrapper script to make iterating on QML layouts painless with qmlscene
  - test-runner code to run any unit tests you add. (googletest is provided)

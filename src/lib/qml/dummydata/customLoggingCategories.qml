@@ -5,5 +5,5 @@
 import QtQuick 2.12
 
 QtObject {
-    property string guiTestingLogTag: "guitesting"
+  property string guiTestingLogTag: "guitesting"
 }
