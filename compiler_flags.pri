@@ -49,7 +49,7 @@ linux:!android {
          "
 }
 
-unix:{
+linux:{
     # some inspired by: https://kristerw.blogspot.com/2017/09/useful-gcc-warning-options-not-enabled.html
     # others inspired by: https://stackoverflow.com/questions/5088460/flags-to-enable-thorough-and-verbose-g-warnings
     QMAKE_CXXFLAGS += "\

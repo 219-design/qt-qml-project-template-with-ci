@@ -33,3 +33,9 @@ popd >& /dev/null
 if [[ -z ${MYAPP_TEMPLATE_SKIP_ANDROID-} ]]; then
   tools/ci/build_android_app.sh
 fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  pushd build/src/app >& /dev/null
+    macdeployqt app.app -libpath=$PWD -qmldir=../../../src/
+  popd >& /dev/null
+fi
