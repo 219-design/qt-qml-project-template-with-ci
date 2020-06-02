@@ -12,13 +12,12 @@ import QtQuick 2.12
 pragma Singleton
 
 Item {
-    property alias guiTests: gui
+  property alias guiTests: gui
 
-    LoggingCategory {
-        id: gui
+  LoggingCategory {
+    id: gui
 
-        name: customLoggingCategories.guiTestingLogTag
-        defaultLogLevel: LoggingCategory.Info
-    }
-
+    name: customLoggingCategories.guiTestingLogTag
+    defaultLogLevel: LoggingCategory.Info
+  }
 }
