@@ -21,6 +21,12 @@ LAST_KNOWN_HASH=`git rev-parse --verify --short=10 HEAD`
 NEW_DATELINE="constexpr char BUILD_ON_DATE[] = \"${BUILD_DATE}\";"
 NEW_HASHLINE="constexpr char GIT_HASH_WHEN_BUILT[] = \"${LAST_KNOWN_HASH}\";"
 
-# find matching lines and replace WHOLE line with new strings
-sed "/BUILD_ON_DATE/c ${NEW_DATELINE}" "$STRINGSFILE" > "$GENFILE" # 1. create genfile
-sed -i "/GIT_HASH_WHEN_BUILT/c ${NEW_HASHLINE}" "$GENFILE"         # 2. then operate in-place on genfile
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # find matching lines and replace WHOLE line with new strings
+  gsed "/BUILD_ON_DATE/c ${NEW_DATELINE}" "$STRINGSFILE" > "$GENFILE" # 1. create genfile
+  gsed -i "/GIT_HASH_WHEN_BUILT/c ${NEW_HASHLINE}" "$GENFILE"         # 2. then operate in-place on genfile
+else
+  # find matching lines and replace WHOLE line with new strings
+  sed "/BUILD_ON_DATE/c ${NEW_DATELINE}" "$STRINGSFILE" > "$GENFILE" # 1. create genfile
+  sed -i "/GIT_HASH_WHEN_BUILT/c ${NEW_HASHLINE}" "$GENFILE"         # 2. then operate in-place on genfile
+fi
