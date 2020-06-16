@@ -58,17 +58,21 @@ After that, please proceed to "How to build" (below) before continuing further:
 
 ## How to build and launch the app
 
-1. Use the operating system: Ubuntu 18.04 LTS "bionic"
+1. Use one of these operating systems:
+     - Ubuntu 18.04 LTS "Bionic"
+     - Mac OS X 10.15 "Catalina"
 
-2. Visually inspect the file `tools/ci/provision.sh` to learn which `apt`
-   packages are required. Use your own preferred `apt` commands or equivalent
-   methods to install those required packages. (`provision.sh` is executed on
-   the github docker instance prior to running the continuous integration
-   build-and-test routines)
+2. Visually inspect the file `tools/ci/provision.sh` (or `provision_mac.sh`) to
+   learn which `apt` (or `homebrew`) packages are required. Use your own
+   preferred `apt` commands or equivalent methods to install those required
+   packages.
+   (`provision.sh` is executed in the GitHub action runner instance prior to
+   running the continuous integration build-and-test routines. It may or may not
+   be a provisioning script that you wish to run locally. Read it and choose.)
 
 3. If you do not wish to build for Android, then you can avoid unnecessary
-   lengthening of the build times by issuing: `export
-   MYAPP_TEMPLATE_SKIP_ANDROID=1`
+   lengthening of the build times by issuing:
+   `export MYAPP_TEMPLATE_SKIP_ANDROID=1`
 
 4. In a terminal, run `build_app.sh`
 
