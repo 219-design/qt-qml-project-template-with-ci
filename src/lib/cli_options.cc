@@ -20,9 +20,9 @@ CliOptions::CliOptions( const QCoreApplication& app )
     parser.addHelpOption();
 
     parser.addOptions( {
-        {{"g", GUI_TEST_CLI_OPT}, "run automated gui tests (app will SHUT DOWN soon after launch)"},
-        {{"v", MAX_QT_LOGGING_CLI_OPT},
-            "verbose/maximum logging. uses Qt stderr log even when also tee-ing to backend file log"},
+        { { "g", GUI_TEST_CLI_OPT }, "run automated gui tests (app will SHUT DOWN soon after launch)" },
+        { { "v", MAX_QT_LOGGING_CLI_OPT },
+            "verbose/maximum logging. uses Qt stderr log even when also tee-ing to backend file log" },
     } );
 
     parser.process( app );

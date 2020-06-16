@@ -31,10 +31,10 @@ sudo dpkg --add-architecture i386
 sudo apt-get update
 sudo apt-get --assume-yes install \
   build-essential \
-  clang-format-6.0 \
   curl \
   gdb \
   git \
+  gnupg \
   libc-bin \
   libdbus-1-3 \
   libfontconfig1 \
@@ -70,5 +70,10 @@ sudo apt-get --assume-yes install \
   wget \
   xvfb \
   zlib1g:i386
+
+## BEGIN: clang-format from LLVM
+${CUR_GIT_ROOT}/tools/ci/get_llvm_clang-format.sh
+## END: clang-format from LLVM
+
 
 ${CUR_GIT_ROOT}/tools/ci/get_qt_libs.sh
