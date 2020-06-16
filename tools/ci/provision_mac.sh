@@ -5,6 +5,7 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
 brew install \
+     clang-format \
      fontconfig \
      gdbm \
      glib \
@@ -18,5 +19,9 @@ brew install \
      tree \
      x265 \
      xz
+
+pushd /usr/local/bin >& /dev/null
+  sudo ln -s clang-format clang-format-10
+popd >& /dev/null
 
 ${CUR_GIT_ROOT}/tools/ci/get_qt_libs.sh

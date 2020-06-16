@@ -38,12 +38,11 @@ else
 fi
 
 if [[ "$OSTYPE" != "darwin"* ]]; then
-  # TODO: we can make it work on mac with clang-format-10
-  tools/formatters/enforce_clang_format.sh check_only
-
   # TODO: we already made this work in a different repo. learn from it.
   tools/formatters/enforce_qml_format.sh check_only
 fi
+
+tools/formatters/enforce_clang_format.sh check_only
 
 
 ./build_app.sh

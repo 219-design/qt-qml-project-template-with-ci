@@ -27,6 +27,15 @@ pip3 show cookiecutter
 sudo apt install tree
 $HOME/.local/bin/cookiecutter --no-input --verbose $GITHUB_WORKSPACE/
 cd $HOME/qt_qml_project_template_with_ci
+
+if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REPO_FULL_NAME-} ]];
+# The '-' hyphens above test without angering the 'set -u' about unbound variables
+then
+  echo "Assuming C.I. environment."
+  echo "Found at least one of GITHUB_ACTIONS, BITBUCKET_REPO_OWNER, BITBUCKET_REPO_FULL_NAME in env."
+  ./tools/ci/get_llvm_clang-format.sh # we need to install clang-format for init_repo.sh
+fi
+
 ./init_repo.sh
 ./run_all_tests.sh || exit 1
 

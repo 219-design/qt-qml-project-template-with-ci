@@ -25,7 +25,7 @@ namespace
 
 GuiTests::GuiTests( const QQmlApplicationEngine& engine )
 {
-    connect( &engine, &QQmlApplicationEngine::objectCreated, [=]( QObject*, const QUrl& url ) {
+    connect( &engine, &QQmlApplicationEngine::objectCreated, [ = ]( QObject*, const QUrl& url ) {
         FASSERT( url.fileName() == QString( EXPECTED_FIRST_LOADED_FILE ), "something must have changed in loading behavior of QQmlApplicationEngine" );
 
         // quit during next event-loop cycle

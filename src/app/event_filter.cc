@@ -70,7 +70,7 @@ bool EventFilter::eventFilter( QObject* obj, QEvent* event )
         if( event->type() == type )
         {
             static EverySoOften logEventsNoMoreThanOncePerN( EVENTLOG_RATELIMIT_PERIOD );
-            logEventsNoMoreThanOncePerN.Do( [index]() {
+            logEventsNoMoreThanOncePerN.Do( [ index ]() {
                 qInfo() << "this GUI thread is running unblocked. Just got event from our index:" << index;
             } );
         }
@@ -81,7 +81,7 @@ bool EventFilter::eventFilter( QObject* obj, QEvent* event )
         // We don't have any user-defined events in the application (as of May 1, 2020).
         // So this is here as a just-in-case (could be useful debug info for the future).
         static EverySoOften logUserTypesNoMoreThanOncePerN( EVENTLOG_RATELIMIT_PERIOD );
-        logUserTypesNoMoreThanOncePerN.Do( [event]() {
+        logUserTypesNoMoreThanOncePerN.Do( [ event ]() {
             qInfo() << "this GUI thread is processing a user-defined event of type:"
                     << static_cast<int>( event->type() );
         } );

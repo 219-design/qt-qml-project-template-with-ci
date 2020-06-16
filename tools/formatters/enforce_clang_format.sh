@@ -26,7 +26,7 @@ check_clang_format() {
       while read filenames; do
         for d in "$filenames"; do
           echo $d
-          clang_result=$(clang-format-6.0 -style=file -output-replacements-xml "$d")
+          clang_result=$(clang-format-10 -style=file -output-replacements-xml "$d")
           diff  <(echo $clang_result) <(cat "${THISDIR}/clang-format-6.0_clean_output.txt")
           diff_rslt=$?
           # per 'man diff': Exit status is 0 if inputs are the same
@@ -41,7 +41,7 @@ check_clang_format() {
   while read filenames; do
     for d in "$filenames"; do
       echo $d
-      clang_result=$(clang-format-6.0 -style=file -i "$d")
+      clang_result=$(clang-format-10 -style=file -i "$d")
     done
   done
 }
