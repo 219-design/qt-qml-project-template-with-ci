@@ -4,6 +4,11 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ${CUR_GIT_ROOT}/tools/ci/provision_mac.sh
+  exit 0
+fi
+
 # This only comes into play for certain dconf-able(s) like tzdata
 export DEBIAN_FRONTEND=noninteractive # in addition to --assume-yes
 
