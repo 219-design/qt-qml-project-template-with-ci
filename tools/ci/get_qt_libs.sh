@@ -20,6 +20,7 @@ else
    qtimageformats \
    qtquickcontrols \
    qtquickcontrols2 \
+   qtscript \
    qtsvg \
    qttools
 

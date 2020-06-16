@@ -19,8 +19,12 @@ then
     only_report=1
 fi
 
-export LD_LIBRARY_PATH="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/lib"
-qml_formatter="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/extrabin/qmlfmt"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  qml_formatter="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/clang_64/extrabin/macos/qmlfmt"
+else
+  export LD_LIBRARY_PATH="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/lib"
+  qml_formatter="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/extrabin/qmlfmt"
+fi
 
 check_format() {
   if [ $only_report != 0 ]; then
@@ -60,7 +64,7 @@ check_format() {
 }
 
 if [ -f "${THISDIR}/enforce_qml_format.exclusions" ]; then
-  readarray -t the_exclusions < "${THISDIR}/enforce_qml_format.exclusions"
+  the_exclusions=($(awk -F= '{print $0}' "${THISDIR}/enforce_qml_format.exclusions"))
 else
   the_exclusions=()
 fi
@@ -75,7 +79,7 @@ for dir in "${top_level_dirs[@]}"; do
       echo "Refusing to format ${dir} - you marked it .do_not_format"
   else
     # leaving the '-o' construct for future expansion guidance:
-    find ${dir} \
+    find ${dir%/} \
          \( -name '*.qml' \
          -o -name '*.qml' \) \
          | check_format
