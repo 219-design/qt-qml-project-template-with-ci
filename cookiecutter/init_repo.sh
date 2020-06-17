@@ -9,6 +9,9 @@ ln -sf src/libstyles/imports/libstyles/images src/lib/qml/images
 ln -sf .qmake.conf qmake.conf
 ln -sf .clang-format clang-format
 
+# the new repo is NOT a template. the new repo need not have a cookiecutter job:
+rm -f .github/workflows/cookiecutter.yml
+
 git init
 git add .
 git commit -m "init"
