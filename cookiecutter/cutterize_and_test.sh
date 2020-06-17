@@ -37,6 +37,8 @@ then
 fi
 
 ./init_repo.sh
+git clean -dxf # after init_repo, this proves that everything REQUIRED is in git
+
 ./run_all_tests.sh || exit 1
 
 if [ "$GITHUB_REF" != "refs/heads/master" ]; then
