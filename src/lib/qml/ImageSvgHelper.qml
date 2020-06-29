@@ -1,14 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 
-
-// (apparently because constantly resizing an SVG would be expensive in an app
-// that allows a user to resize the screen at any time...) QML has made an
-// "interesting" (at times annoying) choice to first render an SVG to
-// essentially create a PNG from it, and then AFTER THAT only this PNG is scaled,
-// which means IT WILL SCALE INTO A PIXELATED JAGGED MESS, which is the opposite
-// of what you expect from an SVG!
-// https://forum.qt.io/topic/52161/properly-scaling-svg-images/5
 Item {
   id: root
 
@@ -28,10 +20,14 @@ Item {
       else
         Image.Stretch
     }
-    // Thanks to this hack, qml can now only DOWN-SCALE/SHRINK the SVG, which won't cause pixelation
-    // The idea is to "trick" qml that the SVG is larger than we EVER NEED
-    sourceSize: Qt.size(Math.max(hiddenImg.sourceSize.width, 250),
-                        Math.max(hiddenImg.sourceSize.height, 250))
+
+    // Without telling Qt to consider that the sourceSize is as follows, we
+    // would at times fall into the trap where an SVG contains TINY values
+    // in the SVG code for 'width/height/viewBox', and Qt will take those to be
+    // the definitive size of the image, which will lead to a horribly pixelated
+    // outcome such as that shown: https://github.com/219-design/qt-qml-project-template-with-ci/pull/6
+    // (See also: https://forum.qt.io/topic/52161/properly-scaling-svg-images/5)
+    sourceSize: Qt.size(nonGif.width, nonGif.height)
 
     Image {
       id: hiddenImg
