@@ -23,3 +23,14 @@ INCLUDEPATH += $${top_srcdir}/build/generated_files # for version.h
 # QML_ROOT_PATH needed for the android deployment to scan ALL our qml files
 QML_ROOT_PATH += \
     $${top_srcdir}/src
+
+ios {
+    QMAKE_INFO_PLIST = $$top_srcdir/src/app/ios/Info.plist
+
+    # Other ios/xcode things your app MAY eventually need to configure here:
+    # QMAKE_ASSET_CATALOGS += $$top_srcdir/src/lib/ios/Assets.xcassets
+
+    # Q_ENABLE_BITCODE.name = ENABLE_BITCODE
+    # Q_ENABLE_BITCODE.value = NO
+    # QMAKE_MAC_XCODE_SETTINGS += Q_ENABLE_BITCODE
+}
