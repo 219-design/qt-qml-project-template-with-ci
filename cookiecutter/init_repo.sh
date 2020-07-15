@@ -24,6 +24,7 @@ git add -f dl_third_party/Qt_desktop/5.15.0/gcc_64/extrabin/qmlfmt
 git add -f dl_third_party/Qt_desktop/5.15.0/gcc_64/lib/libicudata.so.56
 git add -f dl_third_party/Qt_desktop/5.15.0/gcc_64/lib/libicui18n.so.56
 git add -f dl_third_party/Qt_desktop/5.15.0/gcc_64/lib/libicuuc.so.56
+git add -f dl_third_party/Qt_desktop/5.15.0/ios/mkspecs/qconfig.pri
 git add -f dl_third_party/android_kits/commandlinetools-linux-6200805_latest.zip.sha256
 
 git commit -m "init"

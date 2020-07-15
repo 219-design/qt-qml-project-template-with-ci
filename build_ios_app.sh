@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+
+pushd .
+trap "popd" EXIT HUP INT QUIT TERM
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd $DIR  # enter this script's directory. (in case called from root of repository)
+
+$DIR/tools/ci/version.sh
+
+source $DIR/path_to_ios_qmake.bash
+
+mkdir -p build/for_ios
+
+pushd build/for_ios >& /dev/null
+
+  qmake "$DIR"
+  make
+
+popd >& /dev/null

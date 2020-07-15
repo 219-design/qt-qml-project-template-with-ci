@@ -3,7 +3,9 @@
 QT += core qml quick svg widgets
 
 TEMPLATE = lib
-CONFIG += shared
+!ios {
+  CONFIG += shared
+}
 
 RESOURCES = libresources.qrc
 

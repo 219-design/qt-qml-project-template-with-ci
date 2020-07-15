@@ -24,4 +24,22 @@ else
    qtsvg \
    qttools
 
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    bash -x $CUR_GIT_ROOT/tools/ci/install-qt.sh \
+     --directory $DL_FOLDER/Qt_desktop \
+     --version 5.15.0 \
+     --target ios \
+     qtbase \
+     qtconnectivity \
+     qtdeclarative \
+     qtgraphicaleffects \
+     qtimageformats \
+     qtquickcontrols \
+     qtquickcontrols2 \
+     qtsvg \
+     qttools
+
+    git checkout $CUR_GIT_ROOT/dl_third_party/Qt_desktop/5.15.0/ios/mkspecs/qconfig.pri
+  fi
+
 fi
