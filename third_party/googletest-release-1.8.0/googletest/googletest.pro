@@ -27,7 +27,9 @@ QMAKE_CXXFLAGS += "\
     "
 
 TEMPLATE = lib
-CONFIG += shared
+!ios {
+  CONFIG += shared
+}
 
 SOURCES += \
     src/gtest-all.cc \

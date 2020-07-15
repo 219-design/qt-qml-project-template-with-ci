@@ -23,6 +23,7 @@
 
 #if defined( __APPLE__ )
 #    include <CoreFoundation/CoreFoundation.h>
+#    include <TargetConditionals.h>
 #    define _putenv putenv
 #endif // defined(__APPLE__)
 
@@ -89,7 +90,7 @@ static inline void OptionToContinue(
     (void) line;
     (void) funcname;
 
-#elif defined( __APPLE__ )
+#elif defined( __APPLE__ ) && !( TARGET_OS_IPHONE )
 
     fprintf( stderr, "%s:\n", title );
     fprintf( stderr, "%s\n", funcname );
@@ -141,7 +142,7 @@ static inline void OptionToContinue(
         fprintf( stderr, "ignoring opportunity to debug the FAIL (either due to inaction or ESC key)\n" );
     }
 
-#elif defined( __linux__ )
+#elif defined( __unix__ )
 
     fprintf( stderr, "%s:\n", title );
     fprintf( stderr, "%s\n", funcname );

@@ -3,7 +3,9 @@
 QT += core
 
 TEMPLATE = lib
-CONFIG += shared
+!ios {
+  CONFIG += shared
+}
 
 SOURCES += \
     every_so_often.cc \

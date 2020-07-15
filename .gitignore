@@ -3,3 +3,6 @@ build
 AppImage_staging
 linuxdeployqt-6-x86_64.AppImage
 gui_test.log
+
+# mac:
+**/.DS_Store

@@ -79,6 +79,11 @@ After that, please proceed to "How to build" (below) before continuing further:
 5. Assuming step (4) was successful, you can launch the app at
    `./build/src/app/app`
 
+   For the iOS version of the app, one of the outputs of `build_app.sh` will be
+   the xcodeproj. Open the xcodeproj in Xcode and from there you can choose a
+   simulator or a device as the "Destination" and then choose "Run" (or command
+   R). The xcodeproj is created at: `build/for_ios/src/app/app.xcodeproj`
+
    If the app fails with a message such as `qt.qpa.plugin: Could not
    load the Qt platform plugin "xcb" in
    "/home/daniel/Qt/5.15.0/gcc_64/plugins" even though it was found.`,
