@@ -46,7 +46,8 @@ source path_to_android_qmake.bash
 
 mkdir -p build/for_android
 cd build/for_android
-qmake ../../
+# When you need release: CONFIG+=release
+qmake CONFIG+=force_debug_info ../../ # debug info (symbols) are orthogonal to optimizations
 
 make
 make install INSTALL_ROOT=$CUR_GIT_ROOT/build/for_android/src/app/android-build

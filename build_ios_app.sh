@@ -16,7 +16,9 @@ mkdir -p build/for_ios
 
 pushd build/for_ios >& /dev/null
 
-  qmake "$DIR"
+  # When you need release: CONFIG+=release
+  qmake CONFIG+=force_debug_info "$DIR" # debug info (symbols) are orthogonal to optimizations
+
   make
 
 popd >& /dev/null

@@ -22,7 +22,8 @@ source $DIR/path_to_qmake.bash
 
 pushd build >& /dev/null
 
-  qmake "$DIR"
+  # When you need release: CONFIG+=release
+  qmake CONFIG+=force_debug_info "$DIR" # note: debug INFO (symbols) are ok even in release
 
   make
 
