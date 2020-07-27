@@ -15,6 +15,7 @@ SUBDIRS = \
     lib_tests \
     libstyles \
     libtestmain \
+    minutil \
     third_party/googletest-release-1.8.0/googlemock \
     third_party/googletest-release-1.8.0/googletest \
     util
@@ -24,6 +25,7 @@ lib_app.file = src/lib_app/lib.pro
 lib_tests.file = src/lib_app/lib_tests.pro
 libstyles.file = src/libstyles/libstyles.pro
 libtestmain.file = src/libtests/libtestmain.pro
+minutil.file = src/minutil/minutil.pro
 util.file = src/util/util.pro
 
 # third_party projects
@@ -39,6 +41,7 @@ app.depends = \
     lib_tests \
     libstyles \
     libtestmain \
+    minutil \
     third_party/googletest-release-1.8.0/googlemock \
     third_party/googletest-release-1.8.0/googletest \
     util
