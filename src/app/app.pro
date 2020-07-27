@@ -18,6 +18,7 @@ INCLUDEPATH += $${top_srcdir}/build/generated_files # for version.h
 # 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
 !include(../lib_app/lib.pri) { error() }
 !include(../libstyles/libstyles.pri) { error() }
+!include(../minutil/minutil.pri) { error() }
 !include(../util/util.pri) { error() }
 
 # QML_ROOT_PATH needed for the android deployment to scan ALL our qml files
