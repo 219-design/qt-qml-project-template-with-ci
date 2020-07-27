@@ -5,7 +5,7 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
-ln -sf src/libstyles/imports/libstyles/images src/lib/qml/images
+ln -sf src/libstyles/imports/libstyles/images src/lib_app/qml/images
 ln -sf .qmake.conf qmake.conf
 ln -sf .clang-format clang-format
 

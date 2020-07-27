@@ -27,11 +27,11 @@ grep -l -R --binary-files=without-match "project::" src | xargs sed -i "s/projec
 sed -i -e "s/Name=.*/Name={{ cookiecutter.project_name }}/g"\
     -e "/Comment=.*/d"\
     tools/AppImage/app.desktop
-sed -i -e "s/Hello World/Hello {{ cookiecutter.folder_name }}/g" src/lib/qml/*.qml
+sed -i -e "s/Hello World/Hello {{ cookiecutter.folder_name }}/g" src/lib_app/qml/*.qml
 
 # Finally, moves the project folder to a cookiecutter namespace
 mkdir "{{ cookiecutter.folder_name }}"
-rm src/lib/qml/images qmake.conf clang-format
+rm src/lib_app/qml/images qmake.conf clang-format
 git add "{{ cookiecutter.folder_name }}"
 shopt -s dotglob nullglob extglob # so hidden files move, too. https://unix.stackexchange.com/q/6393/11592
 git mv -k !(.gitmodules|..|.) "{{ cookiecutter.folder_name }}"/

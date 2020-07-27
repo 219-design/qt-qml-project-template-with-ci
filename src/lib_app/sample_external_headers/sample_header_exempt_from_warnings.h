@@ -11,14 +11,14 @@
 
 /*
   This messy header file exists to help demonstrate the purpose of:
-      - "src/lib/quarantined_awaiting_warning_fixes.h"
+      - "src/lib_app/quarantined_awaiting_warning_fixes.h"
 
   If you try to add a pound-include of this messy header in one of the other
   source files of this project, the BUILD WILL FAIL due to the compiler warnings
   that are triggered by this header (combined with our use of warnings-as-errors).
 
   However, the workaround is to instead use the following pound-include:
-      #include "src/lib/quarantined_awaiting_warning_fixes.h"
+      #include "src/lib_app/quarantined_awaiting_warning_fixes.h"
 
   This is useful when you must include headers from a legacy code project that
   your co-workers are also actively editing (and therefore you need to
