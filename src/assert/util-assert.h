@@ -14,6 +14,7 @@
 #endif
 
 #include <signal.h> // for raise
+#include <stdio.h> //  for stderr
 #include <stdlib.h> // for getenv
 #include <string.h>
 
