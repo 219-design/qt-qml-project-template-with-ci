@@ -16,6 +16,6 @@
 // system SENSITIVE to changes in the headers listed, such that when they are
 // edited, the necessary rebuilds DO happen.
 
-#include "src/lib/sample_external_headers/sample_header_exempt_from_warnings.h"
+#include "src/lib_app/sample_external_headers/sample_header_exempt_from_warnings.h"
 
 #endif // PROJ_LIB_QUARANTINED_HEADERS_H

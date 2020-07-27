@@ -10,7 +10,7 @@
 #include <QDebug>
 #include <QtQml/QQmlContext>
 
-#include "src/lib/cli_options.h"
+#include "src/lib_app/cli_options.h"
 
 namespace project
 {
