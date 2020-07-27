@@ -71,7 +71,7 @@ static inline void TrapDebug()
 #elif defined( __linux__ )
     raise( SIGTRAP );
 #else
-// TODO
+// FUTURE_PLATFORMS_TBD
 #endif // Win/Apple
 }
 
@@ -143,7 +143,7 @@ static inline void OptionToContinue(
         fprintf( stderr, "ignoring opportunity to debug the FAIL (either due to inaction or ESC key)\n" );
     }
 
-#elif defined( __unix__ )
+#elif defined( __unix__ ) || TARGET_OS_IPHONE
 
     fprintf( stderr, "%s:\n", title );
     fprintf( stderr, "%s\n", funcname );
@@ -194,7 +194,7 @@ static inline void OptionToContinue(
     }
 
 #else
-// TODO
+// FUTURE_PLATFORMS_TBD
 #endif // Win/Apple
 }
 
@@ -339,7 +339,7 @@ static inline bool GetEnv_WinOnly( const char* name )
             Flex_Fail_Unix( msg, __FILE__, __LINE__, __func__ )
 
 #    else
-// TODO
+// FUTURE_PLATFORMS_TBD
 #    endif // Win/Apple
 
 #endif // #ifdef FLEX_DISABLE_ASSERT
