@@ -21,6 +21,8 @@ MUST_NOT = [
     "unregistered datatype",
     "Model size of",  # "...is less than 0" AND/OR "...is bigger than upper limit"
     "failed to load component",
+    "QML LoaderImage",
+    "Failed to get image from provider",
 ]
 
 
