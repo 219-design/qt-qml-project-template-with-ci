@@ -1,0 +1,2 @@
+n0thing~t0~bl0ck~f0r~n0w_this_should_never_match_a_qml_warning_so_becomes_a_harmless_sample_line
+main.qml:16: ReferenceError: someViewModel is not defined
