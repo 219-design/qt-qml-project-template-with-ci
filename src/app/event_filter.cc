@@ -13,9 +13,9 @@ namespace project
 {
 namespace
 {
-    constexpr std::chrono::seconds EVENTLOG_RATELIMIT_PERIOD( 10 );
+constexpr std::chrono::seconds EVENTLOG_RATELIMIT_PERIOD( 10 );
 
-    // clang-format off
+// clang-format off
     const std::vector<QEvent::Type> WATCHED_TYPES{{
         // Just a mostly arbitrary set of events that help demonstrate that the
         // application event loops is running without fail.
@@ -41,7 +41,7 @@ namespace
         QEvent::GraphicsSceneMove,
         QEvent::Expose
     }};
-    // clang-format on
+// clang-format on
 } // namespace
 
 EventFilter::EventFilter() = default;

@@ -38,116 +38,116 @@ struct QmlMessageInterceptor::Pimpl // "effectively private" due to no definitio
 };
 namespace
 {
-    // QtMessageHandler is a typedef qtbase/src/corelib/global/qlogging.h
-    QtMessageHandler original_handler = nullptr;
-    QmlMessageInterceptor::Pimpl* our_interceptor = nullptr;
+// QtMessageHandler is a typedef qtbase/src/corelib/global/qlogging.h
+QtMessageHandler original_handler = nullptr;
+QmlMessageInterceptor::Pimpl* our_interceptor = nullptr;
 
-    bool EndsWith( const char* string_to_search, const char* target_suffix )
+bool EndsWith( const char* string_to_search, const char* target_suffix )
+{
+    if( !string_to_search || !target_suffix )
     {
-        if( !string_to_search || !target_suffix )
-        {
-            return false;
-        }
-
-        // strrchr() returns a pointer to the LAST occurrence of the character
-        const char* dot = strrchr( string_to_search, '.' );
-        if( dot && !strcasecmp( dot, target_suffix ) )
-        {
-            return true;
-        }
-
-        const char* fslash = strrchr( string_to_search, '/' );
-        if( fslash && !strcasecmp( fslash, target_suffix ) )
-        {
-            return true;
-        }
-
         return false;
     }
 
-    bool IndividualWarningIsMarkedAsIgnored( const QString& currentLogMessage )
+    // strrchr() returns a pointer to the LAST occurrence of the character
+    const char* dot = strrchr( string_to_search, '.' );
+    if( dot && !strcasecmp( dot, target_suffix ) )
     {
-        static bool didLazyLoad = false;
-        static QStringList ignoredMessages;
+        return true;
+    }
 
-        if( didLazyLoad == false )
+    const char* fslash = strrchr( string_to_search, '/' );
+    if( fslash && !strcasecmp( fslash, target_suffix ) )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool IndividualWarningIsMarkedAsIgnored( const QString& currentLogMessage )
+{
+    static bool didLazyLoad = false;
+    static QStringList ignoredMessages;
+
+    if( didLazyLoad == false )
+    {
+        didLazyLoad = true;
+        const QString tmp = QStandardPaths::writableLocation( QStandardPaths::TempLocation );
+        const QFileInfo fileInfo( tmp + "/" + QCoreApplication::applicationName() + "_qml_suppressed_warnings.txt" );
+        const bool fileOk = fileInfo.exists() && fileInfo.isReadable() && fileInfo.isFile() && fileInfo.size() > 0 && fileInfo.size() < 100000;
+
+        if( !fileOk )
         {
-            didLazyLoad = true;
-            const QString tmp = QStandardPaths::writableLocation( QStandardPaths::TempLocation );
-            const QFileInfo fileInfo( tmp + "/" + QCoreApplication::applicationName() + "_qml_suppressed_warnings.txt" );
-            const bool fileOk = fileInfo.exists() && fileInfo.isReadable() && fileInfo.isFile() && fileInfo.size() > 0 && fileInfo.size() < 100000;
-
-            if( !fileOk )
+            // Note: do not log this with Qt logging, since we are currently
+            // IN A HANDLER PROCESSING Qt logging.
+            fprintf( stderr, "qml_message_interceptor found no usable suppressions in: %s\n", fileInfo.absoluteFilePath().toStdString().c_str() );
+        }
+        else
+        {
+            QFile suppressions( fileInfo.absoluteFilePath() );
+            if( suppressions.open( QIODevice::ReadOnly ) )
             {
-                // Note: do not log this with Qt logging, since we are currently
-                // IN A HANDLER PROCESSING Qt logging.
-                fprintf( stderr, "qml_message_interceptor found no usable suppressions in: %s\n", fileInfo.absoluteFilePath().toStdString().c_str() );
-            }
-            else
-            {
-                QFile suppressions( fileInfo.absoluteFilePath() );
-                if( suppressions.open( QIODevice::ReadOnly ) )
+                while( !suppressions.atEnd() )
                 {
-                    while( !suppressions.atEnd() )
+                    const auto candidate = suppressions.readLine().trimmed();
+                    if( candidate.length() < 3 )
                     {
-                        const auto candidate = suppressions.readLine().trimmed();
-                        if( candidate.length() < 3 )
-                        {
-                            fprintf( stderr, "qml_message_interceptor rejected vague suppression: %s\n",
-                                candidate.toStdString().c_str() );
-                        }
-                        else
-                        {
-                            ignoredMessages.append( candidate );
-                        }
+                        fprintf( stderr, "qml_message_interceptor rejected vague suppression: %s\n",
+                            candidate.toStdString().c_str() );
+                    }
+                    else
+                    {
+                        ignoredMessages.append( candidate );
                     }
                 }
-
-                // Note: do not log this with Qt logging, since we are currently
-                // IN A HANDLER PROCESSING Qt logging.
-                fprintf( stderr, "qml_message_interceptor applied %d usable suppression(s) in: %s\n",
-                    ignoredMessages.count(), fileInfo.absoluteFilePath().toStdString().c_str() );
             }
-        }
 
-        for( const auto& ignored : ignoredMessages )
-        {
-            // Intentionally not supporting regexes or other complexity.
-            // Would prefer to NOT be responsible for thinking through regex edge cases.
-            if( currentLogMessage.contains( ignored, Qt::CaseSensitive ) )
-            {
-                // Note: do not log this with Qt logging, since we are currently
-                // IN A HANDLER PROCESSING Qt logging.
-                fprintf( stderr, "IGNORED_WARNING: %s\n", currentLogMessage.toStdString().c_str() );
-                return true;
-            }
+            // Note: do not log this with Qt logging, since we are currently
+            // IN A HANDLER PROCESSING Qt logging.
+            fprintf( stderr, "qml_message_interceptor applied %d usable suppression(s) in: %s\n",
+                ignoredMessages.count(), fileInfo.absoluteFilePath().toStdString().c_str() );
         }
-
-        return false;
     }
 
-    // Treat QML warnings as fatal.
-    // Rationale: historically, a majority of QML warnings have indicated bugs.
-    void FilterQmlWarnings( const char* file, const QString& message )
+    for( const auto& ignored : ignoredMessages )
     {
-        // NOTE: when using Qt RELEASE libraries (not debug), it may be
-        // IMPOSSIBLE to ever match on '/qqmlapplicationengine.cpp' because they
-        // seem to strip out file info (it shows "unknown") for the filename in
-        // certain RELEASE/optimized qt builds.
-        if( EndsWith( file, ".qml" ) || EndsWith( file, ".js" ) || EndsWith( file, "/qqmlapplicationengine.cpp" ) )
+        // Intentionally not supporting regexes or other complexity.
+        // Would prefer to NOT be responsible for thinking through regex edge cases.
+        if( currentLogMessage.contains( ignored, Qt::CaseSensitive ) )
         {
-            if( !IndividualWarningIsMarkedAsIgnored( message ) )
-            {
-                FFAIL( "qml warning detected (in *qml or *js file). please fix it." );
-            }
+            // Note: do not log this with Qt logging, since we are currently
+            // IN A HANDLER PROCESSING Qt logging.
+            fprintf( stderr, "IGNORED_WARNING: %s\n", currentLogMessage.toStdString().c_str() );
+            return true;
         }
     }
 
-    void DecoratorFunc( QtMsgType type, const QMessageLogContext& context, const QString& message )
+    return false;
+}
+
+// Treat QML warnings as fatal.
+// Rationale: historically, a majority of QML warnings have indicated bugs.
+void FilterQmlWarnings( const char* file, const QString& message )
+{
+    // NOTE: when using Qt RELEASE libraries (not debug), it may be
+    // IMPOSSIBLE to ever match on '/qqmlapplicationengine.cpp' because they
+    // seem to strip out file info (it shows "unknown") for the filename in
+    // certain RELEASE/optimized qt builds.
+    if( EndsWith( file, ".qml" ) || EndsWith( file, ".js" ) || EndsWith( file, "/qqmlapplicationengine.cpp" ) )
     {
-        FASSERT( our_interceptor, "you must assign to our_interceptor before we get here" );
-        our_interceptor->DecoratorFunc( type, context, message );
+        if( !IndividualWarningIsMarkedAsIgnored( message ) )
+        {
+            FFAIL( "qml warning detected (in *qml or *js file). please fix it." );
+        }
     }
+}
+
+void DecoratorFunc( QtMsgType type, const QMessageLogContext& context, const QString& message )
+{
+    FASSERT( our_interceptor, "you must assign to our_interceptor before we get here" );
+    our_interceptor->DecoratorFunc( type, context, message );
+}
 
 } // namespace
 
