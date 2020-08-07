@@ -13,7 +13,7 @@ namespace project
 {
 namespace
 {
-    ResourceHelper helper;
+ResourceHelper helper;
 } // namespace
 
 /*static*/ void ResourceHelper::ExportContextPropertiesToQml( QQmlEngine* engine )
