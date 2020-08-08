@@ -60,6 +60,9 @@ fi
 # (Essentially, the name is based on QCoreApplication::applicationName)
 # put our QML-warnings suppressions list where it can be found during testing:
 cp tools/gui_test/app_qml_suppressed_warnings.txt /tmp/
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  cp tools/gui_test/app_qml_suppressed_warnings.txt ${TMPDIR}/
+fi
 
 # run gui tests which execute the actual app binary:
 tools/gui_test/launch_gui_for_display.sh "${XDISPLAY}"
