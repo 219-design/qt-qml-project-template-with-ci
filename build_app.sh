@@ -37,8 +37,8 @@ fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   pushd build/src/app >& /dev/null
-    macdeployqt app.app -libpath=$PWD -qmldir=../../../src/
-    macdeployqt lib_tests.app -libpath=$PWD -qmldir=../../../src/
+    macdeployqt app.app -no-strip -libpath=$PWD -qmldir=../../../src/
+    macdeployqt lib_tests.app -no-strip -libpath=$PWD -qmldir=../../../src/
   popd >& /dev/null
 
   ./build_ios_app.sh
