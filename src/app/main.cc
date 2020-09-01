@@ -16,7 +16,7 @@
 
 int main( int argc, char* argv[] )
 {
-    qSetMessagePattern( QString( "[QT-%{type}][v-" ) + project::GIT_HASH_WHEN_BUILT
+    qSetMessagePattern( QString( "%{time yyyy-MM-dd hh:mm:ss} [QT-%{type}][v-" ) + project::GIT_HASH_WHEN_BUILT
                         + "][thr:%{threadid}]%{if-category}%{category}: %{endif}%{file}(%{line}): %{message}" );
 
     // project::log used for DEMONSTRATION. Prefer Qt logging where available.
