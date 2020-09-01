@@ -2,9 +2,8 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
+  CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
   ${CUR_GIT_ROOT}/tools/ci/provision_mac.sh
   exit 0
 fi
@@ -72,6 +71,7 @@ sudo apt-get --assume-yes install \
   zlib1g:i386
 
 ## BEGIN: clang-format from LLVM
+CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 ${CUR_GIT_ROOT}/tools/ci/get_llvm_clang-format.sh
 ## END: clang-format from LLVM
 

@@ -20,9 +20,10 @@ CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 cd $CUR_GIT_ROOT
 rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps locally.
 
-if [[ "$OSTYPE" != "darwin"* ]]; then
-  # -g flag causes app to close when test is done:
-  gdb -batch -return-child-result -ex "set args -g -v" -ex "run" -ex "bt" ${CUR_GIT_ROOT}/build/src/app/app 2>&1 | tee gui_test.log
+if [[ -n ${BITBUCKET_REPO_OWNER-} ]]; then
+  ${CUR_GIT_ROOT}/build/src/app/app -g 2>&1 | tee gui_test.log
+ elif [[ "$OSTYPE" != "darwin"* ]]; then
+   gdb -batch -return-child-result -ex "set args -g -v" -ex "run" -ex "bt" ${CUR_GIT_ROOT}/build/src/app/app 2>&1 | tee gui_test.log
 else
   build/src/app/app.app/Contents/MacOS/app -g 2>&1 | tee gui_test.log
 fi
