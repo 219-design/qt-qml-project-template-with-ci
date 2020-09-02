@@ -13,6 +13,4 @@ pipelines:
   default:
     - step:
         script:
-          # TODO - look into why bitbucket chokes on this in more detail 
-          - export MYAPP_TEMPLATE_SKIP_APPIMAGE=1
           - ./run_all_tests.sh
