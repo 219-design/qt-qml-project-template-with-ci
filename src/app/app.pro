@@ -1,6 +1,6 @@
 !include($$top_srcdir/compiler_flags.pri) { error() }
 
-QT += core qml quick svg widgets
+QT += core qml quick svg widgets quickcontrols2
 
 SOURCES += \
     event_filter.cc \

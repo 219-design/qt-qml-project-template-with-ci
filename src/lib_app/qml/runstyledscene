@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+
+CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+
+source $CUR_GIT_ROOT/path_to_qmake.bash # path to qmake is also path to qmlscene
+
+# In order to cause our DebugRectangle instances to become visible, uncomment:
+# export QT_QUICK_CONTROLS_MATERIAL_ACCENT="#0B610B"
+
+# In order that all the qml 'import' statements for our supporting libraries can
+# successfully load, you must feed some additional paths to qmlscene like so:
+
+qmlscene -I ../../libstyles/imports/ -style fusion "$@"
