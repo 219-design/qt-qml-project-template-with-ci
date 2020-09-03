@@ -12,6 +12,9 @@ ApplicationWindow {
   id: rootx
 
   title: "Hello World"
+
+  // Perform palette overrides at root ApplicationWindow to affect whole app:
+  // palette.window: '#777777' // <-- when using QQuickStyle::setStyle, you can override palette
   width: 400
   height: 720
   visible: true
