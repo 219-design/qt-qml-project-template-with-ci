@@ -26,16 +26,30 @@ post.](https://www.219design.com/hello-world-template-toolchain/)
 
 ## How to Start Using this Template Repository
 
-There are two recommended ways for you to begin your own project based off of
+There are two supported ways for you to begin your own project based off of
 this repository. You need only choose one.
 
 ### Use via GitHub
+
+Note: While GitHub indeed provides a one-click solution that will result in a
+fully-functioning copy of this project, we nevertheless recommend the
+Cookiecutter method (next section) due the flexibility it provides for renaming
+the whole project (and C++ namespace) at once.
 
 To use via GitHub, log in at github.com, visit this project's hompage
 (https://github.com/219-design/qt-qml-project-template-with-ci), and click the
 "Use this template" button in the GitHub web UI.
 
+In response to your button click, GitHub will create a copy of this repo that is
+owned by *your* GitHub account.
+
+You then need to clone *your* new repo using [the normal GitHub procedures](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
+
+You must also read "Your first commit" (below) before continuing further:
+
 ### Use via Cookiecutter
+
+(Skip this section if you chose to click GitHub's "Use this template" button.)
 
 Get [cookiecutter](https://cookiecutter.readthedocs.io/).
 
@@ -46,13 +60,33 @@ cookiecutter https://github.com/219-design/qt-qml-project-template-with-ci --che
 ```
 
 Follow the cookiecutter prompts to provide your own project name and author
-infomation. Doing so will customize the source files with your own information.
+information. Doing so will customize the source files with your own
+authorship/copyright information.
 
-Once cookiecutter has completed its work, `cd` into the project directory and run:
+You must also read "Your first commit" (below) before continuing further:
 
+### Your first commit:
+
+Once either the GitHub "Use this template" button or cookiecutter has completed
+its work, `cd` into the project directory and:
+
+- If you used cookiecutter, then run:
 ```
 ./init_repo.sh
 ```
+
+- If you used GitHub's "Use this template" button, then run:
+```
+cookiecutter/init_repo.sh
+```
+
+The final line of output from the `init_repo.sh` script will be:
+
+> Examine git status to see if clang-format made changes.
+
+
+Please do as it says, and run `git status` and choose to commit any clang
+formatting changes.
 
 After that, please proceed to "How to build" (below) before continuing further:
 
@@ -62,13 +96,18 @@ After that, please proceed to "How to build" (below) before continuing further:
      - Ubuntu 18.04 LTS "Bionic"
      - Mac OS X 10.15 "Catalina"
 
-2. Visually inspect the file `tools/ci/provision.sh` (or `provision_mac.sh`) to
-   learn which `apt` (or `homebrew`) packages are required. Use your own
-   preferred `apt` commands or equivalent methods to install those required
-   packages.
-   (`provision.sh` is executed in the GitHub action runner instance prior to
-   running the continuous integration build-and-test routines. It may or may not
-   be a provisioning script that you wish to run locally. Read it and choose.)
+2. Run *one* of the following, depending on your host platform (the second one is for Mac OS X):
+     - `tools/ci/provision.sh`
+     - `tools/ci/provision_mac.sh`
+
+   Do *not* run as root, but *do* be prepared to enter a sudoer password when
+   prompted. Visually inspect the file `tools/ci/provision.sh` (or
+   `provision_mac.sh`) to learn which `apt` (or `homebrew`) packages are
+   required. If you prefer to install the required libraries via other means,
+   then feel free to use your own preferred `apt` commands or equivalent methods
+   to install those required packages.  (`provision.sh` is executed in the
+   GitHub action runner instance prior to running the continuous integration
+   build-and-test routines. We know that it works well there.)
 
 3. (Optional) To enable the Android build and/or the linuxdeployqt step, you can
    set the following variables before proceeding. This will add several minutes
@@ -102,9 +141,10 @@ After that, please proceed to "How to build" (below) before continuing further:
 
 ### Notes About Qt Version
 
-The build scripts of this project download pre-built Qt modules using a local
-copy of the
-[script provided by Qbs](https://github.com/qbs/qbs/blob/495d7767af8/scripts/install-qt.sh).
+The build scripts of this project download pre-built Qt modules using
+[aqtinstall](https://github.com/miurahr/aqtinstall) on Linux and a local copy of
+the [script provided by Qbs](https://github.com/qbs/qbs/blob/495d7767af8/scripts/install-qt.sh)
+on Mac OS X.
 
 Because the Qt modules are downloaded during the build, you do not need to
 install Qt before using this repository. Just follow "How to build" above.
