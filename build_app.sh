@@ -31,7 +31,7 @@ pushd build >& /dev/null
 
 popd >& /dev/null
 
-if [[ -z ${MYAPP_TEMPLATE_SKIP_ANDROID-} ]]; then
+if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
   tools/ci/build_android_app.sh
 fi
 
