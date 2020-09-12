@@ -13,4 +13,6 @@ pipelines:
   default:
     - step:
         script:
+          - export MYAPP_TEMPLATE_BUILD_ANDROID=1
+          - export MYAPP_TEMPLATE_BUILD_APPIMAGE=1
           - ./run_all_tests.sh
