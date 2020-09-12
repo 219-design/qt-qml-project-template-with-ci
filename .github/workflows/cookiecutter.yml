@@ -27,4 +27,6 @@ jobs:
       env:
         COOKIECUTTER_PUSH_USER: ${{ secrets.COOKIECUTTER_PUSH_USER }}
         COOKIECUTTER_PUSH_TOKEN: ${{ secrets.COOKIECUTTER_PUSH_TOKEN }}
+        MYAPP_TEMPLATE_BUILD_ANDROID: 1
+        MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
       run: ./cookiecutter/cutterize_and_test.sh

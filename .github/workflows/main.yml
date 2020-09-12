@@ -28,4 +28,7 @@ jobs:
       run: sed -e 's/azure.archive.ubuntu.com/us.archive.ubuntu.com/g' -e t -e d /etc/apt/sources.list | sudo tee /etc/apt/sources.list.d/nonazure.list
 
     - name: run_all_tests
+      env:
+        MYAPP_TEMPLATE_BUILD_ANDROID: 1
+        MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
       run: ./run_all_tests.sh

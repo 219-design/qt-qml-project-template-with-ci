@@ -70,9 +70,12 @@ After that, please proceed to "How to build" (below) before continuing further:
    running the continuous integration build-and-test routines. It may or may not
    be a provisioning script that you wish to run locally. Read it and choose.)
 
-3. If you do not wish to build for Android, then you can avoid unnecessary
-   lengthening of the build times by issuing:
-   `export MYAPP_TEMPLATE_SKIP_ANDROID=1`
+3. (Optional) To enable the Android build and/or the linuxdeployqt step, you can
+   set the following variables before proceeding. This will add several minutes
+   to the build time, so only enable it if you need to.
+
+    - `export MYAPP_TEMPLATE_BUILD_ANDROID=1 # optional`
+    - `export MYAPP_TEMPLATE_BUILD_APPIMAGE=1 # optional`
 
 4. In a terminal, run `build_app.sh`
 

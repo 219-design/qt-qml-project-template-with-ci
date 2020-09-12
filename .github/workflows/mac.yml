@@ -11,7 +11,4 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: run_all_tests
-      env:
-        MYAPP_TEMPLATE_SKIP_ANDROID: 1
-        MYAPP_TEMPLATE_SKIP_APPIMAGE: 1
       run: ./run_all_tests.sh
