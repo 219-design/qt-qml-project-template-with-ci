@@ -250,6 +250,7 @@ static inline bool GetEnv_WinOnly( const char* name )
 #    ifdef _UNICODE
     wchar_t wtext[ 500 ];
     mbstowcs_s( &converted, wtext, 500, name, 480 );
+    LPCWSTR ptr = wtext;
 #    else
     LPCSTR ptr = name;
 #    endif

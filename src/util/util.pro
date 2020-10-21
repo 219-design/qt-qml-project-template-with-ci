@@ -11,6 +11,11 @@ TEMPLATE = lib
   CONFIG += shared
 }
 
+win32 {
+    CONFIG -= shared
+    CONFIG += staticlib
+}
+
 SOURCES += \
     am_i_inside_debugger.cc \
     every_so_often.cc \

@@ -6,6 +6,10 @@ TEMPLATE = lib
 !ios {
   CONFIG += shared
 }
+win32 {
+    CONFIG -= shared
+    CONFIG += staticlib
+}
 
 TARGET  = testmain
 

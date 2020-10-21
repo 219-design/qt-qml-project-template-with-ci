@@ -11,9 +11,11 @@
 #include <QtCore/QObject>
 #include <QtQml/QQmlEngine>
 
+#include "libstyles_global.h"
+
 namespace project
 {
-class ResourceHelper : public QObject
+class LIBSTYLES_EXPORT ResourceHelper : public QObject
 {
     Q_OBJECT
 
