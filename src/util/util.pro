@@ -7,6 +7,11 @@ TEMPLATE = lib
   CONFIG += shared
 }
 
+win32 {
+    CONFIG -= shared
+    CONFIG += staticlib
+}
+
 SOURCES += \
     every_so_often.cc \
     qml_message_interceptor.cc

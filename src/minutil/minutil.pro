@@ -4,8 +4,14 @@
 
 TEMPLATE = lib
 !ios {
-    CONFIG += shared
+  CONFIG += shared
 }
+
+win32 {
+    CONFIG -= shared
+    CONFIG += staticlib
+}
+
 
 SOURCES += \
     logger.cc

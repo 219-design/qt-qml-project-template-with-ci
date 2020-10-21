@@ -2,6 +2,10 @@
 
 QT += core
 
+win32 {
+	CONFIG += staticlib
+}
+
 SOURCES += \
     navigation_test.cc
 
