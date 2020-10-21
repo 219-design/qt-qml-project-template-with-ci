@@ -7,6 +7,11 @@ TEMPLATE = lib
   CONFIG += shared
 }
 
+win32 {
+    CONFIG -= shared
+    CONFIG += staticlib
+}
+
 RESOURCES = libresources.qrc
 
 SOURCES += \

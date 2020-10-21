@@ -1,5 +1,6 @@
 include($$top_srcdir/compiler_flags.pri)
 
+!win32 {
 # relax some of the checks that compiler_flags.pri normally enables:
 linux:!android {
     QMAKE_CXXFLAGS += "\
@@ -29,10 +30,15 @@ QMAKE_CXXFLAGS += "\
     -Wno-error=switch-enum \
     -Wno-error=undef \
     "
+}
 
 TEMPLATE = lib
 !ios {
   CONFIG += shared
+}
+win32 {
+    CONFIG -= shared
+    CONFIG += staticlib
 }
 
 SOURCES += \

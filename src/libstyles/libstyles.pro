@@ -2,6 +2,10 @@
 
 QT += core qml quick svg widgets
 
+win32 {
+	DEFINES += LIBSTYLES_LIBRARY
+}
+
 TEMPLATE = lib
 CONFIG += plugin
 

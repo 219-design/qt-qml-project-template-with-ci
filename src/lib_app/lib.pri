@@ -1,6 +1,6 @@
 # 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
 
-!include($$top_srcdir/android.pri) { error() }
+!include($$top_srcdir/cross_platform.pri) { error() }
 
 INCLUDEPATH += $${top_srcdir}
-LIBS += -L$$shadowed($$PWD) -lappimpl$${our_android_lib_suffix}
+LIBS += -L$$shadowed($$PWD)/$${win_build_folder_subdir} -lappimpl$${our_android_lib_suffix}

@@ -8,7 +8,9 @@
 
 #include <stdbool.h>
 #include <sys/types.h>
-#include <unistd.h>
+#if !defined( Q_OS_WIN )
+#    include <unistd.h>
+#endif
 
 #ifdef Q_OS_ANDROID
 #    include "android/detect_debugging.cc"

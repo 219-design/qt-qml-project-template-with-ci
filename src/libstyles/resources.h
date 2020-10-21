@@ -8,9 +8,11 @@
 #ifndef PROJ_LIBSTYLES_RESOURCES_H
 #define PROJ_LIBSTYLES_RESOURCES_H
 
+#include "libstyles_global.h"
+
 namespace project
 {
-void initLibStylesResources();
+void LIBSTYLES_EXPORT initLibStylesResources();
 } // namespace project
 
 #endif // PROJ_LIBSTYLES_RESOURCES_H
