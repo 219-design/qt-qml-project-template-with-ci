@@ -2,6 +2,9 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
+# https://github.com/actions/virtual-environments/issues/777
+sudo xcode-select -s "/Applications/Xcode_11.7.app"
+
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
 brew install \
