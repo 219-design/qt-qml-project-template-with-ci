@@ -36,6 +36,11 @@
 #ifndef GMOCK_INCLUDE_GMOCK_GMOCK_H_
 #define GMOCK_INCLUDE_GMOCK_GMOCK_H_
 
+#if defined( WIN32 ) || defined( _WIN32 )
+#    pragma warning( push )
+#    pragma warning( disable : 4514 )
+#endif // #if defined( WIN32 ) || defined( _WIN32 )
+
 // This file implements the following syntax:
 //
 //   ON_CALL(mock_object.Method(...))
@@ -90,5 +95,9 @@ GTEST_API_ void InitGoogleMock(int* argc, char** argv);
 GTEST_API_ void InitGoogleMock(int* argc, wchar_t** argv);
 
 }  // namespace testing
+
+#if defined( WIN32 ) || defined( _WIN32 )
+#    pragma warning( pop )
+#endif // #if defined( WIN32 ) || defined( _WIN32 )
 
 #endif  // GMOCK_INCLUDE_GMOCK_GMOCK_H_

@@ -24,7 +24,7 @@ run_a_test() {
 cd $CUR_GIT_ROOT
 
 # run all test binaries that got built in the expected dir:
-find build/src/app  \( -name '*test' -o -name '*tests' \) | run_a_test
+find build/src/app  \( -name '*test' -o -name '*tests' -o -name '*test.exe' -o -name '*tests.exe' \) | run_a_test
 
 echo 'We assume this was run with '\''set -x'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'

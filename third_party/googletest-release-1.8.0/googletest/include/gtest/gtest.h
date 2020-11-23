@@ -51,6 +51,11 @@
 #ifndef GTEST_INCLUDE_GTEST_GTEST_H_
 #define GTEST_INCLUDE_GTEST_GTEST_H_
 
+#if defined( WIN32 ) || defined( _WIN32 )
+#    pragma warning( push )
+#    pragma warning( disable : 4514 )
+#endif // #if defined( WIN32 ) || defined( _WIN32 )
+
 #include <limits>
 #include <ostream>
 #include <vector>
@@ -2232,5 +2237,9 @@ int RUN_ALL_TESTS() GTEST_MUST_USE_RESULT_;
 inline int RUN_ALL_TESTS() {
   return ::testing::UnitTest::GetInstance()->Run();
 }
+
+#if defined( WIN32 ) || defined( _WIN32 )
+#    pragma warning( pop )
+#endif // #if defined( WIN32 ) || defined( _WIN32 )
 
 #endif  // GTEST_INCLUDE_GTEST_GTEST_H_

@@ -9,6 +9,7 @@
 #
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+IFS=$'\n\t'
 
 # you may need to:
 # sudo apt install clang-format-6.0
@@ -21,13 +22,15 @@ then
     only_report=1
 fi
 
+GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.txt"
+
 check_clang_format() {
   if [ $only_report != 0 ]; then
       while read filenames; do
         for d in "$filenames"; do
           echo $d
           clang_result=$(clang-format-10 -style=file -output-replacements-xml "$d")
-          diff  <(echo $clang_result) <(cat "${THISDIR}/clang-format-6.0_clean_output.txt")
+          diff  <(echo $clang_result) <(cat "${THISDIR}/${GOLDEN_RESULT_FILE}")
           diff_rslt=$?
           # per 'man diff': Exit status is 0 if inputs are the same
           # If someone disables 'set -x', then explicitly fail here regardless:
@@ -47,6 +50,12 @@ check_clang_format() {
 }
 
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+
+if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+  WINBASHPATH=$(cygpath -u $CUR_GIT_ROOT)
+  export PATH="$WINBASHPATH/dl_third_party/win_bin/:$PATH"
+  GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.win.txt.disableattr"
+fi
 
 cd $CUR_GIT_ROOT
 top_level_dirs=(*/)

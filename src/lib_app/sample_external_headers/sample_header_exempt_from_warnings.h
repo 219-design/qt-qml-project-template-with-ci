@@ -27,6 +27,15 @@
  */
 namespace project
 {
+#if defined( WIN32 ) || defined( _WIN32 )
+// TODO: configure win32 more akin to linux '-isystem', so this pragma can disappear
+#    pragma warning( push )
+#    pragma warning( disable : 4100 )
+#    pragma warning( disable : 4189 )
+#    pragma warning( disable : 4458 )
+#    pragma warning( disable : 4514 )
+#endif // #if defined( WIN32 ) || defined( _WIN32 )
+
 struct SampleHelper
 {
     int member = 0;
@@ -44,6 +53,10 @@ struct SampleHelper
     static constexpr double NUM = 3.33333;
     bool x = (bool) NUM; // [-Werror=old-style-cast]
 };
+
+#if defined( WIN32 ) || defined( _WIN32 )
+#    pragma warning( pop ) // TODO: configure win32 more akin to linux '-isystem', so this pragma can disappear
+#endif // #if defined( WIN32 ) || defined( _WIN32 )
 
 } // namespace project
 

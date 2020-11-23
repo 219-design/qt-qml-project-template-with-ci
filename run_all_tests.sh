@@ -10,6 +10,15 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
+if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+  if [[ -z ${VCToolsInstallDir-} ]]; then
+    echo "WHOOPS. vcvars64 (or vcvarsall) was not called yet."
+    echo "You MUST start a VISUAL STUDIO command prompt. (Then start git-bash from within it.)"
+    echo "Read the above and try again."
+    exit 1
+  fi
+fi
+
 # https://web.archive.org/web/20191121235402/https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html
 if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REPO_FULL_NAME-} ]];
 # The '-' hyphens above test without angering the 'set -u' about unbound variables
@@ -37,14 +46,25 @@ else
   XDISPLAY=""
 fi
 
-tools/formatters/enforce_qml_format.sh check_only
-tools/formatters/enforce_clang_format.sh check_only
+if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+  #tools/formatters/enforce_qml_format.sh check_only # TODO: qmlfmt on win32?
+  tools/formatters/enforce_clang_format.sh check_only
+else
+  tools/formatters/enforce_qml_format.sh check_only
+  tools/formatters/enforce_clang_format.sh check_only
+fi
 
 
 ./build_app.sh
 
 # run all test binaries that got built in the expected dir:
 tools/auto_test/run_cpp_auto_tests.sh
+
+if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+  ####################   EARLY EXIT FOR MICROSOFT WINDOWS.  (TODO: tools/gui_test for WIN32)
+  echo 'EARLY EXIT FOR MICROSOFT WINDOWS.  (TODO: tools/gui_test for WIN32)'
+  exit 0
+fi
 
 if [[ -n ${XDISPLAY-} ]]; then
   if [[ "$OSTYPE" != "darwin"* ]]; then
