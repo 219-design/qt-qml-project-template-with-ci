@@ -1,0 +1,24 @@
+#
+# Copyright (c) 2020, 219 Design, LLC
+# See LICENSE.txt
+#
+# https://www.219design.com
+# Software | Electrical | Mechanical | Product Design
+#
+name: Win_CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: run_windows
+      shell: cmd
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        "C:\Program Files\Git\bin\bash.exe" run_all_tests.sh

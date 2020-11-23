@@ -39,6 +39,11 @@ TEMPLATE = lib
 win32 {
     CONFIG -= shared
     CONFIG += staticlib
+
+    QMAKE_CXXFLAGS += "\
+       /wd4514 \
+       /wd4061 \
+       "
 }
 
 SOURCES += \

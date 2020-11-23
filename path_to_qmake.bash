@@ -12,6 +12,10 @@ DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH="$DL_FOLDER/Qt_desktop/5.15.0/clang_64/bin/:$PATH"
+elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+  WINDLPATH=$(cygpath -u $DL_FOLDER)
+  export PATH="${WINDLPATH}/Qt_desktop/5.15.0/msvc2019_64/bin:$PATH"
+  export WINALLQML="${DL_FOLDER}/Qt_desktop/5.15.0/msvc2019_64/qml"
 else
   if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
     export PATH="$DL_FOLDER/Qt_desktop/6.0.0/gcc_64/bin/:$PATH"

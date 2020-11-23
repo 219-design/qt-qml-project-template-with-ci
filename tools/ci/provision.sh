@@ -8,6 +8,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   exit 0
 fi
 
+if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+  CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+  ${CUR_GIT_ROOT}/tools/ci/provision_win.sh
+  exit 0
+fi
+
 # This only comes into play for certain dconf-able(s) like tzdata
 export DEBIAN_FRONTEND=noninteractive # in addition to --assume-yes
 
