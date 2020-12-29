@@ -23,7 +23,9 @@ rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps 
 if [[ -n ${BITBUCKET_REPO_OWNER-} ]]; then
   ${CUR_GIT_ROOT}/build/src/app/app -g 2>&1 | tee gui_test.log
  elif [[ "$OSTYPE" != "darwin"* ]]; then
-   gdb -n -batch -return-child-result -ex "set args -g -v" -ex "run" -ex "bt" ${CUR_GIT_ROOT}/build/src/app/app 2>&1 | tee gui_test.log
+    # "run, bt, run" is a workaround for a gdb behavior change between gdb 8 and gdb 9
+    # for more info, see: https://sourceware.org/bugzilla/show_bug.cgi?id=27125
+    gdb -n -batch -return-child-result -ex "set args -g -v" -ex "run" -ex "bt" -ex "run" ${CUR_GIT_ROOT}/build/src/app/app 2>&1 | tee gui_test.log
 else
   build/src/app/app.app/Contents/MacOS/app -g 2>&1 | tee gui_test.log
 fi
