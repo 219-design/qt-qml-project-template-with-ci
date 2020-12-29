@@ -33,7 +33,7 @@ popd >& /dev/null
 
 if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
   tools/ci/get_android_toolchain.sh
-  tools/ci/build_android_app.sh
+  tools/ci/build_android_app.sh build/for_android "CONFIG+=force_debug_info"
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
