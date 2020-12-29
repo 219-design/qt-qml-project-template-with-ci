@@ -182,6 +182,13 @@ ApplicationWindow {
         font: Theme.solidIconStretchToMaxFitFont
         fontSizeMode: Text.Fit
         color: Theme.accentDark
+
+        MouseArea {
+          anchors.fill: parent
+          onClicked: {
+            customLoggingCategories.handleMobileLink("email test on android")
+          }
+        }
       }
     }
 

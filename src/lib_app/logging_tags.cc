@@ -12,6 +12,10 @@
 
 #include "src/lib_app/cli_options.h"
 
+#ifdef Q_OS_ANDROID
+#    include "src/lib_app/android/intent_to_email.cc"
+#endif // Q_OS_ANDROID
+
 namespace project
 {
 // refer to comments in our header file to see why we store this string here
@@ -49,4 +53,17 @@ QString LoggingTags::GuiTestingLogTag() const
     return GUI_TEST_LOG_TAG; // exposed as a Q_PROPERTY
 }
 
+void LoggingTags::handleMobileLink( const QString& emailSubj )
+{
+#ifdef Q_OS_ANDROID
+    // no built-in qt thing we tried would succeed in opening an email client on android,
+    // so we rolled our own:
+    AndroidHandleMobileLink( emailSubj, "body text here" );
+#else
+    (void) emailSubj;
+    qWarning() << "handleMobileLink needs an IMPLEMENTATION. Currently does nothing.";
+    // on platforms other than android, you can construct a mailto link and use:
+    //    QDesktopServices::openUrl( link );
+#endif // Q_OS_ANDROID
+}
 } // namespace project

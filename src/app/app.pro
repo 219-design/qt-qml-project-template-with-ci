@@ -25,6 +25,15 @@ INCLUDEPATH += $${top_srcdir}/build/generated_files # for version.h
 QML_ROOT_PATH += \
     $${top_srcdir}/src
 
+android {
+    QT += androidextras
+
+    DISTFILES += \
+        $$top_srcdir/src/lib_app/android/AndroidManifest.xml
+
+    ANDROID_PACKAGE_SOURCE_DIR = $$top_srcdir/src/lib_app/android
+}
+
 ios {
     QMAKE_INFO_PLIST = $$top_srcdir/src/app/ios/Info.plist
 
