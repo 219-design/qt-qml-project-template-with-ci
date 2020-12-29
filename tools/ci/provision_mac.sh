@@ -13,6 +13,8 @@ brew install \
      gdbm \
      glib \
      gnu-sed \
+     graphviz \
+     grep \
      libtool \
      p7zip \
      pcre \
