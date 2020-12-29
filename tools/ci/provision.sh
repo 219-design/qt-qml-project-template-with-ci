@@ -31,6 +31,7 @@ sudo apt-get update
 sudo apt-get --assume-yes install \
   build-essential \
   curl \
+  graphviz \
   gdb \
   git \
   gnupg \
