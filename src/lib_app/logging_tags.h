@@ -48,6 +48,11 @@ public:
 
     QString GuiTestingLogTag() const;
 
+    // Feel free to move this to some other utility/helper viewModel.
+    // It was added to LoggingTags at a time when LoggingTags was the only
+    // object in the base template repository that implemented ExportContextPropertiesToQml
+    Q_INVOKABLE void handleMobileLink( const QString& emailSubj );
+
 signals:
     void EventGuiTestingLogTagChanged();
 };

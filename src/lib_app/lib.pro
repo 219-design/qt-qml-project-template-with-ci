@@ -15,6 +15,13 @@ SOURCES += \
     logging_tags.cc \
     resources.cc
 
+android {
+    QT += androidextras
+
+    SOURCES += \
+        android/intent_to_email.cc
+}
+
 HEADERS += \
     cli_options.h \
     lib.h \
