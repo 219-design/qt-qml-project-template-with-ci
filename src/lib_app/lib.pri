@@ -3,4 +3,4 @@
 !include($$top_srcdir/android.pri) { error() }
 
 INCLUDEPATH += $${top_srcdir}
-LIBS += -L$$shadowed($$PWD) -lapp$${our_android_lib_suffix}
+LIBS += -L$$shadowed($$PWD) -lappimpl$${our_android_lib_suffix}

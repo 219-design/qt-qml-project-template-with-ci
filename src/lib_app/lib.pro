@@ -25,7 +25,7 @@ HEADERS += \
 !include(../libstyles/libstyles.pri) { error() }
 !include(../util/util.pri) { error() }
 
-TARGET = app
+TARGET = appimpl
 
 target.path = $$top_exe_dir
 INSTALLS += target
