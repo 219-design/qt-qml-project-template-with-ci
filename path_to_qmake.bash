@@ -13,5 +13,9 @@ DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
 if [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH="$DL_FOLDER/Qt_desktop/5.15.0/clang_64/bin/:$PATH"
 else
-  export PATH="$DL_FOLDER/Qt_desktop/5.15.0/gcc_64/bin/:$PATH"
+  if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
+    export PATH="$DL_FOLDER/Qt_desktop/6.0.0/gcc_64/bin/:$PATH"
+  else
+    export PATH="$DL_FOLDER/Qt_desktop/5.15.0/gcc_64/bin/:$PATH"
+  fi
 fi
