@@ -106,7 +106,7 @@ bool IndividualWarningIsMarkedAsIgnored( const QString& currentLogMessage )
             // Note: do not log this with Qt logging, since we are currently
             // IN A HANDLER PROCESSING Qt logging.
             fprintf( stderr, "qml_message_interceptor applied %d usable suppression(s) in: %s\n",
-                ignoredMessages.count(), fileInfo.absoluteFilePath().toStdString().c_str() );
+                static_cast<int>( ignoredMessages.count() ), fileInfo.absoluteFilePath().toStdString().c_str() );
         }
     }
 
