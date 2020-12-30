@@ -22,8 +22,15 @@ android {
         android/intent_to_email.cc
 }
 
+ios {
+    SOURCES += ios/ios_log_redirect.mm
+} else {
+    SOURCES += ios/ios_log_redirect.cc
+}
+
 HEADERS += \
     cli_options.h \
+    ios/ios_log_redirect.h \
     lib.h \
     logging_tags.h \
     resources.h
