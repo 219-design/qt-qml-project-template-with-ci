@@ -12,10 +12,12 @@ TEMPLATE = lib
 }
 
 SOURCES += \
+    am_i_inside_debugger.cc \
     every_so_often.cc \
     qml_message_interceptor.cc
 
 HEADERS += \
+    am_i_inside_debugger.h \
     every_so_often.h \
     qml_list_property_helper.h \
     qml_message_interceptor.h \
