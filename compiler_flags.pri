@@ -7,9 +7,15 @@
 #
 
 linux:!android {
+  greaterThan(QT_MAJOR_VERSION, 5) {
+    QMAKE_CXX = g++-9
+    QMAKE_LINK = g++-9
+    QMAKE_CC = gcc-9
+  } else {
     QMAKE_CXX = g++-7
     QMAKE_LINK = g++-7
     QMAKE_CC = gcc-7
+  }
 }
 
 CONFIG += c++17
@@ -26,7 +32,6 @@ ios|macx {
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtConcurrent
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtCore
-QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtFontDatabaseSupport
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtGui
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtHelp
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtQml
@@ -38,6 +43,11 @@ QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtQuickWidgets
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtTest
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtWidgets
 QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtXml
+
+lessThan(QT_MAJOR_VERSION, 6) {
+    QMAKE_CXXFLAGS += -isystem $$[QT_INSTALL_HEADERS]/QtFontDatabaseSupport
+}
+
 
 unix:!android {
     # So the exe will launch if we put all our '*.so' dylibs side-by-side with it.
@@ -116,7 +126,7 @@ QMAKE_CXXFLAGS += "\
     QMAKE_CXXFLAGS += "\
         -Wno-error=missing-noreturn \
         -Wno-error=sign-conversion \
-	"
+        "
 }
 
 !include($$top_srcdir/src/assert/assert.pri) { error() } # allows all code to include util-assert.h

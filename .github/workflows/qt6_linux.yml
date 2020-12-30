@@ -5,14 +5,14 @@
 # https://www.219design.com
 # Software | Electrical | Mechanical | Product Design
 #
-name: Linux_CI
+name: qt6_linux
 
 on: [push]
 
 jobs:
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v1
@@ -29,6 +29,7 @@ jobs:
 
     - name: run_all_tests
       env:
-        MYAPP_TEMPLATE_BUILD_ANDROID: 1
-        MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
+        # MYAPP_TEMPLATE_BUILD_ANDROID: 1 # we've not yet established a working qt6 android setup
+        # MYAPP_TEMPLATE_BUILD_APPIMAGE: 1 # we've not yet established a working qt6 appimage setup
+        MYAPP_TEMPLATE_QT6: 1
       run: ./run_all_tests.sh

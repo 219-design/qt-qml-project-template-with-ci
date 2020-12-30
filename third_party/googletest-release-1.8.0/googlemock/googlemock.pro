@@ -7,6 +7,12 @@ linux:!android {
         -Wno-error=suggest-attribute=format \
         -Wno-error=suggest-attribute=noreturn \
         "
+
+  greaterThan(QT_MAJOR_VERSION, 5) {
+    QMAKE_CXXFLAGS += "\
+        -Wno-error=deprecated-copy \
+        "
+  }
 }
 
 linux:android {

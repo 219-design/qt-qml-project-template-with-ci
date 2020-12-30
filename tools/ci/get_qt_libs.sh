@@ -17,17 +17,38 @@ if [ -d $DL_FOLDER/Qt_desktop/5.15.0/gcc_64/bin ]; then
     echo "no need to download qt5 for desktop"
 else
 
-  # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-  python3 -m aqt install --outputdir $DL_FOLDER/Qt_desktop 5.15.0 linux desktop --archives \
-   icu \
-   qtbase \
-   qtconnectivity \
-   qtdeclarative \
-   qtgraphicaleffects \
-   qtimageformats \
-   qtquickcontrols \
-   qtquickcontrols2 \
-   qtsvg \
-   qttools
+  if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
+    # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
+    python3 -m aqt install --outputdir $DL_FOLDER/Qt_desktop 6.0.0 linux desktop --archives \
+     icu \
+     qtbase \
+     qtconnectivity \
+     qtdeclarative \
+     qtgraphicaleffects \
+     qtimageformats \
+     qtquickcontrols \
+     qtquickcontrols2 \
+     qtsvg \
+     qttools
+
+    # we still need qt5 in order to execute qmlfmt. (until we can recompile qmlfmt with qt6)
+    # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
+    python3 -m aqt install --outputdir $DL_FOLDER/Qt_desktop 5.15.0 linux desktop --archives \
+     icu \
+     qtbase
+  else
+    # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
+    python3 -m aqt install --outputdir $DL_FOLDER/Qt_desktop 5.15.0 linux desktop --archives \
+     icu \
+     qtbase \
+     qtconnectivity \
+     qtdeclarative \
+     qtgraphicaleffects \
+     qtimageformats \
+     qtquickcontrols \
+     qtquickcontrols2 \
+     qtsvg \
+     qttools
+  fi
 
 fi
