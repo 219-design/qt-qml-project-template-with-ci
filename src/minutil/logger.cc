@@ -3,6 +3,7 @@
 #undef printf // undo the "poison" from our own logger.h file
 #undef fprintf // undo the "poison" from our own logger.h file
 
+#include <cassert>
 #include <iostream>
 #include <sstream>
 #include <stdarg.h>
@@ -29,13 +30,15 @@ std::string GetDateTimeString()
     constexpr int BUFF_SIZE = 32;
     char buff[ BUFF_SIZE ];
     memset( buff, '\0', BUFF_SIZE );
-    snprintf( buff,
+    const int printfResult = snprintf( buff,
         sizeof( buff ),
         "%04d-%02d-%02d %02d:%02d:%02d",
         ( result.tm_year + 1900 ), // tm struct counts years from 1900
         result.tm_mon + 1, // tm struct counts months starting with 0
         result.tm_mday,
         result.tm_hour, result.tm_min, result.tm_sec );
+    // Next line added per: https://stackoverflow.com/questions/51534284/how-to-circumvent-format-truncation-warning-in-gcc
+    assert( printfResult < static_cast<int>( sizeof( buff ) ) );
 
     return std::string( buff );
 }

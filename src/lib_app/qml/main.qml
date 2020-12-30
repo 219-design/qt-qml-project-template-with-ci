@@ -1,4 +1,3 @@
-import QtGraphicalEffects 1.12
 // Copyright (c) 2020, 219 Design, LLC
 // See LICENSE.txt
 // https://www.219design.com
