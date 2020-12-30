@@ -7,6 +7,7 @@ digraph "source tree" {
 	clusterrank="local";
 	"event_filter" -> "every_so_often"
 	"lib" -> "quarantined_awaiting_warning_fixes"
+	"main" -> "ios_log_redirect"
 	"main" -> "logger"
 	"main" -> "view_model_collection"
 	"quarantined_awaiting_warning_fixes" -> "sample_header_exempt_from_warnings"
