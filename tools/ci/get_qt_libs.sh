@@ -11,6 +11,9 @@ CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
 DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
 
+QTMIRROR='http://mirrors.ocf.berkeley.edu/qt/'
+QTSIXMIRROR='http://ftp.fau.de/qtproject'
+
 sudo pip3 install aqtinstall  # https://github.com/miurahr/aqtinstall
 
 if [ -d $DL_FOLDER/Qt_desktop/5.15.0/gcc_64/bin ]; then
@@ -19,7 +22,7 @@ else
 
   if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install --outputdir $DL_FOLDER/Qt_desktop 6.0.0 linux desktop --archives \
+    python3 -m aqt install --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop 6.0.0 linux desktop --archives \
      icu \
      qtbase \
      qtconnectivity \
@@ -33,12 +36,12 @@ else
 
     # we still need qt5 in order to execute qmlfmt. (until we can recompile qmlfmt with qt6)
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install --outputdir $DL_FOLDER/Qt_desktop 5.15.0 linux desktop --archives \
+    python3 -m aqt install --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop 5.15.0 linux desktop --archives \
      icu \
      qtbase
   else
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install --outputdir $DL_FOLDER/Qt_desktop 5.15.0 linux desktop --archives \
+    python3 -m aqt install --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop 5.15.0 linux desktop --archives \
      icu \
      qtbase \
      qtconnectivity \
