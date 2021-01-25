@@ -28,6 +28,13 @@ fi
 sudo dpkg --add-architecture i386
 
 sudo apt-get update
+
+# handling libc6:i386 all by itself, and right up front, seems to
+# workaround some kind of recurring ubuntu apt issue. see:
+# https://bugs.launchpad.net/ubuntu-cdimage/+bug/1871268
+# https://github.com/openjdk/jdk/pull/2128/files
+sudo apt-get --assume-yes install libc6:i386 libc6-dev:i386
+
 sudo apt-get --assume-yes install \
   build-essential \
   curl \
