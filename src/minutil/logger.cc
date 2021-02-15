@@ -11,7 +11,15 @@
 #include <string>
 #include <thread>
 #include <time.h>
-#include <unistd.h>
+
+#if defined( WIN32 ) || defined( _WIN32 )
+#    include <io.h>
+#    include <stdlib.h>
+#    include <wchar.h>
+#    include <windows.h>
+#else
+#    include <unistd.h>
+#endif //if defined( WIN32 ) || defined( _WIN32 )
 
 namespace project
 {
@@ -19,6 +27,30 @@ namespace
 {
 std::string loggingGlobal_AppVersion;
 
+#if defined( WIN32 ) || defined( _WIN32 )
+std::string GetDateTimeString()
+{
+    SYSTEMTIME result = { 0 };
+
+    GetLocalTime( &result );
+
+    // YYYY-MM-DD_HH_MM_SS
+    constexpr int BUFF_SIZE = 32;
+    char buff[ BUFF_SIZE ];
+    memset( buff, '\0', BUFF_SIZE );
+    const int printfResult = snprintf( buff,
+        sizeof( buff ),
+        "%04d-%02d-%02d %02d:%02d:%02d",
+        ( result.wYear ), // tm struct counts years from 1900
+        result.wMonth, // tm struct counts months starting with 0
+        result.wDay,
+        result.wHour, result.wMinute, result.wSecond );
+    // Next line added per: https://stackoverflow.com/questions/51534284/how-to-circumvent-format-truncation-warning-in-gcc
+    assert( printfResult < static_cast<int>( sizeof( buff ) ) );
+
+    return std::string( buff );
+}
+#else
 std::string GetDateTimeString()
 {
     struct tm result;
@@ -42,6 +74,7 @@ std::string GetDateTimeString()
 
     return std::string( buff );
 }
+#endif //if defined( WIN32 ) || defined( _WIN32 )
 
 std::string GetPrefix()
 {
