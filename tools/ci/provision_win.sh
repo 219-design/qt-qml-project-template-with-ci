@@ -26,6 +26,9 @@ python -m aqt install --outputdir $DL_FOLDER/Qt_desktop 5.15.0 windows desktop w
         qtsvg \
         qttools
 
+
+git checkout ${DL_FOLDER}/Qt_desktop/5.15.0/msvc2019_64/mkspecs/qconfig.pri
+
 mkdir -p $DL_FOLDER/win_bin/
 
 pushd $DL_FOLDER/win_bin/ >& /dev/null
