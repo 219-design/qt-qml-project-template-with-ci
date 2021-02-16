@@ -95,10 +95,12 @@ After that, please proceed to "How to build" (below) before continuing further:
 1. Use one of these operating systems:
      - Ubuntu 18.04 LTS "Bionic"
      - Mac OS X 10.15 "Catalina"
+     - Windows 10; or Windows Server 2019 (**PLEASE SEE "Windows Notes" section, below**)
 
 2. Run *one* of the following, depending on your host platform (the second one is for Mac OS X):
      - `tools/ci/provision.sh`
      - `tools/ci/provision_mac.sh`
+     - `tools/ci/provision_win.sh`
 
    Do *not* run as root, but *do* be prepared to enter a sudoer password when
    prompted. Visually inspect the file `tools/ci/provision.sh` (or
@@ -138,6 +140,42 @@ After that, please proceed to "How to build" (below) before continuing further:
 
 6. (Optional) Assuming step (4) was successful, you can also invoke
    `run_all_tests.sh` to check that the binaries you built pass all their tests.
+
+### Windows Notes
+
+#### "Pre pre boostrap" actions
+
+This project is designed to mostly bootstrap itself.
+
+For example, you are **not** expected to install Qt before interacting with this
+project. This project contains provisioning scripts to do that for you.
+
+However, on Windows in particular, there are a small set of tasks you must do
+manually before interacting with this project.
+
+There are three fundamental tools you must obtain manually:
+
+ - Python 3 for Windows
+ - Git for Windows (Msys based git). https://git-scm.com/download/win
+ - Microsoft C++ Build Tools for Visual Studio 2019
+    - Note: The full-blown VS IDE is optional. The mandatory items are simply the tools (`cl.exe`, `nmake`, etc)
+
+Once you manually install Python, Git, and the MSVC Tools, you can perform a
+scripted build of this project in a terminal. To configure the terminal, you
+must initialize a basic cmd.exe prompt with `vcvars64.bat`, then instantiate the
+git-bash (msys `bash.exe`) instance nested therein.
+
+To see how this 'nested terminals' approach can be automated, refer to this
+project's github CI config:
+
+  - [.github/workflows/windows.yml](https://github.com/219-design/qt-qml-project-template-with-ci/blob/c1efff507a/.github/workflows/windows.yml#L20)
+
+To clarify what this cmd.exe/git-bash dance looks like when you perform it
+interactively, here is a video:
+
+  - https://drive.google.com/file/d/1UjC7wvUYnS6PEzhMfLWpKRsBrYK-UUAo
+     - (TODO: as of Feb 2021, we could benefit from making an even better video demo.)
+
 
 ### Notes About Qt Version
 
