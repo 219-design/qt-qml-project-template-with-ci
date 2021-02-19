@@ -9,7 +9,9 @@ win32 {
 TEMPLATE = lib
 CONFIG += plugin
 
-DESTDIR = imports/libstyles
+!win32 {
+  DESTDIR = imports/libstyles
+}
 TARGET  = libstylesplugin
 
 RESOURCES += \
