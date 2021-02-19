@@ -26,7 +26,7 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
 
   qmakecmd=qmake.exe
   makecmd=nmake
-  MYAPP_EXTRA_CONF="CONFIG+=CONSOLE"
+  MYAPP_EXTRA_CONF="CONFIG+=CONSOLE CONFIG+=debug_and_release"
 
   MSVCPATHFORBUILDING=$(cygpath -u "${VCToolsInstallDir}/bin/HOSTx64/x64")
   export PATH="${MSVCPATHFORBUILDING}:$PATH" # make sure MSVC link.exe is found (not bash/unix 'link' tool)
@@ -52,6 +52,10 @@ pushd build >& /dev/null
 
   ${makecmd} install # puts necessary items side-by-side with app exe
 
+  if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+    ${makecmd} debug
+  fi
+
 popd >& /dev/null
 
 if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
@@ -68,12 +72,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   ./build_ios_app.sh
 fi
 
-if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-  EXEDIR=build/src/app/release
-  SHIPDIR=build/windeployfolder
+windows_deploy () {
+  FLAVOR="$1"
+  EXEDIR="$2"
+  PDIR="$3"
+  SHIPDIR="$4"
   mkdir -p ${SHIPDIR}
   cp ${EXEDIR}/app.exe ${SHIPDIR}
-  cp ${EXEDIR}/libstylesplugin.dll ${SHIPDIR}
+  cp ${PDIR}/libstylesplugin.dll ${SHIPDIR}
 
   pushd ${SHIPDIR} >& /dev/null
     # Technically, we should set qmldir to our own 'src' dir, to allow
@@ -81,6 +87,19 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
     # this is a popular workaround for various bugs and annoyances -- by
     # pointing qmldir to the Qt framework install dir itself, we just deploy ALL
     # qml-related support files that Qt offers.
-    windeployqt --release --qmldir "${WINALLQML}"  app.exe
+    windeployqt "${FLAVOR}" --qmldir "${WINALLQML}"  app.exe
   popd >& /dev/null
+}
+
+if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+  EXEDIR=build/src/app/release
+  PLUGINDIR=build/src/libstyles/release
+  SHIPDIR=build/windeployfolder
+
+  EXEDIRDBG=build/src/app/debug
+  PLUGINDIRDBG=build/src/libstyles/debug
+  SHIPDIRDBG=build/windeployfolder_debug
+
+  windows_deploy "--release" ${EXEDIR} ${PLUGINDIR} ${SHIPDIR}
+  windows_deploy "--debug" ${EXEDIRDBG} ${PLUGINDIRDBG} ${SHIPDIRDBG}
 fi
