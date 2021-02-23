@@ -33,7 +33,7 @@ check_clang_format() {
           diff  <(echo $clang_result) <(cat "${THISDIR}/${GOLDEN_RESULT_FILE}")
           diff_rslt=$?
           # per 'man diff': Exit status is 0 if inputs are the same
-          # If someone disables 'set -x', then explicitly fail here regardless:
+          # If someone disables 'set -e', then explicitly fail here regardless:
           if [ $diff_rslt != 0 ]; then echo early termination at $LINENO; return -1; fi
         done
       done
@@ -80,6 +80,6 @@ for dir in "${top_level_dirs[@]}"; do
   fi
 done
 
-echo 'We assume this was run with '\''set -x'\'' (look at upper lines of this script).'
+echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'
 echo 'SUCCESS'
