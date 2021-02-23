@@ -37,7 +37,7 @@ check_format() {
               if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
                 echo "INTENTIONAL FORGIVENESS OF $fl"
               else
-                # If someone disables 'set -x', then explicitly fail here regardless:
+                # If someone disables 'set -e', then explicitly fail here regardless:
                 echo "You need to qmlfmt this file:"
                 echo "$fl"
                 return -1
@@ -86,6 +86,6 @@ for dir in "${top_level_dirs[@]}"; do
   fi
 done
 
-echo 'We assume this was run with '\''set -x'\'' (look at upper lines of this script).'
+echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'
 echo 'SUCCESS'
