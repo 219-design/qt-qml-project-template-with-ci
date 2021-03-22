@@ -13,10 +13,12 @@ win32 {
 }
 
 SOURCES += \
-    logger.cc
+    logger.cc \
+    x_unistd.cc
 
 HEADERS += \
-    logger.h
+    logger.h \
+    x_unistd.h
 
 
 INCLUDEPATH += $${top_srcdir}
