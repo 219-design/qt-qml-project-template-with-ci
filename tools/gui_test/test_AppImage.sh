@@ -31,7 +31,9 @@ cd $CUR_GIT_ROOT
 rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps locally.
 
 # -g flag causes app to close when test is done:
-AppImage_staging/usr/bin/app -g -v 2>&1 |& tee gui_test.log
+LD_LIBRARY_PATH=$PWD/AppImage_staging/usr/lib AppImage_staging/usr/bin/app -g -v 2>&1 |& tee gui_test.log # TODO: remove LD_LIBRARY_PATH
+# TODO: remove LD_LIBRARY_PATH on above line. linuxdeployqt _should_ render it unnecessary.
+#    (don't have time to research now, but linuxdeployqt may have a bug)
 
 tools/gui_test/check_gui_test_log.py gui_test.log
 rm -f gui_test.log
