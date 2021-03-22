@@ -20,6 +20,7 @@
 
 #if defined( _WIN32 )
 #    include <Windows.h>
+#    include <assert.h>
 #endif // #if defined(_WIN32)
 
 #if defined( __APPLE__ )
@@ -65,7 +66,21 @@ static inline void UnSuppress_All_Assertions()
 static inline void TrapDebug()
 {
 #if defined( _WIN32 )
-    DebugBreak();
+    // If just-in-time (JIT) debugging is working properly, then one might
+    // reasonbly choose to remove the 'IsDebugger' check and just always provoke
+    // the EXCEPTION_BREAKPOINT.  When just-in-time debugging works properly,
+    // you would then get a pop-up offering to attach a debugger, despite you
+    // having launched the process outside of a debugger. If you trust
+    // just-in-time debugging, then remove the check. However, on Windows 10
+    // many people struggle to get just-in-time working reliably.
+    if( IsDebuggerPresent() )
+    {
+        // if this is called OUTSIDE of a debugger (and when JIT is
+        // uncooperative), then it will abort the program. When called in a
+        // debugger, it behaves just as though you had manually set a
+        // breakpoint.
+        __debugbreak();
+    }
 #elif defined( __APPLE__ )
     raise( SIGTRAP );
 #elif defined( __linux__ )
@@ -73,6 +88,19 @@ static inline void TrapDebug()
 #else
 // FUTURE_PLATFORMS_TBD
 #endif // Win/Apple
+}
+
+static inline void ShowOnStderr(
+    const char* title,
+    const char* message,
+    const char* filename,
+    const int line,
+    const char* funcname )
+{
+    fprintf( stderr, "%s:\n", title );
+    fprintf( stderr, "%s\n", funcname );
+    fprintf( stderr, "%s:%d\n", filename, line );
+    fprintf( stderr, "%s\n", message );
 }
 
 static inline void OptionToContinue(
@@ -93,10 +121,7 @@ static inline void OptionToContinue(
 
 #elif defined( __APPLE__ ) && !( TARGET_OS_IPHONE )
 
-    fprintf( stderr, "%s:\n", title );
-    fprintf( stderr, "%s\n", funcname );
-    fprintf( stderr, "%s:%d\n", filename, line );
-    fprintf( stderr, "%s\n", message );
+    ShowOnStderr( title, message, filename, line, funcname );
 
     CFStringRef headerRef = CFStringCreateWithCString( NULL, title, kCFStringEncodingUTF8 );
     CFStringRef messageRef = CFStringCreateWithCString( NULL, message, kCFStringEncodingUTF8 );
@@ -145,10 +170,7 @@ static inline void OptionToContinue(
 
 #elif defined( __unix__ ) || TARGET_OS_IPHONE
 
-    fprintf( stderr, "%s:\n", title );
-    fprintf( stderr, "%s\n", funcname );
-    fprintf( stderr, "%s:%d\n", filename, line );
-    fprintf( stderr, "%s\n", message );
+    ShowOnStderr( title, message, filename, line, funcname );
 
     char buf[ 16 ];
     bool retry = true;
@@ -304,25 +326,36 @@ static inline bool GetEnv_WinOnly( const char* name )
 #    if defined( _WIN32 )
 
 // when assertions are enabled on Win:
-#        define FASSERT( cond, msg )                        \
-            __pragma( warning( push ) )                     \
-                __pragma( warning( disable : 4127 ) ) do    \
-            {                                               \
-                if( !GetEnv_WinOnly( "FLEX_SUPALL_ASRT" ) ) \
-                    assert( ( cond ) && ( msg ) );          \
-            }                                               \
-            while( 0 )                                      \
+#        define FASSERT( cond, msg )                                                  \
+            __pragma( warning( push ) )                                               \
+                __pragma( warning( disable : 4127 ) ) do                              \
+            {                                                                         \
+                if( !GetEnv_WinOnly( "FLEX_SUPALL_ASRT" ) )                           \
+                {                                                                     \
+                    if( !( cond ) )                                                   \
+                    {                                                                 \
+                        ShowOnStderr( "FASSERT", msg, __FILE__, __LINE__, __func__ ); \
+                        TrapDebug();                                                  \
+                    }                                                                 \
+                    assert( ( cond ) && ( msg ) );                                    \
+                }                                                                     \
+            }                                                                         \
+            while( 0 )                                                                \
             __pragma( warning( pop ) )
 
 // when assertions are enabled on Win:
-#        define FFAIL( msg )                                \
-            __pragma( warning( push ) )                     \
-                __pragma( warning( disable : 4127 ) ) do    \
-            {                                               \
-                if( !GetEnv_WinOnly( "FLEX_SUPALL_ASRT" ) ) \
-                    assert( !msg );                         \
-            }                                               \
-            while( 0 )                                      \
+#        define FFAIL( msg )                                                    \
+            __pragma( warning( push ) )                                         \
+                __pragma( warning( disable : 4127 ) ) do                        \
+            {                                                                   \
+                if( !GetEnv_WinOnly( "FLEX_SUPALL_ASRT" ) )                     \
+                {                                                               \
+                    ShowOnStderr( "FFAIL", msg, __FILE__, __LINE__, __func__ ); \
+                    TrapDebug();                                                \
+                    assert( !msg );                                             \
+                }                                                               \
+            }                                                                   \
+            while( 0 )                                                          \
             __pragma( warning( pop ) )
 
 #    elif defined( __APPLE__ ) || defined( __linux__ )
