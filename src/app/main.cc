@@ -22,7 +22,7 @@ int main( int argc, char* argv[] )
     project::SetAppVersionStringForLogging( project::GIT_HASH_WHEN_BUILT );
     project::WhenOnIos_RerouteStdoutStderrToDeviceFilesystem();
 
-    qSetMessagePattern( QString( "%{time yyyy-MM-dd hh:mm:ss} [QT-%{type}][v-" ) + project::GIT_HASH_WHEN_BUILT
+    qSetMessagePattern( QString( "%{time yyyy-MM-dd hh:mm:ss.zzz} [QT-%{type}][v-" ) + project::GIT_HASH_WHEN_BUILT
                         + "][thr:%{threadid}]%{if-category}%{category}: %{endif}%{file}(%{line}): %{message}" );
 
     if( !project::OkToEnableAssertions() )
