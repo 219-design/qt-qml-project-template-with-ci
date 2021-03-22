@@ -19,6 +19,8 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   fi
 fi
 
+THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 # https://web.archive.org/web/20191121235402/https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html
 if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REPO_FULL_NAME-} ]];
 # The '-' hyphens above test without angering the 'set -u' about unbound variables
@@ -47,11 +49,11 @@ else
 fi
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-  #tools/formatters/enforce_qml_format.sh check_only # TODO: qmlfmt on win32?
-  tools/formatters/enforce_clang_format.sh check_only
+  #tools/formatters/enforce_qml_format.sh ${THISDIR}/src check_only # TODO: qmlfmt on win32?
+  tools/formatters/enforce_clang_format.sh ${THISDIR}/src check_only
 else
-  tools/formatters/enforce_qml_format.sh check_only
-  tools/formatters/enforce_clang_format.sh check_only
+  tools/formatters/enforce_qml_format.sh ${THISDIR}/src check_only
+  tools/formatters/enforce_clang_format.sh ${THISDIR}/src check_only
 fi
 
 
