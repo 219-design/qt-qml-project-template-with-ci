@@ -5,6 +5,8 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
+THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 ln -sf src/libstyles/imports/libstyles/images src/lib_app/qml/images
 ln -sf .qmake.conf qmake.conf
 ln -sf .clang-format clang-format
@@ -16,8 +18,6 @@ git init
 git add .
 
 git add -f AppImage_staging/.do_not_format
-git add -f build/.do_not_format
-git add -f build/README.md
 git add -f dl_third_party/.do_not_format
 git add -f dl_third_party/Qt_desktop/5.15.0/clang_64/extrabin/macos/qmlfmt
 git add -f dl_third_party/Qt_desktop/5.15.0/gcc_64/extrabin/qmlfmt
@@ -27,5 +27,5 @@ git add -f dl_third_party/android_kits/commandlinetools-linux-6200805_latest.zip
 
 git commit -m "init"
 
-./tools/formatters/enforce_clang_format.sh
+./tools/formatters/enforce_clang_format.sh ${THISDIR}/src
 echo "Examine git status to see if clang-format made changes. Refer to README.md for build instructions."

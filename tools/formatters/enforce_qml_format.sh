@@ -10,14 +10,18 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
-THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+echo "Reading first argument. Path to folder holding C sources."
+FOLDER_UNDER_FORMAT_CONTROL=$1
+shift 1
 
 only_report=0
-if [[ -n ${1-} ]]; # the presence of ANY arg makes this 'C.I.' mode (no editing files)
+if [[ -n ${1-} ]]; # the presence of ANY second arg makes this 'C.I.' mode (no editing files)
 then
     only_report=1
 fi
+
+THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   qml_formatter="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/clang_64/extrabin/macos/qmlfmt"
@@ -69,7 +73,7 @@ else
   the_exclusions=()
 fi
 
-cd $CUR_GIT_ROOT
+cd $FOLDER_UNDER_FORMAT_CONTROL
 top_level_dirs=(*/)
 
 for dir in "${top_level_dirs[@]}"; do

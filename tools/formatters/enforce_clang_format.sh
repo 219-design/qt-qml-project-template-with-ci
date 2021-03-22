@@ -14,13 +14,17 @@ IFS=$'\n\t'
 # you may need to:
 # sudo apt install clang-format-6.0
 
-THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+echo "Reading first argument. Path to folder holding C sources."
+FOLDER_UNDER_FORMAT_CONTROL=$1
+shift 1
 
 only_report=0
-if [[ -n ${1-} ]]; # the presence of ANY arg makes this 'C.I.' mode (no editing files)
+if [[ -n ${1-} ]]; # the presence of ANY second arg makes this 'C.I.' mode (no editing files)
 then
     only_report=1
 fi
+
+THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.txt"
 
@@ -57,7 +61,7 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.win.txt.disableattr"
 fi
 
-cd $CUR_GIT_ROOT
+cd $FOLDER_UNDER_FORMAT_CONTROL
 top_level_dirs=(*/)
 
 for dir in "${top_level_dirs[@]}"; do
