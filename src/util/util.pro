@@ -18,11 +18,13 @@ win32 {
 
 SOURCES += \
     am_i_inside_debugger.cc \
+    deleter_with_qt_deferred_deletion.cc \
     every_so_often.cc \
     qml_message_interceptor.cc
 
 HEADERS += \
     am_i_inside_debugger.h \
+    deleter_with_qt_deferred_deletion.h \
     every_so_often.h \
     qml_list_property_helper.h \
     qml_message_interceptor.h \
