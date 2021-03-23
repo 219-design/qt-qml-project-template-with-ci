@@ -6,6 +6,10 @@
 #    pragma GCC system_header
 #endif
 
+#if defined( WIN32 ) || defined( _WIN32 )
+#    pragma system_header
+#endif // #if defined( WIN32 ) || defined( _WIN32 )
+
 // Previously we were suppressing unsolved warnings by specifying the
 // INCLUDEPATH for these headers using '-isystem'. However, that had an
 // unacceptable side-effect: treating them with '-isystem' meant that when those

@@ -43,6 +43,7 @@ win32 {
     QMAKE_CXXFLAGS += "\
        /wd4514 \
        /wd4061 \
+       /wd4668 \
        "
 }
 
