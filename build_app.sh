@@ -43,6 +43,7 @@ $DIR/tools/ci/version.sh
 
 source $DIR/path_to_qmake.bash
 
+mkdir -p build
 pushd build >& /dev/null
 
   # When you need release: CONFIG+=release
