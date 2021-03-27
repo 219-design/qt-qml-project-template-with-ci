@@ -1,0 +1,2 @@
+aqtinstall==1.1.2
+importlib_metadata==3.4.0 # for py 3.7 and older. a kind of back-port version of 'importlib.metadata' (stdlib now provides it as of py 3.8)
