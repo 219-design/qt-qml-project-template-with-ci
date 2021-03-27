@@ -8,13 +8,21 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
 
-QTMIRROR='http://mirrors.ocf.berkeley.edu/qt/'
+# --- Other mirrors (for times of trouble) -------
+# http://qt-mirror.dannhauer.de/
+# http://mirrors.ukfast.co.uk/sites/qt.io
+# http://mirror.csclub.uwaterloo.ca/qtproject/
+
+#QTMIRROR='http://mirrors.ocf.berkeley.edu/qt/' # was being slow, 2021-Mar-24
+QTMIRROR='http://ftp.fau.de/qtproject'
 QTSIXMIRROR='http://ftp.fau.de/qtproject'
 
-sudo pip3 install aqtinstall  # https://github.com/miurahr/aqtinstall
+sudo pip3 uninstall -y importlib_metadata || true # to prevent https://github.com/miurahr/aqtinstall/issues/221
+sudo pip3 install -r ${DIR}/for_pip/requirements.txt # install aqtinstall
 
 if [ -d $DL_FOLDER/Qt_desktop/5.15.0/gcc_64/bin ]; then
     echo "no need to download qt5 for desktop"
