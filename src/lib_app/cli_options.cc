@@ -13,6 +13,7 @@ namespace project
 {
 constexpr char GUI_TEST_CLI_OPT[] = "guitest";
 constexpr char MAX_QT_LOGGING_CLI_OPT[] = "maxlogs";
+constexpr char COLOR_PALETTE_CLI_OPT[] = "colorpalette";
 
 CliOptions::CliOptions( const QCoreApplication& app )
 {
@@ -23,12 +24,14 @@ CliOptions::CliOptions( const QCoreApplication& app )
         { { "g", GUI_TEST_CLI_OPT }, "run automated gui tests (app will SHUT DOWN soon after launch)" },
         { { "v", MAX_QT_LOGGING_CLI_OPT },
             "verbose/maximum logging. uses Qt stderr log even when also tee-ing to backend file log" },
+        { { "c", COLOR_PALETTE_CLI_OPT }, "show color palette to allow for on-the-fly color experiments" },
     } );
 
     parser.process( app );
 
     m_guiTests = parser.isSet( GUI_TEST_CLI_OPT );
     m_maximumQtLogs = parser.isSet( MAX_QT_LOGGING_CLI_OPT );
+    m_colorPalette = parser.isSet( COLOR_PALETTE_CLI_OPT );
 }
 
 CliOptions::~CliOptions() = default;
@@ -42,4 +45,10 @@ bool CliOptions::MaximumQtLogging() const
 {
     return m_maximumQtLogs;
 }
+
+bool CliOptions::ShowColorPalette() const
+{
+    return m_colorPalette;
+}
+
 } // namespace project

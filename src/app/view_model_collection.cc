@@ -24,8 +24,8 @@ namespace project
 using str = std::string;
 
 // clang-format off
-ViewModelCollection::ViewModelCollection( const QGuiApplication& app )
-    : m_opts( std::make_unique<CliOptions>( app ) ),
+ViewModelCollection::ViewModelCollection( const CliOptions& opts )
+    : m_opts( &opts ),
       m_eventFilter( std::make_unique<EventFilter>() ),
       m_qmlLogger( std::make_unique<QmlMessageInterceptor>( !m_opts->MaximumQtLogging() ) ),
       m_logging( std::make_unique<LoggingTags>( *m_opts ) )

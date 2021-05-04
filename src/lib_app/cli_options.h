@@ -23,10 +23,12 @@ public:
 
     bool RunningGuiTests() const;
     bool MaximumQtLogging() const;
+    bool ShowColorPalette() const;
 
 private:
     bool m_guiTests = false;
     bool m_maximumQtLogs = false;
+    bool m_colorPalette = false;
 };
 } // namespace project
 
