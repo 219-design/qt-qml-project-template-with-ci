@@ -1,11 +1,13 @@
 <RCC>
   <qresource prefix="">
     <!-- PLEASE OBEY ALPHABETICAL ORDER -->
+    <file>qml/ColorPaletteSwatch.qml</file>
     <file>qml/DebugRectangle.qml</file>
     <file>qml/ImageSvgHelper.qml</file>
     <file>qml/LogTags.qml</file>
     <file>qml/VersionLabel.qml</file>
     <file>qml/main.qml</file>
     <file>qml/qmldir</file>
+    <file>qml/viewColorPalette.qml</file>
   </qresource>
 </RCC>
