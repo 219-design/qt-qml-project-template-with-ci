@@ -39,6 +39,13 @@ else
   $DIR/sw_arch_doc/generate_graph.sh
 fi
 
+if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
+  # Strip out usage of QML 'import QtGraphicalEffects' on Qt 6.
+  # Effects have moved to 'import QtQuick3D.Effects' and we have not
+  # yet made that available in our CI job.
+  git apply $DIR/tools/ci/strip_effects_for_sake_of_qt6.patch
+fi
+
 $DIR/tools/ci/version.sh
 
 source $DIR/path_to_qmake.bash
