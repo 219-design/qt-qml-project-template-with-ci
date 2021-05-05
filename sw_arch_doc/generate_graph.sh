@@ -7,7 +7,7 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 ARCH_DOC_DIR=${CUR_GIT_ROOT}/sw_arch_doc
-INC_2_DOT=${CUR_GIT_ROOT}/third_party/cinclude2dot
+INC_2_DOT=${ARCH_DOC_DIR}/third_party/cinclude2dot
 
 SOURCES_DIR=${CUR_GIT_ROOT}/src/
 INCLUDES_DIR=${CUR_GIT_ROOT}/
