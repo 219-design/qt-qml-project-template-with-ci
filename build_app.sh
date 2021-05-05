@@ -36,7 +36,7 @@ else
   MYAPP_EXTRA_CONF=""
   # adding this next line here (rather than in run_all_tests.sh), because we think
   # of the graph-generation as more of a "build" step than a "test":
-  $DIR/sw_arch_doc/generate_graph.sh
+  $DIR/sw_arch_doc/generate_graph.sh ${DIR}/src/ ${DIR}/
 fi
 
 if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
