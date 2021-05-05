@@ -1,5 +1,5 @@
 diff --git a/src/lib_app/qml/main.qml b/src/lib_app/qml/main.qml
-index 701ff75..7c0a804 100644
+index d3b6823..de75a3e 100644
 --- a/src/lib_app/qml/main.qml
 +++ b/src/lib_app/qml/main.qml
 @@ -2,7 +2,6 @@
@@ -10,8 +10,8 @@ index 701ff75..7c0a804 100644
  import QtQuick 2.12
  import QtQuick.Controls 2.12
  import QtQuick.Controls.Universal 2.2
-@@ -198,14 +197,4 @@ ApplicationWindow {
-       anchors.horizontalCenter: parent.horizontalCenter
+@@ -220,14 +219,4 @@ ApplicationWindow {
+       }
      }
    }
 -
@@ -20,8 +20,8 @@ index 701ff75..7c0a804 100644
 -    visible: false // flip to true when/if you find it helpful in UI design.
 -    enabled: visible
 -
--    anchors.fill: root
--    source: root
+-    anchors.fill: main
+-    source: main
 -    desaturation: 1 // 0 to 1. 1 is 100% desaturated, which means grayscale
 -  }
  }
