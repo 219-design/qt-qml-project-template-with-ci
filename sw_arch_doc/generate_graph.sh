@@ -5,12 +5,17 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
-ARCH_DOC_DIR=${CUR_GIT_ROOT}/sw_arch_doc
+THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+ARCH_DOC_DIR=${THISDIR}/
 INC_2_DOT=${ARCH_DOC_DIR}/third_party/cinclude2dot
 
-SOURCES_DIR=${CUR_GIT_ROOT}/src/
-INCLUDES_DIR=${CUR_GIT_ROOT}/
+echo "Reading first argument. Path to folder holding C sources to be diagrammed."
+SOURCES_DIR=$1
+shift 1
+
+echo "Reading second argument. Path that encloses all headers that you wish the script to find."
+INCLUDES_DIR=$1
+shift 1
 
 pushd ${SOURCES_DIR} >& /dev/null
     ${INC_2_DOT} --quotetypes quote --merge module --include ${INCLUDES_DIR} > ${ARCH_DOC_DIR}/all_src.dot
