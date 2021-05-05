@@ -2,7 +2,9 @@
   <qresource prefix="libstyles">
     <!-- PLEASE OBEY ALPHABETICAL ORDER -->
     <file>Fonts.qml</file>
+    <file>Globals.qml</file>
     <file>Theme.qml</file>
+    <file>Utils.qml</file>
     <file>fonts/fa-regular-400.ttf</file>
     <file>fonts/fa-solid-900.ttf</file>
     <file>images/219Design.png</file>

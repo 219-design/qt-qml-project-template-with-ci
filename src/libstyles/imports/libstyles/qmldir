@@ -1,4 +1,6 @@
 module libstyles
 
-singleton Theme 1.0 Theme.qml
-singleton Fonts 1.0 Fonts.qml
+singleton Fonts   1.0 Fonts.qml
+singleton Globals 1.0 Globals.qml
+singleton Theme   1.0 Theme.qml
+singleton Utils   1.0 Utils.qml

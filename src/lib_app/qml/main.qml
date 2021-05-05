@@ -9,7 +9,7 @@ import QtQuick.Controls.Universal 2.2
 import libstyles 1.0
 
 ApplicationWindow {
-  id: rootx
+  id: root
 
   title: "Hello World"
 
@@ -18,13 +18,27 @@ ApplicationWindow {
   width: 400
   height: 720
   visible: true
+
+  function updateGlobals() {
+    Globals.rootHeight = root.height
+    Globals.rootWidth = root.width
+    Globals.inLandscapeLayout = root.width > root.height
+  }
+  onHeightChanged: {
+    root.updateGlobals()
+  }
+  onWidthChanged: {
+    root.updateGlobals()
+  }
+
   Component.onCompleted: {
+    root.updateGlobals()
     // Don't mess with 'guiTests' log statements, or you risk breaking a test.
     console.log(LogTags.guiTests, "ApplicationWindow onCompleted")
   }
 
   Rectangle {
-    id: root
+    id: main
 
     color: Theme.neutralLight
     anchors.fill: parent
@@ -34,7 +48,7 @@ ApplicationWindow {
 
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.top: parent.top
-      height: 140
+      height: Utils.percentOfAppHeightCappedMinAndMax(0.25, 140, 500)
       width: height
       focusPolicy: Qt.StrongFocus
       Keys.onSpacePressed: {
@@ -192,10 +206,18 @@ ApplicationWindow {
       }
     }
 
-    VersionLabel {
+    Rectangle {
       anchors.bottom: parent.bottom
       anchors.bottomMargin: 20
       anchors.horizontalCenter: parent.horizontalCenter
+      color: Utils.colorWithAlpha(Theme.secondaryDark, 0.3)
+      height: version.contentHeight
+      width: version.contentWidth
+
+      VersionLabel {
+        id: version
+        anchors.fill: parent
+      }
     }
   }
 
@@ -204,8 +226,8 @@ ApplicationWindow {
     visible: false // flip to true when/if you find it helpful in UI design.
     enabled: visible
 
-    anchors.fill: root
-    source: root
+    anchors.fill: main
+    source: main
     desaturation: 1 // 0 to 1. 1 is 100% desaturated, which means grayscale
   }
 }
