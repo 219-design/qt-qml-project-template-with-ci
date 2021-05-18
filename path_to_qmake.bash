@@ -9,6 +9,9 @@ fi
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
 DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
+if [[ -n ${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE-} ]]; then
+  DL_FOLDER=${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE}
+fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH="$DL_FOLDER/Qt_desktop/5.15.0/clang_64/bin/:$PATH"

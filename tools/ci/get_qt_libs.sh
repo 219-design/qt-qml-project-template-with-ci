@@ -11,6 +11,9 @@ CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
+if [[ -n ${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE-} ]]; then
+  DL_FOLDER=${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE}
+fi
 
 # --- Other mirrors (for times of trouble) -------
 # http://qt-mirror.dannhauer.de/
