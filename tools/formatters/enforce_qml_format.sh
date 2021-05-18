@@ -22,12 +22,16 @@ fi
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+DL_FOLDER=${CUR_GIT_ROOT}/dl_third_party
+if [[ -n ${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE-} ]]; then
+  DL_FOLDER=${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE}
+fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  qml_formatter="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/clang_64/extrabin/macos/qmlfmt"
+  qml_formatter="${DL_FOLDER}/Qt_desktop/5.15.0/clang_64/extrabin/macos/qmlfmt"
 else
-  export LD_LIBRARY_PATH="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/lib"
-  qml_formatter="${CUR_GIT_ROOT}/dl_third_party/Qt_desktop/5.15.0/gcc_64/extrabin/qmlfmt"
+  export LD_LIBRARY_PATH="${DL_FOLDER}/Qt_desktop/5.15.0/gcc_64/lib"
+  qml_formatter="${DL_FOLDER}/Qt_desktop/5.15.0/gcc_64/extrabin/qmlfmt"
 fi
 
 check_format() {
