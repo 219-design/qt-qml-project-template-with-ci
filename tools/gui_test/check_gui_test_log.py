@@ -15,14 +15,37 @@ MUST_HAVE = [
 ]
 
 MUST_NOT = [
+    "Apparently out-of-range date",
+    "called when not loading",
+    "can't resolve property alias for 'on' assignment",
+    "Cannot create a component",
+    "Cannot create new component instance",
+    "Cannot pause a stopped animation",
+    "Cannot set context object",
+    "Cannot set property",
+    "Component creation is recursing",
+    "Component destroyed while completion pending",
+    "Component is not ready",
+    "Could not convert argument",
+    "Could not convert array value",
+    "Cyclic dependency detected ",
+    "cyclic prototype value",
     "Detected anchors on an item that is managed by a layout",
-    "ReferenceError:",
-    "Unable to assign",
-    "unregistered datatype",
-    "Model size of",  # "...is less than 0" AND/OR "...is bigger than upper limit"
-    "failed to load component",
-    "QML LoaderImage",
+    "emitted, but no receivers connected to handle it",
     "Failed to get image from provider",
+    "failed to load component",
+    "insertAnimation only supports to add animations after the current one",
+    "Model size of",  # "...is less than 0" AND/OR "...is bigger than upper limit"
+    "Must provide an engine",
+    "QML LoaderImage",
+    "qmlRegisterSingletonType requires absolute URLs",
+    "qmlRegisterType requires absolute URLs",
+    "ReferenceError:",
+    "specifying the encoding as fourth argument is deprecated",
+    "TypeError",
+    "Unable to assign",
+    "Unable to handle unregistered datatype",
+    "unregistered datatype",
 ]
 
 
