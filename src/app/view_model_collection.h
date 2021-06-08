@@ -25,13 +25,13 @@ class QmlMessageInterceptor;
 class ViewModelCollection
 {
 public:
-    explicit ViewModelCollection( const QCoreApplication& app );
+    explicit ViewModelCollection( const QCoreApplication& app, bool cliArgsOnlyParseThenSkipErrorHandling );
     ~ViewModelCollection();
 
     ViewModelCollection( const ViewModelCollection& ) = delete;
     ViewModelCollection& operator=( const ViewModelCollection& ) = delete;
 
-    void ExportContextPropertiesToQml( QQmlApplicationEngine* engine );
+    void ExportContextPropertiesToQml( QQmlEngine* engine );
 
     void SetRootObject( QObject* object );
 

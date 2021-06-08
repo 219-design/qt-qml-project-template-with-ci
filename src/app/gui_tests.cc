@@ -23,9 +23,13 @@ namespace
 constexpr char EXPECTED_FIRST_LOADED_FILE[] = "main.qml";
 } // namespace
 
-GuiTests::GuiTests( const QQmlApplicationEngine& engine )
+GuiTests::GuiTests( QQmlEngine& engine )
 {
-    connect( &engine, &QQmlApplicationEngine::objectCreated, [ = ]( QObject*, const QUrl& url ) {
+    const QQmlApplicationEngine* appEngine
+        = dynamic_cast<const QQmlApplicationEngine*>( &engine );
+    FASSERT( appEngine, "not null. downcast must succeed." );
+
+    connect( appEngine, &QQmlApplicationEngine::objectCreated, [ = ]( QObject*, const QUrl& url ) {
         FASSERT( url.fileName() == QString( EXPECTED_FIRST_LOADED_FILE ), "something must have changed in loading behavior of QQmlApplicationEngine" );
 
         // quit during next event-loop cycle

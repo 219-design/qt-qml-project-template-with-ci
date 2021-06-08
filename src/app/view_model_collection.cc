@@ -24,8 +24,8 @@ namespace project
 using str = std::string;
 
 // clang-format off
-ViewModelCollection::ViewModelCollection( const QCoreApplication& app )
-    : m_opts( std::make_unique<CliOptions>( app ) ),
+ViewModelCollection::ViewModelCollection( const QCoreApplication& app, bool cliArgsOnlyParseThenSkipErrorHandling )
+    : m_opts( std::make_unique<CliOptions>( app, cliArgsOnlyParseThenSkipErrorHandling ) ),
       m_eventFilter( std::make_unique<EventFilter>() ),
       m_qmlLogger( std::make_unique<QmlMessageInterceptor>( !m_opts->MaximumQtLogging() ) ),
       m_logging( std::make_unique<LoggingTags>( *m_opts ) )
@@ -44,7 +44,7 @@ const CliOptions& ViewModelCollection::Options() const
     return *m_opts;
 }
 
-void ViewModelCollection::ExportContextPropertiesToQml( QQmlApplicationEngine* engine )
+void ViewModelCollection::ExportContextPropertiesToQml( QQmlEngine* engine )
 {
     // Sort of a "silly" demo usage of project::Log<>
     Log( str( "rootContext" ), engine )->rootContext()->setContextProperty( "versionInfoBuildDateString", BUILD_ON_DATE );

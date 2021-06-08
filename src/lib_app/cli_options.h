@@ -15,7 +15,7 @@ namespace project
 class CliOptions
 {
 public:
-    explicit CliOptions( const QCoreApplication& app );
+    explicit CliOptions( const QCoreApplication& app, bool stopAtParseOnly );
     ~CliOptions();
 
     CliOptions( const CliOptions& ) = delete;

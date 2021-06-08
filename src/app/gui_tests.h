@@ -17,7 +17,7 @@ class GuiTests : public QObject
 {
     Q_OBJECT
 public:
-    explicit GuiTests( const QQmlApplicationEngine& qmlapp );
+    explicit GuiTests( QQmlEngine& qmlapp );
     ~GuiTests();
 
     GuiTests( const GuiTests& ) = delete;

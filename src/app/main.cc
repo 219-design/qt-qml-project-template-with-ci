@@ -39,7 +39,7 @@ int main( int argc, char* argv[] )
     // QQuickStyle::setStyle( "Fusion" ); // <-- call setStyle after creating app (if style is needed)
 
     // ViewModels must OUTLIVE the qml engine, so create them first:
-    project::ViewModelCollection vms( app );
+    project::ViewModelCollection vms( app, false /*cliArgsOnlyParseThenSkipErrorHandling*/ );
 
     // For antialiasing: https://stackoverflow.com/a/49576756/10278
     // QSurfaceFormat format;
