@@ -24,8 +24,8 @@ namespace project
 using str = std::string;
 
 // clang-format off
-ViewModelCollection::ViewModelCollection( const CliOptions& opts )
-    : m_opts( &opts ),
+ViewModelCollection::ViewModelCollection( const QCoreApplication& app )
+    : m_opts( std::make_unique<CliOptions>( app ) ),
       m_eventFilter( std::make_unique<EventFilter>() ),
       m_qmlLogger( std::make_unique<QmlMessageInterceptor>( !m_opts->MaximumQtLogging() ) ),
       m_logging( std::make_unique<LoggingTags>( *m_opts ) )
@@ -38,6 +38,11 @@ ViewModelCollection::ViewModelCollection( const CliOptions& opts )
 }
 
 ViewModelCollection::~ViewModelCollection() = default;
+
+const CliOptions& ViewModelCollection::Options() const
+{
+    return *m_opts;
+}
 
 void ViewModelCollection::ExportContextPropertiesToQml( QQmlApplicationEngine* engine )
 {

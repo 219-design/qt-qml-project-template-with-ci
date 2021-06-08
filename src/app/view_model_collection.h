@@ -25,7 +25,7 @@ class QmlMessageInterceptor;
 class ViewModelCollection
 {
 public:
-    explicit ViewModelCollection( const CliOptions& opts );
+    explicit ViewModelCollection( const QCoreApplication& app );
     ~ViewModelCollection();
 
     ViewModelCollection( const ViewModelCollection& ) = delete;
@@ -35,8 +35,10 @@ public:
 
     void SetRootObject( QObject* object );
 
+    const CliOptions& Options() const;
+
 private:
-    const CliOptions* const m_opts;
+    std::unique_ptr<const CliOptions> m_opts;
     std::unique_ptr<EventFilter> m_eventFilter;
     std::unique_ptr<QmlMessageInterceptor> m_qmlLogger;
     std::unique_ptr<LoggingTags> m_logging;

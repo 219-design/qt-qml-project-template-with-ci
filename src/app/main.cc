@@ -37,10 +37,9 @@ int main( int argc, char* argv[] )
 
     QGuiApplication app( argc, argv ); // ... note next line...
     // QQuickStyle::setStyle( "Fusion" ); // <-- call setStyle after creating app (if style is needed)
-    project::CliOptions cliOptions( app );
 
     // ViewModels must OUTLIVE the qml engine, so create them first:
-    project::ViewModelCollection vms( cliOptions );
+    project::ViewModelCollection vms( app );
 
     // For antialiasing: https://stackoverflow.com/a/49576756/10278
     // QSurfaceFormat format;
@@ -63,7 +62,7 @@ int main( int argc, char* argv[] )
 
     engine.addImportPath( "qrc:///" ); // needed for finding qml in our plugins
     engine.load( QUrl( QStringLiteral( "qrc:///qml/main.qml" ) ) );
-    if( cliOptions.ShowColorPalette() )
+    if( vms.Options().ShowColorPalette() )
     {
         // This second app window will cause the FASSERT about root objects
         // count to trigger below, but just choose 'c' to continue beyond the
