@@ -14,6 +14,7 @@ win32 {
        /EHs \
        /Gy \
        /FC \
+       /MP \
        /W4 \
        /Wall \
        /WX \
