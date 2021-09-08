@@ -24,8 +24,9 @@ fi
 QTMIRROR='http://ftp.fau.de/qtproject'
 QTSIXMIRROR='http://ftp.fau.de/qtproject'
 
-sudo pip3 uninstall -y importlib_metadata || true # to prevent https://github.com/miurahr/aqtinstall/issues/221
-sudo pip3 install -r ${DIR}/for_pip/requirements.txt # install aqtinstall
+pip3 install --upgrade pip
+pip3 install setuptools
+pip3 install -r ${DIR}/for_pip/requirements.txt # install aqtinstall
 
 if [ -d $DL_FOLDER/Qt_desktop/5.15.0/gcc_64/bin ]; then
     echo "no need to download qt5 for desktop"

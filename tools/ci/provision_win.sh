@@ -34,7 +34,12 @@ mkdir -p $DL_FOLDER/win_bin/
 pushd $DL_FOLDER/win_bin/ >& /dev/null
   curl -o clang-format-r375090.exe https://prereleases.llvm.org/win-snapshots/clang-format-r375090.exe
   curl -o clang-format-r375090.exe.sig https://prereleases.llvm.org/win-snapshots/clang-format-r375090.exe.sig
-  gpg --keyserver pgp.key-server.io --recv-key 345AD05D
+
+  # One of these recv-key calls must succeed, or else the '--verify' will fail afterward.
+  gpg --keyserver pgp.key-server.io    --recv-key 345AD05D || true
+  gpg --keyserver pgp.mit.edu          --recv-key 345AD05D || true
+  gpg --keyserver keyserver.ubuntu.com --recv-key 345AD05D || true
+
   gpg --verify clang-format-r375090.exe.sig clang-format-r375090.exe
   mv clang-format-r375090.exe clang-format-10
 popd >& /dev/null
