@@ -143,7 +143,7 @@ After that, please proceed to "How to build" (below) before continuing further:
 
 ### Windows Notes
 
-#### "Pre pre boostrap" actions
+#### "Pre pre bootstrap" actions
 
 This project is designed to mostly bootstrap itself.
 
