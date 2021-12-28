@@ -14,7 +14,7 @@ pip3 install aqtinstall  # https://github.com/miurahr/aqtinstall
 # Refer to: https://github.com/miurahr/aqtinstall#usage
 
 # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-python -m aqt install --outputdir $DL_FOLDER/Qt_desktop 5.15.0 windows desktop win64_msvc2019_64 --archives \
+python -m aqt install-qt windows desktop 5.15.0 win64_msvc2019_64 --outputdir $DL_FOLDER/Qt_desktop --archives \
         icu \
         qtbase \
         qtconnectivity \
