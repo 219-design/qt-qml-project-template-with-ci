@@ -5,8 +5,9 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
 DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-pip3 install aqtinstall  # https://github.com/miurahr/aqtinstall
+pip3 install -r ${DIR}/for_pip/requirements.txt  # https://github.com/miurahr/aqtinstall
 #
 # NOTE: as of Nov 23, 2020, it is not clear whether 'win64_msvc2019_64' is the right ARCH
 # argument to pass to aqtinstall. We may need to try other options:
@@ -14,7 +15,7 @@ pip3 install aqtinstall  # https://github.com/miurahr/aqtinstall
 # Refer to: https://github.com/miurahr/aqtinstall#usage
 
 # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-python -m aqt install-qt windows desktop 5.15.0 win64_msvc2019_64 --outputdir $DL_FOLDER/Qt_desktop --archives \
+python -m aqt install --outputdir $DL_FOLDER/Qt_desktop 5.15.0 windows desktop win64_msvc2019_64 --archives \
         icu \
         qtbase \
         qtconnectivity \
