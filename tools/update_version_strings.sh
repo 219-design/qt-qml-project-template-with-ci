@@ -27,6 +27,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   gsed -i "/GIT_HASH_WHEN_BUILT/c ${NEW_HASHLINE}" "$GENFILE"         # 2. then operate in-place on genfile
 else
   # find matching lines and replace WHOLE line with new strings
-  sed "/BUILD_ON_DATE/c ${NEW_DATELINE}" "$STRINGSFILE" > "$GENFILE" # 1. create genfile
-  sed -i "/GIT_HASH_WHEN_BUILT/c ${NEW_HASHLINE}" "$GENFILE"         # 2. then operate in-place on genfile
+  sed -e "/BUILD_ON_DATE/c ${NEW_DATELINE}" "$STRINGSFILE" -e "/GIT_HASH_WHEN_BUILT/c ${NEW_HASHLINE}" > "$GENFILE" # 1. create genfile
 fi

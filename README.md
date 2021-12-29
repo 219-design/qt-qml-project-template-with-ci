@@ -121,7 +121,7 @@ After that, please proceed to "How to build" (below) before continuing further:
 4. In a terminal, run `build_app.sh`
 
 5. Assuming step (4) was successful, you can launch the app at
-   `./build/src/app/app` (or on Windows: `./build/windeployfolder/app.exe`)
+   `./build/src/app/app` (or on Windows: `start build/windeployfolder/app.exe`)
 
    For the iOS version of the app, one of the outputs of `build_app.sh` will be
    the xcodeproj. Open the xcodeproj in Xcode and from there you can choose a

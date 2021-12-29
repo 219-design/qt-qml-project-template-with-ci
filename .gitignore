@@ -9,3 +9,6 @@ aqtinstall.log
 
 # mac:
 **/.DS_Store
+
+# Qt Creator User File
+*.user
