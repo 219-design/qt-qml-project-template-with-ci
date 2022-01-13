@@ -51,7 +51,7 @@ You must also read "Your first commit" (below) before continuing further:
 
 (Skip this section if you chose to click GitHub's "Use this template" button.)
 
-Get [cookiecutter](https://cookiecutter.readthedocs.io/).
+Get [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/).
 
 Pull down our cookiecutter-ized branch using cookiecutter directly, like so:
 
