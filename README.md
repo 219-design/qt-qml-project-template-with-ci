@@ -123,7 +123,7 @@ After that, please proceed to "How to build" (below) before continuing further:
     - `export MYAPP_TEMPLATE_BUILD_ANDROID=1 # optional`
     - `export MYAPP_TEMPLATE_BUILD_APPIMAGE=1 # optional`
 
-4. In a terminal, run `build_app.sh`
+4. In a terminal, run `./build_app.sh`
 
 5. Assuming step (4) was successful, you can launch the app at
    `./build/src/app/app` (or on Windows: `start build/windeployfolder/app.exe`)
