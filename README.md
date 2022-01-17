@@ -68,7 +68,12 @@ You must also read "Your first commit" (below) before continuing further:
 ### Your first commit:
 
 Once either the GitHub "Use this template" button or cookiecutter has completed
-its work, `cd` into the project directory and:
+its work, make sure you have `clang-format-10` installed:
+```
+sudo apt install clang-format-10
+```
+
+Then `cd` into the project directory and:
 
 - If you used cookiecutter, then run:
 ```
