@@ -23,8 +23,13 @@ run_a_test() {
 
 cd $CUR_GIT_ROOT
 
+OUR_TEST_BINARIES_DIR=build/src/app
+if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+  OUR_TEST_BINARIES_DIR=build/windeployfolder
+fi
+
 # run all test binaries that got built in the expected dir:
-find build/src/app  \( -name '*test' -o -name '*tests' -o -name '*test.exe' -o -name '*tests.exe' \) | run_a_test
+find "${OUR_TEST_BINARIES_DIR}" -type f \( -name '*test' -o -name '*tests' -o -name '*test.exe' -o -name '*tests.exe' \) | run_a_test
 
 echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'

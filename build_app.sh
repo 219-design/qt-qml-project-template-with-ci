@@ -86,7 +86,7 @@ windows_deploy () {
   PDIR="$3"
   SHIPDIR="$4"
   mkdir -p ${SHIPDIR}
-  cp ${EXEDIR}/app.exe ${SHIPDIR}
+  cp ${EXEDIR}/*.exe ${SHIPDIR}  # copy main and tests. tests must be side-by-side with Qt DLL(s), too.
   cp ${PDIR}/libstylesplugin.dll ${SHIPDIR}
 
   pushd ${SHIPDIR} >& /dev/null
