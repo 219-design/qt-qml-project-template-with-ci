@@ -12,10 +12,11 @@ pip3 install -r ${DIR}/for_pip/requirements.txt  # https://github.com/miurahr/aq
 # NOTE: as of Nov 23, 2020, it is not clear whether 'win64_msvc2019_64' is the right ARCH
 # argument to pass to aqtinstall. We may need to try other options:
 #   win64_msvc2017_64, win64_msvc2019_winrt_x64 ?
+# FURTHER: as of Feb 11, 2022, this is untested on windows after switching from install to install-qt
 # Refer to: https://github.com/miurahr/aqtinstall#usage
 
 # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-python -m aqt install --outputdir $DL_FOLDER/Qt_desktop 5.15.0 windows desktop win64_msvc2019_64 --archives \
+python -m aqt install-qt --outputdir $DL_FOLDER/Qt_desktop windows desktop 5.15.0 win64_msvc2019_64 --archives \
         icu \
         qtbase \
         qtconnectivity \

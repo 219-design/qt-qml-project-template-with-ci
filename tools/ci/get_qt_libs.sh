@@ -34,7 +34,7 @@ else
 
   if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop 6.0.0 linux desktop --archives \
+    python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.0.0 --archives \
      icu \
      qtbase \
      qtconnectivity \
@@ -48,12 +48,12 @@ else
 
     # we still need qt5 in order to execute qmlfmt. (until we can recompile qmlfmt with qt6)
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop 5.15.0 linux desktop --archives \
+    python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 5.15.0 --archives \
      icu \
      qtbase
   else
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop 5.15.0 linux desktop --archives \
+    python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 5.15.0 --archives \
      icu \
      qtbase \
      qtconnectivity \
