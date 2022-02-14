@@ -34,17 +34,10 @@ else
 
   if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.2.2 --archives \
-     icu \
-     qtbase \
+    python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.2.2 --modules \
      qtconnectivity \
-     qtdeclarative \
-     qtgraphicaleffects \
      qtimageformats \
-     qtquickcontrols \
-     qtquickcontrols2 \
-     qtsvg \
-     qttools
+     qt5compat
   else
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
     python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 5.15.0 --archives \
@@ -61,9 +54,11 @@ else
 
     # we still need qt6 in order to execute qmlfmt.
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.2.2 --archives \
-     icu \
-     qtbase \
+    #python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.2.2 --archives \
+    # icu \
+    # qtbase \
+    # qt5compat
+    python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.2.2 --modules \
      qt5compat
   fi
 
