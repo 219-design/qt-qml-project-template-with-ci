@@ -12,7 +12,7 @@ on:
       - cookiecutter
 jobs:
   cookiecutter:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v1
     # Remove apt repos that are known to break from time to time
