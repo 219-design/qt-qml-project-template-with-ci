@@ -28,10 +28,10 @@ if [[ -n ${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE-} ]]; then
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  qml_formatter="${DL_FOLDER}/Qt_desktop/5.15.0/clang_64/extrabin/macos/qmlfmt"
+  qml_formatter="${DL_FOLDER}/Qt_desktop/6.2.2/clang_64/extrabin/macos/qmlfmt"
 else
-  export LD_LIBRARY_PATH="${DL_FOLDER}/Qt_desktop/5.15.0/gcc_64/lib"
-  qml_formatter="${DL_FOLDER}/Qt_desktop/5.15.0/gcc_64/extrabin/qmlfmt"
+  export LD_LIBRARY_PATH="${DL_FOLDER}/Qt_desktop/6.2.2/gcc_64/lib"
+  qml_formatter="${DL_FOLDER}/Qt_desktop/6.2.2/gcc_64/extrabin/qmlfmt"
 fi
 
 check_format() {
@@ -39,7 +39,7 @@ check_format() {
       while read filenames; do
         for fl in "$filenames"; do
           echo checking format of "$fl"
-          result=$("$qml_formatter" -l "$fl")
+          result=$("$qml_formatter" -l "$fl" -i 2)
           if [[ ! -z "$result" ]]; then
               # https://stackoverflow.com/a/34066473/10278 (find string in bash array)
               if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
@@ -65,7 +65,7 @@ check_format() {
       if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
         echo "INTENTIONAL EXLUSION OF $fl"
       else
-        "$qml_formatter" -w "$fl"
+        "$qml_formatter" -w "$fl" -i 2
       fi
     done
   done

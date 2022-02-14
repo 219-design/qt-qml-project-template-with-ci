@@ -19,8 +19,8 @@ git add .
 
 git add -f AppImage_staging/.do_not_format
 git add -f dl_third_party/.do_not_format
-git add -f dl_third_party/Qt_desktop/5.15.0/clang_64/extrabin/macos/qmlfmt
-git add -f dl_third_party/Qt_desktop/5.15.0/gcc_64/extrabin/qmlfmt
+git add -f dl_third_party/Qt_desktop/6.2.2/clang_64/extrabin/macos/qmlfmt
+git add -f dl_third_party/Qt_desktop/6.2.2/gcc_64/extrabin/qmlfmt
 git add -f dl_third_party/Qt_desktop/5.15.0/ios/mkspecs/qconfig.pri
 git add -f dl_third_party/Qt_desktop/5.15.0/msvc2019_64/mkspecs/qconfig.pri
 git add -f dl_third_party/android_kits/commandlinetools-linux-6200805_latest.zip.sha256

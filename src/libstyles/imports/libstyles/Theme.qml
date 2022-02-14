@@ -5,7 +5,6 @@ import QtQuick 2.12
 // Software | Electrical | Mechanical | Product Design
 pragma Singleton
 
-
 // If we need to expand this or make it configurable, then refer to:
 // https://stackoverflow.com/questions/44389883/dynamically-change-qml-theme-at-runtime-on-mouseclick
 Item {

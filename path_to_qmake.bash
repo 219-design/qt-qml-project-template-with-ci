@@ -21,7 +21,7 @@ elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   export WINALLQML="${DL_FOLDER}/Qt_desktop/5.15.0/msvc2019_64/qml"
 else
   if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
-    export PATH="$DL_FOLDER/Qt_desktop/6.0.0/gcc_64/bin/:$PATH"
+    export PATH="$DL_FOLDER/Qt_desktop/6.2.2/gcc_64/bin/:$PATH"
   else
     export PATH="$DL_FOLDER/Qt_desktop/5.15.0/gcc_64/bin/:$PATH"
   fi

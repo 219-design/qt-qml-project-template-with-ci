@@ -29,6 +29,12 @@ else
    qtsvg \
    qttools
 
+  bash -x $CUR_GIT_ROOT/tools/ci/install-qt.sh \
+   --directory $DL_FOLDER/Qt_desktop \
+   --version 6.2.2 \
+   qtbase \
+   qt5compat
+
 fi
 
 if [ -d $DL_FOLDER/Qt_desktop/5.15.0/ios/bin ]; then

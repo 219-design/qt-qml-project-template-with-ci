@@ -1,3 +1,4 @@
+
 /*
 Declaration of QML Imports required by the app.
 
@@ -20,5 +21,4 @@ import QtQuick.Dialogs 1.3
 import QtQuick.Layouts 1.14
 import QtQuick.Window 2.1
 
-QtObject {
-}
+QtObject {}

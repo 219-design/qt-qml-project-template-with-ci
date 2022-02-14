@@ -27,11 +27,11 @@ ApplicationWindow {
 
     // qmlfmt formats this map in a weird way, but the code is fine
     property var primarySwatches: {
-      0: Theme.primaryDark,
-          1: Theme.primaryMediumDark,
-          2: Theme.primaryMedium,
-          3: Theme.primaryMediumLight,
-          4: Theme.primaryLight
+      "0": Theme.primaryDark,
+      "1": Theme.primaryMediumDark,
+      "2": Theme.primaryMedium,
+      "3": Theme.primaryMediumLight,
+      "4": Theme.primaryLight
     }
 
     Repeater {
@@ -50,11 +50,11 @@ ApplicationWindow {
 
     // qmlfmt formats this map in a weird way, but the code is fine
     property var secondarySwatches: {
-      0: Theme.secondaryDark,
-          1: Theme.secondaryMediumDark,
-          2: Theme.secondaryMedium,
-          3: Theme.secondaryMediumLight,
-          4: Theme.secondaryLight
+      "0": Theme.secondaryDark,
+      "1": Theme.secondaryMediumDark,
+      "2": Theme.secondaryMedium,
+      "3": Theme.secondaryMediumLight,
+      "4": Theme.secondaryLight
     }
 
     Repeater {
@@ -73,11 +73,11 @@ ApplicationWindow {
 
     // qmlfmt formats this map in a weird way, but the code is fine
     property var neutralSwatches: {
-      0: Theme.neutralDark,
-          1: Theme.neutralMediumDark,
-          2: Theme.neutralMedium,
-          3: Theme.neutralMediumLight,
-          4: Theme.neutralLight
+      "0": Theme.neutralDark,
+      "1": Theme.neutralMediumDark,
+      "2": Theme.neutralMedium,
+      "3": Theme.neutralMediumLight,
+      "4": Theme.neutralLight
     }
 
     Repeater {
@@ -96,11 +96,11 @@ ApplicationWindow {
 
     // qmlfmt formats this map in a weird way, but the code is fine
     property var accentSwatches: {
-      0: Theme.accentDark,
-          1: Theme.accentMediumDark,
-          2: Theme.accentMedium,
-          3: Theme.accentMediumLight,
-          4: Theme.accentLight
+      "0": Theme.accentDark,
+      "1": Theme.accentMediumDark,
+      "2": Theme.accentMedium,
+      "3": Theme.accentMediumLight,
+      "4": Theme.accentLight
     }
 
     Repeater {
@@ -119,11 +119,11 @@ ApplicationWindow {
 
     // qmlfmt formats this map in a weird way, but the code is fine
     property var accentOtherSwatches: {
-      0: Theme.accentOtherDark,
-          1: Theme.accentOtherMediumDark,
-          2: Theme.accentOtherMedium,
-          3: Theme.accentOtherMediumLight,
-          4: Theme.accentOtherLight
+      "0": Theme.accentOtherDark,
+      "1": Theme.accentOtherMediumDark,
+      "2": Theme.accentOtherMedium,
+      "3": Theme.accentOtherMediumLight,
+      "4": Theme.accentOtherLight
     }
 
     Repeater {
