@@ -1,0 +1,15 @@
+#_use_file_paths_from_GIT_ROOT_and_with_no_whitespace
+#
+# Note: the QML files that are checked in have been formatted using a
+#   relatively up-to-date edition of qmlfmt. However, on our legacy
+#   builds we use an older qmlfmt, due to Ubuntu 18 not providing the
+#   needed GLibC version to execute the newer qmlfmt.
+#   When running the older qmlfmt, we have to ignore format violations
+#   on a few files that the newer qmlfmt prettifies BETTER nowadays.
+#   (In other words, the older qmlfmt complains about these files, even
+#   though now they look nicer than what the older qmlfmt can manage.)
+#
+src/app/imports.qml
+src/lib_app/qml/main.qml
+src/lib_app/qml/viewColorPalette.qml
+src/libstyles/imports/libstyles/Theme.qml

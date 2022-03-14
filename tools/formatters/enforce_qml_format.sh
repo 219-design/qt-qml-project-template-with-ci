@@ -27,11 +27,20 @@ if [[ -n ${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE-} ]]; then
   DL_FOLDER=${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE}
 fi
 
+MY_QT_VERSION=6.2.2
+MY_FMT_EXTRAARGS="-i 2" # newer qmlfmt supports indent spaces count
+
+if [[ -n ${MYAPP_TEMPLATE_LEGACY_UBUNTU18-} ]]; then
+  MY_QT_VERSION=5.15.0
+  MY_FMT_EXTRAARGS=""
+  cp "${THISDIR}/enforce_qml_format.exclusions.legacy_qmlfmt" "${THISDIR}/enforce_qml_format.exclusions"
+fi
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  qml_formatter="${DL_FOLDER}/Qt_desktop/6.2.2/clang_64/extrabin/macos/qmlfmt"
+  qml_formatter="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/clang_64/extrabin/macos/qmlfmt"
 else
-  export LD_LIBRARY_PATH="${DL_FOLDER}/Qt_desktop/6.2.2/gcc_64/lib"
-  qml_formatter="${DL_FOLDER}/Qt_desktop/6.2.2/gcc_64/extrabin/qmlfmt"
+  export LD_LIBRARY_PATH="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/gcc_64/lib"
+  qml_formatter="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/gcc_64/extrabin/qmlfmt"
 fi
 
 check_format() {
@@ -39,7 +48,7 @@ check_format() {
       while read filenames; do
         for fl in "$filenames"; do
           echo checking format of "$fl"
-          result=$("$qml_formatter" -l "$fl" -i 2)
+          result=$("$qml_formatter" -l "$fl" ${MY_FMT_EXTRAARGS})
           if [[ ! -z "$result" ]]; then
               # https://stackoverflow.com/a/34066473/10278 (find string in bash array)
               if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
@@ -65,7 +74,7 @@ check_format() {
       if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
         echo "INTENTIONAL EXLUSION OF $fl"
       else
-        "$qml_formatter" -w "$fl" -i 2
+        "$qml_formatter" -w "$fl" ${MY_FMT_EXTRAARGS}
       fi
     done
   done
