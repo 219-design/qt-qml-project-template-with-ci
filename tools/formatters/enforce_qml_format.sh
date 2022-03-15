@@ -37,7 +37,7 @@ if [[ -n ${MYAPP_TEMPLATE_LEGACY_UBUNTU18-} ]]; then
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  qml_formatter="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/clang_64/extrabin/macos/qmlfmt"
+  qml_formatter="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/macos/extrabin/qmlfmt"
 else
   export LD_LIBRARY_PATH="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/gcc_64/lib"
   qml_formatter="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/gcc_64/extrabin/qmlfmt"
