@@ -8,7 +8,7 @@
 #
 ```
 
-qmlscene is a Qt utility that loads and displays QML documents even before the
+`qmlscene` is a Qt utility that loads and displays QML documents even before the
 application is complete. It is also a great time-saver for doing small layout
 touch-ups even on a completed app.
 
