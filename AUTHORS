@@ -1,0 +1,5 @@
+# New contributors must add their name and email for this git repository
+# following the format reported by `git shortlog -sen | cut -f 2`.
+
+Sean Moore <sean@219design.com>
+
