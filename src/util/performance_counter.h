@@ -2,6 +2,8 @@
 #define PROJ_LIB_UTIL_PERFORMANCE_COUNTER_H
 
 #include <algorithm>
+#include <array>
+#include <iterator>
 #include <optional>
 
 #include <QElapsedTimer>
