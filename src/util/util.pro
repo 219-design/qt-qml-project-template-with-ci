@@ -20,17 +20,23 @@ SOURCES += \
     am_i_inside_debugger.cc \
     deleter_with_qt_deferred_deletion.cc \
     every_so_often.cc \
-    performance_counter.cc \
     qml_message_interceptor.cc
 
 HEADERS += \
     am_i_inside_debugger.h \
     deleter_with_qt_deferred_deletion.h \
     every_so_often.h \
-    performance_counter.h \
     qml_list_property_helper.h \
     qml_message_interceptor.h \
     usage_log_t.hpp
+
+!android {
+    SOURCES += \
+        performance_counter.cc
+
+    HEADERS += \
+        performance_counter.h
+}
 
 target.path = $$top_exe_dir
 INSTALLS += target
