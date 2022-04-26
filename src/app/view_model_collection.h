@@ -20,6 +20,7 @@ class CliOptions;
 class EventFilter;
 class GuiTests;
 class LoggingTags;
+class PerformanceCounter;
 class QmlMessageInterceptor;
 
 class ViewModelCollection
@@ -42,6 +43,10 @@ private:
     std::unique_ptr<EventFilter> m_eventFilter;
     std::unique_ptr<QmlMessageInterceptor> m_qmlLogger;
     std::unique_ptr<LoggingTags> m_logging;
+
+#if !defined( Q_OS_ANDROID )
+    std::unique_ptr<PerformanceCounter> m_perfCounter;
+#endif // !defined(Q_OS_ANDROID)
 
     std::unique_ptr<GuiTests> m_guiTests;
 };

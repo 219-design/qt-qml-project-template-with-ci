@@ -31,7 +31,7 @@ void PerformanceCounter::StartReport( const QString& name )
 {
     for( auto& reportRequest : m_reports )
     {
-        if( reportRequest.m_name.data() == nullptr )
+        if( reportRequest.m_name.isEmpty() )
         {
             reportRequest = ReportRequest( name );
             return;

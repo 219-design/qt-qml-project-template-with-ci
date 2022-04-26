@@ -18,6 +18,11 @@
 #include "src/libstyles/resource_helper.h"
 #include "src/util/qml_message_interceptor.h"
 #include "src/util/usage_log_t.hpp"
+#include "util-assert.h"
+
+#if !defined( Q_OS_ANDROID )
+#    include "src/util/performance_counter.h"
+#endif // !defined(Q_OS_ANDROID)
 
 namespace project
 {
@@ -66,5 +71,15 @@ void ViewModelCollection::ExportContextPropertiesToQml( QQmlEngine* engine )
 void ViewModelCollection::SetRootObject( QObject* object )
 {
     m_eventFilter->FilterEventsDirectedAtThisObject( object );
+
+#if !defined( Q_OS_ANDROID )
+    if( m_opts->RunningGuiTests() )
+    {
+        auto rootWin = qobject_cast<QQuickWindow*>( object );
+        FASSERT( rootWin, "the casting must succeed so we get a QQuickWindow" );
+        m_perfCounter = std::make_unique<PerformanceCounter>( nullptr, rootWin );
+        m_perfCounter->StartReport( "GuiTests" );
+    }
+#endif // !defined(Q_OS_ANDROID)
 }
 } // namespace project
