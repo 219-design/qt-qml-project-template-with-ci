@@ -37,6 +37,23 @@ else
   # adding this next line here (rather than in run_all_tests.sh), because we think
   # of the graph-generation as more of a "build" step than a "test":
   $DIR/sw_arch_doc/generate_graph.sh ${DIR}/src/ ${DIR}/
+
+  # Next step done here (rather than inside generate_graph.sh) because the
+  # graph script does not need to be "git aware".
+  sw_arch_changed=$(git diff --exit-code ${DIR}/sw_arch_doc/all_src.dot || true)
+  if [[ -z ${sw_arch_changed} ]]; then
+      # What this block achieves is:
+      #
+      # If the '*.dot' file was not actually changed, then we FORCE the svg to
+      # also be in an unchanged state.
+      #
+      # This solves a problem where the svg can always come up dirty if a
+      # contributor is running the build script but the version of graphviz/dot
+      # on that contributor's build machine is not an exact match for the
+      # graphviz/dot version used by whoever caused the most recent changes in
+      # sw_arch_doc/.
+      git checkout ${DIR}/sw_arch_doc/all_src.svg
+  fi
 fi
 
 if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
