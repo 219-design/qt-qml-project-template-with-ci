@@ -1,6 +1,6 @@
 !include($$top_srcdir/compiler_flags.pri) { error() }
 
-QT += core
+QT += core qml quick
 
 android {
     QT += androidextras
@@ -29,6 +29,14 @@ HEADERS += \
     qml_list_property_helper.h \
     qml_message_interceptor.h \
     usage_log_t.hpp
+
+!android {
+    SOURCES += \
+        performance_counter.cc
+
+    HEADERS += \
+        performance_counter.h
+}
 
 target.path = $$top_exe_dir
 INSTALLS += target

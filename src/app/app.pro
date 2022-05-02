@@ -2,6 +2,8 @@
 
 QT += core qml quick svg widgets quickcontrols2
 
+CONFIG += c++17
+
 SOURCES += \
     event_filter.cc \
     gui_tests.cc \
