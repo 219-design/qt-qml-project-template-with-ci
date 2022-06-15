@@ -13,6 +13,7 @@
 #include "gui_tests.h"
 #include "src/app/event_filter.h"
 #include "src/lib_app/cli_options.h"
+#include "src/lib_app/lib.h"
 #include "src/lib_app/logging_tags.h"
 #include "src/lib_app/resources.h"
 #include "src/libstyles/resource_helper.h"
@@ -28,7 +29,8 @@ ViewModelCollection::ViewModelCollection( const QCoreApplication& app, bool cliA
     : m_opts( std::make_unique<CliOptions>( app, cliArgsOnlyParseThenSkipErrorHandling ) ),
       m_eventFilter( std::make_unique<EventFilter>() ),
       m_qmlLogger( std::make_unique<QmlMessageInterceptor>( !m_opts->MaximumQtLogging() ) ),
-      m_logging( std::make_unique<LoggingTags>( *m_opts ) )
+      m_logging( std::make_unique<LoggingTags>( *m_opts ) ),
+      m_libraryClass(std::make_unique<LibraryClass>())
 // clang-format on
 {
     project::initLibResources();
@@ -55,6 +57,8 @@ void ViewModelCollection::ExportContextPropertiesToQml( QQmlEngine* engine )
     // m_navigation->ExportContextPropertiesToQml( engine );
     Log( str( "ExportContextPropertiesToQml" ), m_logging )->ExportContextPropertiesToQml( engine );
     ResourceHelper::ExportContextPropertiesToQml( engine );
+
+    engine->rootContext()->setContextProperty( "libraryClass", m_libraryClass.get() );
 
     // Keep this at the END of the 'ExportContext...' method, so all view models are exported before any tests run
     if( Log( str( "RunningGuiTests" ), m_opts )->RunningGuiTests() )

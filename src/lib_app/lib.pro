@@ -40,9 +40,8 @@ HEADERS += \
     logging_tags.h \
     resources.h
 
-# 'pri' usage based on http://archive.is/https://www.toptal.com/qt/vital-guide-qmake
-!include(../libstyles/libstyles.pri) { error() }
-!include(../util/util.pri) { error() }
+# Include all dependencies to both link in their libraries and include their headers.
+!include(./lib_deps.pri) { error() }
 
 TARGET = appimpl
 

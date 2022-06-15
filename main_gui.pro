@@ -12,6 +12,7 @@ TEMPLATE = subdirs
 SUBDIRS = \
     app \
     lib_app \
+    lib_example_shared \
     lib_tests \
     libstyles \
     libtestmain \
@@ -22,6 +23,7 @@ SUBDIRS = \
 
 app.file = src/app/app.pro
 lib_app.file = src/lib_app/lib.pro
+lib_example_shared.file = src/lib_example_shared/lib_example_shared.pro
 lib_tests.file = src/lib_app/lib_tests.pro
 libstyles.file = src/libstyles/libstyles.pro
 libtestmain.file = src/libtests/libtestmain.pro
@@ -38,6 +40,7 @@ googletest.file = third_party/googletest-release-1.11.0/googletest/googletest.pr
 # contain') all these libraries.
 app.depends = \
     lib_app \
+    lib_example_shared \
     lib_tests \
     libstyles \
     libtestmain \
@@ -51,6 +54,6 @@ app.depends = \
 
 # NOTE: using 'CONFIG += ordered' is considered a bad practice—prefer using .depends instead.
 googlemock.depends = third_party/googletest-release-1.11.0/googletest
-lib_app.depends = libstyles util
+lib_app.depends = libstyles util lib_example_shared
 lib_tests.depends = lib_app libtestmain third_party/googletest-release-1.11.0/googletest third_party/googletest-release-1.11.0/googlemock
 libtestmain.depends = third_party/googletest-release-1.11.0/googletest third_party/googletest-release-1.11.0/googlemock
