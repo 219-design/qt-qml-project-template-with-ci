@@ -16,8 +16,8 @@ TARGET  = testmain
 SOURCES += \
     test_main.cc
 
-!include(../../third_party/googletest-release-1.8.0/googlemock/googlemock.pri) { error() }
-!include(../../third_party/googletest-release-1.8.0/googletest/googletest.pri) { error() }
+!include(../../third_party/googletest-release-1.11.0/googlemock/googlemock.pri) { error() }
+!include(../../third_party/googletest-release-1.11.0/googletest/googletest.pri) { error() }
 
 target.path = $$top_exe_dir
 INSTALLS += target

@@ -16,8 +16,8 @@ SUBDIRS = \
     libstyles \
     libtestmain \
     minutil \
-    third_party/googletest-release-1.8.0/googlemock \
-    third_party/googletest-release-1.8.0/googletest \
+    third_party/googletest-release-1.11.0/googlemock \
+    third_party/googletest-release-1.11.0/googletest \
     util
 
 app.file = src/app/app.pro
@@ -29,8 +29,8 @@ minutil.file = src/minutil/minutil.pro
 util.file = src/util/util.pro
 
 # third_party projects
-googlemock.file = third_party/googletest-release-1.8.0/googlemock/googlemock.pro
-googletest.file = third_party/googletest-release-1.8.0/googletest/googletest.pro
+googlemock.file = third_party/googletest-release-1.11.0/googlemock/googlemock.pro
+googletest.file = third_party/googletest-release-1.11.0/googletest/googletest.pro
 
 # The 'app' does not directly depend on this entire set of libraries.
 # Instead, think of this massive dependency list as a way for us to tell qmake
@@ -42,15 +42,15 @@ app.depends = \
     libstyles \
     libtestmain \
     minutil \
-    third_party/googletest-release-1.8.0/googlemock \
-    third_party/googletest-release-1.8.0/googletest \
+    third_party/googletest-release-1.11.0/googlemock \
+    third_party/googletest-release-1.11.0/googletest \
     util
 
 # The remaining 'depends' lines are used in the 'traditional' sense of actually
 # specifying the miminum link-time dependencies of each item:
 
 # NOTE: using 'CONFIG += ordered' is considered a bad practice—prefer using .depends instead.
-googlemock.depends = third_party/googletest-release-1.8.0/googletest
+googlemock.depends = third_party/googletest-release-1.11.0/googletest
 lib_app.depends = libstyles util
-lib_tests.depends = lib_app libtestmain third_party/googletest-release-1.8.0/googletest third_party/googletest-release-1.8.0/googlemock
-libtestmain.depends = third_party/googletest-release-1.8.0/googletest third_party/googletest-release-1.8.0/googlemock
+lib_tests.depends = lib_app libtestmain third_party/googletest-release-1.11.0/googletest third_party/googletest-release-1.11.0/googlemock
+libtestmain.depends = third_party/googletest-release-1.11.0/googletest third_party/googletest-release-1.11.0/googlemock
