@@ -82,6 +82,7 @@ ApplicationWindow {
       focusPolicy: Qt.StrongFocus
       Keys.onSpacePressed: {
         smileyImage.rotation = smileyImage.rotation + 90
+        console.log(libraryClass.getValue())
       }
 
       background: ImageSvgHelper {

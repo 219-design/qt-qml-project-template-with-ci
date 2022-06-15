@@ -15,4 +15,9 @@ int LibraryFunction()
     return 5;
 }
 
+int LibraryClass::getValue()
+{
+    return m_example.ExampleFunction( 10 );
+}
+
 } // namespace project

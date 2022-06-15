@@ -2,6 +2,9 @@
 
 !include($$top_srcdir/cross_platform.pri) { error() }
 
+# Include all dependencies to transitively link in their libraries.
+!include(./lib_deps.pri) { error() }
+
 INCLUDEPATH += $${top_srcdir}
 LIBS += -L$$shadowed($$PWD)/$${win_build_folder_subdir} -lappimpl$${our_android_lib_suffix}
 
