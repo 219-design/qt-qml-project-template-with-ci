@@ -9,6 +9,7 @@
 #define PROJ_LIB_QML_LIST_PROPERTY_H
 
 #include <QQmlListProperty>
+#include <QSharedPointer>
 
 #include <limits>
 #include <memory>
@@ -39,6 +40,12 @@ T* GetPointer( std::unique_ptr<T>& ptr )
 
 template <typename T>
 T* GetPointer( std::shared_ptr<T>& ptr )
+{
+    return ptr.get();
+}
+
+template <typename T>
+T* GetPointer( QSharedPointer<T>& ptr )
 {
     return ptr.get();
 }
