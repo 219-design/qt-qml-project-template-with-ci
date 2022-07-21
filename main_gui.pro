@@ -19,7 +19,8 @@ SUBDIRS = \
     minutil \
     third_party/googletest-release-1.11.0/googlemock \
     third_party/googletest-release-1.11.0/googletest \
-    util
+    util \
+    util_tests
 
 app.file = src/app/app.pro
 lib_app.file = src/lib_app/lib.pro
@@ -29,6 +30,7 @@ libstyles.file = src/libstyles/libstyles.pro
 libtestmain.file = src/libtests/libtestmain.pro
 minutil.file = src/minutil/minutil.pro
 util.file = src/util/util.pro
+util_tests.file = src/util/util_tests.pro
 
 # third_party projects
 googlemock.file = third_party/googletest-release-1.11.0/googlemock/googlemock.pro
@@ -47,7 +49,8 @@ app.depends = \
     minutil \
     third_party/googletest-release-1.11.0/googlemock \
     third_party/googletest-release-1.11.0/googletest \
-    util
+    util \
+    util_tests
 
 # The remaining 'depends' lines are used in the 'traditional' sense of actually
 # specifying the miminum link-time dependencies of each item:
@@ -57,3 +60,4 @@ googlemock.depends = third_party/googletest-release-1.11.0/googletest
 lib_app.depends = libstyles util lib_example_shared
 lib_tests.depends = lib_app libtestmain third_party/googletest-release-1.11.0/googletest third_party/googletest-release-1.11.0/googlemock
 libtestmain.depends = third_party/googletest-release-1.11.0/googletest third_party/googletest-release-1.11.0/googlemock
+util_tests.depends = util libtestmain
