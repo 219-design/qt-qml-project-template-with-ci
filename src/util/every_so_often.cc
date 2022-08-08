@@ -2,11 +2,18 @@
 
 namespace project
 {
+namespace
+{
+constexpr std::chrono::milliseconds kPaddingInCaseZero{ 20 };
+} // namespace
+
 EverySoOften::EverySoOften( std::chrono::milliseconds howOften )
     // clang-format off
     : m_howOften( howOften ),
       // Set m_timeOfLastAction to something that GUARANTEES that the first 'Do' will succeed:
-      m_timeOfLastAction( std::chrono::system_clock::now() - (m_howOften * 2) )
+      m_timeOfLastAction( std::chrono::system_clock::now() -
+                          // now MINUS something means we're setting m_timeOfLastAction to a PAST time
+                          ((m_howOften+kPaddingInCaseZero) * 2) )
 // clang-format on
 {
 }
