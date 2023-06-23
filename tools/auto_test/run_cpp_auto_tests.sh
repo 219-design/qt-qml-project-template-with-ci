@@ -13,6 +13,8 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
+source "${CUR_GIT_ROOT}/tools/ci/utils.bash" # for terminal colorization
+
 run_a_test() {
   while read filenames; do
     for fl in "$filenames"; do
@@ -33,4 +35,4 @@ find "${OUR_TEST_BINARIES_DIR}" -type f \( -name '*test' -o -name '*tests' -o -n
 
 echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'
-echo 'run_cpp_auto_tests SUCCESS'
+echo "${u_green}run_cpp_auto_tests SUCCESS${u_resetcolor}"
