@@ -30,12 +30,6 @@ fi
 MY_QT_VERSION=6.2.2
 MY_FMT_EXTRAARGS="-i 2" # newer qmlfmt supports indent spaces count
 
-if [[ -n ${MYAPP_TEMPLATE_LEGACY_UBUNTU18-} ]]; then
-  MY_QT_VERSION=5.15.0
-  MY_FMT_EXTRAARGS=""
-  cp "${THISDIR}/enforce_qml_format.exclusions.legacy_qmlfmt" "${THISDIR}/enforce_qml_format.exclusions"
-fi
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
   qml_formatter="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/macos/extrabin/qmlfmt"
 else
