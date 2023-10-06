@@ -24,13 +24,7 @@ SOURCES += \
     qml_message_interceptor.cc
 
 HEADERS += \
-    am_i_inside_debugger.h \
-    deleter_with_qt_deferred_deletion.h \
-    every_so_often.h \
-    timer_service.h \
-    qml_list_property_helper.h \
-    qml_message_interceptor.h \
-    usage_log_t.hpp
+    timer_service.h
 
 target.path = $$top_exe_dir
 INSTALLS += target

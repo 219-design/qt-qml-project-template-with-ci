@@ -15,10 +15,6 @@ win32 {
 SOURCES += \
     example_shared.cc
 
-HEADERS += \
-    example_shared.h
-
-
 INCLUDEPATH += $${top_srcdir}
 
 target.path = $$top_exe_dir

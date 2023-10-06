@@ -34,11 +34,8 @@ ios {
 }
 
 HEADERS += \
-    cli_options.h \
-    ios/ios_log_redirect.h \
     lib.h \
-    logging_tags.h \
-    resources.h
+    logging_tags.h
 
 # Include all dependencies to both link in their libraries and include their headers.
 !include(./lib_deps.pri) { error() }

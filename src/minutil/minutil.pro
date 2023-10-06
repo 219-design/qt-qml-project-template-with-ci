@@ -16,11 +16,6 @@ SOURCES += \
     logger.cc \
     x_unistd.cc
 
-HEADERS += \
-    logger.h \
-    x_unistd.h
-
-
 INCLUDEPATH += $${top_srcdir}
 
 target.path = $$top_exe_dir

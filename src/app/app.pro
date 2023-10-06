@@ -10,8 +10,7 @@ SOURCES += \
 
 HEADERS += \
     event_filter.h \
-    gui_tests.h \
-    view_model_collection.h
+    gui_tests.h
 
 INCLUDEPATH += $${top_srcdir}/build/generated_files # for version.h
 

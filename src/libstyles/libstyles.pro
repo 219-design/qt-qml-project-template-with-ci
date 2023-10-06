@@ -3,7 +3,7 @@
 QT += core qml quick svg widgets
 
 win32 {
-	DEFINES += LIBSTYLES_LIBRARY
+        DEFINES += LIBSTYLES_LIBRARY
 }
 
 TEMPLATE = lib
@@ -22,8 +22,7 @@ SOURCES += \
     resources.cc
 
 HEADERS += \
-    resource_helper.h \
-    resources.h
+    resource_helper.h
 
 
 target.path = $$top_exe_dir

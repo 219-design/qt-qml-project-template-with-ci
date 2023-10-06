@@ -48,25 +48,7 @@ win32 {
 }
 
 SOURCES += \
-    src/gmock-all.cc \
-    src/gmock-cardinalities.cc \
-    src/gmock-internal-utils.cc \
-    src/gmock-matchers.cc \
-    src/gmock-spec-builders.cc \
-    src/gmock.cc
-
-HEADERS += \
-    include/gmock/gmock-actions.h \
-    include/gmock/gmock-cardinalities.h \
-    include/gmock/gmock-generated-actions.h \
-    include/gmock/gmock-generated-function-mockers.h \
-    include/gmock/gmock-generated-matchers.h \
-    include/gmock/gmock-generated-nice-strict.h \
-    include/gmock/gmock-matchers.h \
-    include/gmock/gmock-more-actions.h \
-    include/gmock/gmock-more-matchers.h \
-    include/gmock/gmock-spec-builders.h \
-    include/gmock/gmock.h
+    src/gmock-all.cc
 
 INCLUDEPATH += include
 
