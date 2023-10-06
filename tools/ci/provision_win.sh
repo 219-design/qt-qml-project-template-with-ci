@@ -43,5 +43,5 @@ pushd $DL_FOLDER/win_bin/ >& /dev/null
   gpg --keyserver keyserver.ubuntu.com --recv-key 345AD05D || true
 
   gpg --verify clang-format-r375090.exe.sig clang-format-r375090.exe
-  mv clang-format-r375090.exe clang-format-10
+  mv clang-format-r375090.exe clang-format-12
 popd >& /dev/null
