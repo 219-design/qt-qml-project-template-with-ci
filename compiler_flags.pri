@@ -118,6 +118,7 @@ ios|macx {
   QMAKE_CXXFLAGS += "\
        -Wno-error=format-nonliteral \
        -Wno-error=inline \
+       -Wno-error=unknown-pragmas \
        "
   # Rationale for 'Wno-error=format-nonliteral': we trigger this in rc/minutil/logger.cc (TODO: eventually suppress this ONLY for that cc file)
   # Rationale for 'Wno-error=inline' is that a failure to inline is information, and never truly 'wrong'
@@ -128,6 +129,7 @@ ios|macx {
     QMAKE_CXXFLAGS += "\
         -Wno-error=missing-noreturn \
         -Wno-error=sign-conversion \
+        -Wno-unknown-pragmas \
         "
 }
 

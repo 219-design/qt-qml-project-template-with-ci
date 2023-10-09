@@ -21,12 +21,12 @@ fi
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# https://web.archive.org/web/20191121235402/https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html
-if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REPO_FULL_NAME-} ]];
-# The '-' hyphens above test without angering the 'set -u' about unbound variables
+source ${THISDIR}/tools/ci/utils.bash # will compute UTILS_WE_ARE_RUNNING_IN_CI
+
+if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]];
+# The '-' hyphen above tests without angering the 'set -u' about unbound variables
 then
-  echo "Assuming C.I. environment."
-  echo "Found at least one of GITHUB_ACTIONS, BITBUCKET_REPO_OWNER, BITBUCKET_REPO_FULL_NAME in env."
+  echo "C.I. environment was detected."
 
   # Try various ways to print OS version info.
   # This lets us keep a record of this in our CI logs,

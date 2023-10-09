@@ -1,4 +1,4 @@
-#include "src/lib_example_shared/example_shared.h"
+#include "example_shared.h"
 
 namespace project
 {

@@ -152,7 +152,14 @@ void DecoratorFunc( QtMsgType type, const QMessageLogContext& context, const QSt
 } // namespace
 
 QmlMessageInterceptor::QmlMessageInterceptor( const bool suppressDefaultLogWhenSinkIsPresent )
-    : m_pimpl( new Pimpl( this ) ), m_suppressDefaultLogWhenSinkIsPresent( suppressDefaultLogWhenSinkIsPresent )
+    : m_pimpl(
+#if defined( _WIN32 )
+#    pragma warning( suppress : 4355 )
+        new Pimpl( this ) )
+#else
+        new Pimpl( this ) )
+#endif // if  defined( _WIN32 )
+    , m_suppressDefaultLogWhenSinkIsPresent( suppressDefaultLogWhenSinkIsPresent )
 {
     FASSERT( original_handler == nullptr,
         "Qt supports just one handler at a time, so it would be an error to construct more than one of these" );

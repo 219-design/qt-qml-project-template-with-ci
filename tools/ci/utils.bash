@@ -16,3 +16,12 @@ else
   u_green=''
   u_resetcolor=''
 fi
+
+# https://web.archive.org/web/20191121235402/https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html
+if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REPO_FULL_NAME-} ]];
+# The '-' hyphens above test without angering the 'set -u' about unbound variables
+then
+  export UTILS_WE_ARE_RUNNING_IN_CI=1
+  echo "Assuming C.I. environment."
+  echo "Found at least one of GITHUB_ACTIONS, BITBUCKET_REPO_OWNER, BITBUCKET_REPO_FULL_NAME in env."
+fi
