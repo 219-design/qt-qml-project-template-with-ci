@@ -6,7 +6,7 @@ then
     exit 1
 fi
 
-if [[ -n ${TERM-} && ${TERM-} != "dumb" ]]; then
+if [[ -n ${TERM-} && ${TERM-} != "dumb" && ${TERM-} != "emacs" ]]; then
   # https://stackoverflow.com/a/20983251/10278
   u_red=`tput setaf 1`
   u_green=`tput setaf 2`
