@@ -48,6 +48,20 @@ if(WIN32)
   # spaces after the "SHELL:" prefix. Differentiating (isolating, uniquely
   # defining) each token based on differing counts of blank spaces is key to the
   # workaround.
+  #
+  # Nice-to-have: Considering that many of the "/wdNNNN" suppressions are for
+  # the sake of compiling Qt moc generated code as part of our libraries where
+  # we use Qt moc macros, there is probably a way for us to put all the moc
+  # generated files into a separate library or 'file group' of some kind and
+  # only apply the suppressions there.
+  #
+  # Per microsoft docs on cl.exe:
+  #
+  # CL [option...] file... [lib...] [@command-file] [/link link-opt...]
+  #
+  # Order of the options is supposed to never (or rarely?) matter, but I
+  # observed issues until the "/experimental" items were moved to the bottom and
+  # until "/WX" was moved after the "/wdNNNN" items.
   list(
     APPEND
     MYAPP_COMPILER_WARNINGS
@@ -63,7 +77,6 @@ if(WIN32)
     "/wd5026"
     "/wd5027"
     "/wd5045"
-    "/wd5204"
     "/WX"
     "/experimental:external"
     "/external:W0"

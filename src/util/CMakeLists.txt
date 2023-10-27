@@ -57,7 +57,7 @@ if(WIN32)
   set_source_files_properties(
     tests/timer_service_test.cc
     PROPERTIES COMPILE_FLAGS
-               "/wd4355"
+               "/wd4355 /wd5204"
   )
 endif() # if(WIN32)
 
