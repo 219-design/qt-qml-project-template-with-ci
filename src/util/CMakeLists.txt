@@ -85,6 +85,18 @@ target_compile_options(
   PRIVATE ${MYAPP_COMPILER_WARNINGS}
 )
 
+if(UNIX)
+  # Fixing: undefined reference to symbol 'pthread_getspecific@@GLIBC_2.2.5' Due
+  # to:
+  #
+  # gtest-port.h:1767:    DeleteThreadLocalValue(pthread_getspecific(key_));
+  # gtest-port.h:1804:
+  # static_cast<ThreadLocalValueHolderBase*>(pthread_getspecific(key_));
+  set(PThreadLib
+      -pthread
+  )
+endif()
+
 target_link_libraries(
   util_tests
   Qt::Core
@@ -93,4 +105,5 @@ target_link_libraries(
   googletest
   testmain
   util
+  ${PThreadLib}
 )
