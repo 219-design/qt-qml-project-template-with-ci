@@ -28,3 +28,10 @@ target_compile_options(
   testmain
   PRIVATE ${MYAPP_COMPILER_WARNINGS}
 )
+
+# On Linux, use "$ORIGIN" rpath so dylibs can be in the same dir as the app
+set_target_properties(
+  testmain
+  PROPERTIES BUILD_RPATH_USE_ORIGIN
+             TRUE
+)

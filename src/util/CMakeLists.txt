@@ -39,6 +39,13 @@ target_link_libraries(
   PRIVATE Qt::Core
 )
 
+# On Linux, use "$ORIGIN" rpath so dylibs can be in the same dir as the app
+set_target_properties(
+  util
+  PROPERTIES BUILD_RPATH_USE_ORIGIN
+             TRUE
+)
+
 set(util_tests_sources
     tests/timer_service_test.cc
 )
@@ -107,4 +114,11 @@ target_link_libraries(
           testmain
           util
           ${PThreadLib}
+)
+
+# On Linux, use "$ORIGIN" rpath so dylibs can be in the same dir as the app
+set_target_properties(
+  util_tests
+  PROPERTIES BUILD_RPATH_USE_ORIGIN
+             TRUE
 )

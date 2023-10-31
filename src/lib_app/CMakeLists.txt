@@ -46,6 +46,13 @@ target_compile_options(
   PRIVATE ${MYAPP_COMPILER_WARNINGS}
 )
 
+# On Linux, use "$ORIGIN" rpath so dylibs can be in the same dir as the app
+set_target_properties(
+  lib_app
+  PROPERTIES BUILD_RPATH_USE_ORIGIN
+             TRUE
+)
+
 # add_executable(lib_tests ${lib_test_sources})
 
 # target_link_libraries( lib_tests Qt::Core Qt::Test Qt::Widgets Qt::Qml

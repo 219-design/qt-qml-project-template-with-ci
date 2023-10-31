@@ -51,3 +51,10 @@ target_compile_definitions(
   libstyles
   PRIVATE LIBSTYLES_LIBRARY
 )
+
+# On Linux, use "$ORIGIN" rpath so dylibs can be in the same dir as the app
+set_target_properties(
+  libstyles
+  PROPERTIES BUILD_RPATH_USE_ORIGIN
+             TRUE
+)
