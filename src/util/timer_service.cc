@@ -7,6 +7,8 @@
 //
 #include "timer_service.h"
 
+#include <algorithm>
+
 namespace project
 {
 TimerService TimerService::k_instance;
@@ -137,13 +139,10 @@ void TimerService::UnregisterTimer( Timer* timer )
 
 void TimerService::UnregisterTimerInternal( Timer* timer )
 {
-    for( auto iter = m_registeredTimers.rbegin(); iter != m_registeredTimers.rend(); iter++ )
-    {
-        if( *iter == timer )
-        {
-            m_registeredTimers.erase( ( iter + 1 ).base() );
-        }
-    }
+    m_registeredTimers.erase( std::remove( m_registeredTimers.begin(),
+                                  m_registeredTimers.end(),
+                                  timer ),
+        m_registeredTimers.end() );
 }
 
 void TimerService::BecomeTest()
