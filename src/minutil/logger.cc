@@ -17,9 +17,10 @@
 #    include <stdlib.h>
 #    include <wchar.h>
 #    include <windows.h>
+#    define getpid _getpid
 #else
 #    include <unistd.h>
-#endif //if defined( WIN32 ) || defined( _WIN32 )
+#endif // if defined( WIN32 ) || defined( _WIN32 )
 
 namespace project
 {
@@ -74,7 +75,7 @@ std::string GetDateTimeString()
 
     return std::string( buff );
 }
-#endif //if defined( WIN32 ) || defined( _WIN32 )
+#endif // if defined( WIN32 ) || defined( _WIN32 )
 
 std::string GetPrefix()
 {

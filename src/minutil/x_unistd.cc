@@ -11,7 +11,7 @@ namespace project
 void MilliSleep( const int ms )
 {
 #if defined( WIN32 ) || defined( _WIN32 )
-    Sleep( ms );
+    Sleep( static_cast<DWORD>( ms ) );
 #else
     usleep( ms * 1000 ); // usleep takes sleep time in us (1 millionth of a second)
 #endif
