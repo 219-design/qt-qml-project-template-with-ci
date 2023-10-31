@@ -6,6 +6,11 @@ qtquick_compiler_add_resources(
   libresources.qrc
 ) # TODO: we probably also need qt_add_resources like in libstyles?
 
+qt_add_resources(
+  RC_SRC
+  libresources.qrc
+)
+
 set(lib_app_sources
     cli_options.cc
     lib.cc
@@ -13,6 +18,19 @@ set(lib_app_sources
     resources.cc
 )
 
+if(IOS)
+  set(lib_app_sources
+      ${lib_app_sources}
+      ios/ios_log_redirect.mm
+  )
+else()
+  set(lib_app_sources
+      ${lib_app_sources}
+      ios/ios_log_redirect.cc
+  )
+endif() # if (IOS)
+
+# Note: only list headers that need MOC
 set(lib_app_headers
     lib.h
     logging_tags.h
@@ -23,6 +41,7 @@ add_library(
   lib_app
   ${lib_app_sources}
   ${lib_app_headers}
+  ${RC_SRC}
 )
 
 target_include_directories(

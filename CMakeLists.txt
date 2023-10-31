@@ -45,9 +45,10 @@ find_package(
   REQUIRED
   COMPONENTS Core
              Qml
+             Quick
+             QuickControls2
              Test
              Widgets
-             Quick
 )
 
 set(CMAKE_AUTOMOC
