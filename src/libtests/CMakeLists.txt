@@ -13,8 +13,8 @@ target_include_directories(
   testmain
   SYSTEM
   PRIVATE
-    ${CMAKE_SOURCE_DIR}/third_party/googletest-release-1.11.0/googlemock/include
-    ${CMAKE_SOURCE_DIR}/third_party/googletest-release-1.11.0/googletest/include
+    ${PROJECT_SOURCE_DIR}/third_party/googletest-release-1.11.0/googlemock/include
+    ${PROJECT_SOURCE_DIR}/third_party/googletest-release-1.11.0/googletest/include
 )
 
 target_link_libraries(

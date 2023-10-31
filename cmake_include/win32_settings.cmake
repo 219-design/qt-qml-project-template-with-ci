@@ -85,7 +85,7 @@ if(WIN32)
     "SHELL: /external:I"
     "${QTDIR_FOR_WARNING_EXEMPTION}"
     "SHELL:  /external:I"
-    "${CMAKE_SOURCE_DIR}/src/assert"
+    "${PROJECT_SOURCE_DIR}/src/assert"
     "SHELL:   /external:I"
     "$ENV{VSINSTALLDIR}"
   )

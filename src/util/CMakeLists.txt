@@ -72,13 +72,13 @@ target_include_directories(
   util_tests
   SYSTEM
   PRIVATE
-    ${CMAKE_SOURCE_DIR}/third_party/googletest-release-1.11.0/googlemock/include
-    ${CMAKE_SOURCE_DIR}/third_party/googletest-release-1.11.0/googletest/include
+    ${PROJECT_SOURCE_DIR}/third_party/googletest-release-1.11.0/googlemock/include
+    ${PROJECT_SOURCE_DIR}/third_party/googletest-release-1.11.0/googletest/include
 )
 
 target_include_directories(
   util_tests
-  PRIVATE ${CMAKE_SOURCE_DIR}
+  PRIVATE ${PROJECT_SOURCE_DIR}
 )
 
 target_compile_options(

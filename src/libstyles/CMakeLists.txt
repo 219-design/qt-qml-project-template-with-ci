@@ -31,7 +31,7 @@ add_library(
 
 target_include_directories(
   libstyles
-  PRIVATE ${CMAKE_SOURCE_DIR}
+  PRIVATE ${PROJECT_SOURCE_DIR}
           imports
           imports/libstyles
 )

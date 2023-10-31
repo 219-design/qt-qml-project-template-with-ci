@@ -14,7 +14,7 @@ if(UNIX)
   # compiler warnings
   include_directories(
     SYSTEM
-    ${CMAKE_SOURCE_DIR}/src/assert
+    ${PROJECT_SOURCE_DIR}/src/assert
   )
 
   if(NOT
