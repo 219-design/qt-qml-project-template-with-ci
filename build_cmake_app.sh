@@ -98,6 +98,8 @@ if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
   git apply $DIR/tools/ci/strip_effects_for_sake_of_qt6.patch
 fi
 
+$DIR/tools/ci/version.sh cbuild
+
 source $DIR/path_to_qmake.bash
 
 mkdir -p cbuild

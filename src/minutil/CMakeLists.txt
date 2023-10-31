@@ -11,7 +11,7 @@ add_library(
 
 target_include_directories(
   minutil
-  PRIVATE ${CMAKE_SOURCE_DIR}
+  PRIVATE ${PROJECT_SOURCE_DIR}
 )
 
 target_compile_options(

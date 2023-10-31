@@ -19,8 +19,8 @@ add_executable(
 
 target_include_directories(
   app
-  PRIVATE ${CMAKE_SOURCE_DIR}
-          ${CMAKE_BINARY_DIR}/generated_files # for version.h
+  PRIVATE ${PROJECT_SOURCE_DIR}
+          ${PROJECT_BINARY_DIR}/generated_files # for version.h
 )
 
 target_compile_options(
