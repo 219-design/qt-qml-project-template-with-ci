@@ -3,6 +3,7 @@ set(libstyles_sources
     resource_helper.cc
 )
 
+# Note: only list headers that need MOC
 set(libstyles_headers
     resource_helper.h
 )
@@ -22,7 +23,7 @@ qt_add_resources(
 
 add_library(
   libstyles
-  MODULE
+  SHARED
   ${libstyles_sources}
   ${libstyles_headers}
   ${RC_SRC}
@@ -37,8 +38,8 @@ target_include_directories(
 
 target_link_libraries(
   libstyles
-  Qt::Core
-  Qt::Qml
+  PRIVATE Qt::Core
+          Qt::Qml
 )
 
 target_compile_options(

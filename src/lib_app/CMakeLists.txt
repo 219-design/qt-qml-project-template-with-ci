@@ -32,13 +32,13 @@ target_include_directories(
 
 target_link_libraries(
   lib_app
-  Qt::Core
-  Qt::Widgets
-  Qt::Qml
-  Qt::Quick
-  libstyles
-  lib_example
-  util
+  PRIVATE Qt::Core
+          Qt::Widgets
+          Qt::Qml
+          Qt::Quick
+          libstyles
+          lib_example
+          util
 )
 
 target_compile_options(

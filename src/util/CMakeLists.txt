@@ -6,6 +6,7 @@ set(util_sources
     qml_message_interceptor.cc
 )
 
+# Note: only list headers that need MOC
 set(util_headers
     timer_service.h
 )
@@ -35,7 +36,7 @@ target_compile_options(
 
 target_link_libraries(
   util
-  Qt::Core
+  PRIVATE Qt::Core
 )
 
 set(util_tests_sources
@@ -99,11 +100,11 @@ endif()
 
 target_link_libraries(
   util_tests
-  Qt::Core
-  Qt::Test
-  googlemock
-  googletest
-  testmain
-  util
-  ${PThreadLib}
+  PRIVATE Qt::Core
+          Qt::Test
+          googlemock
+          googletest
+          testmain
+          util
+          ${PThreadLib}
 )

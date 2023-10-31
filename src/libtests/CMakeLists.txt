@@ -19,9 +19,9 @@ target_include_directories(
 
 target_link_libraries(
   testmain
-  Qt::Core
-  googlemock
-  googletest
+  PRIVATE Qt::Core
+          googlemock
+          googletest
 ) # qt needed when using qt_test_main.cc
 
 target_compile_options(
