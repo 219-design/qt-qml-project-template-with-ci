@@ -13,6 +13,9 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 pushd .
 trap "popd" EXIT HUP INT QUIT TERM
 
+CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+source "${CUR_GIT_ROOT}/tools/ci/utils.bash" # for terminal colorization
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR  # enter this script's directory. (in case called from root of repository)
 
@@ -97,25 +100,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   ./build_ios_app.sh
 fi
-
-windows_deploy () {
-  FLAVOR="$1"
-  EXEDIR="$2"
-  PDIR="$3"
-  SHIPDIR="$4"
-  mkdir -p ${SHIPDIR}
-  cp ${EXEDIR}/*.exe ${SHIPDIR}  # copy main and tests. tests must be side-by-side with Qt DLL(s), too.
-  cp ${PDIR}/libstylesplugin.dll ${SHIPDIR}
-
-  pushd ${SHIPDIR} >& /dev/null
-    # Technically, we should set qmldir to our own 'src' dir, to allow
-    # windeployqt to deploy the MINIMUM necessary QML support files. However,
-    # this is a popular workaround for various bugs and annoyances -- by
-    # pointing qmldir to the Qt framework install dir itself, we just deploy ALL
-    # qml-related support files that Qt offers.
-    windeployqt "${FLAVOR}" --qmldir "${WINALLQML}"  app.exe
-  popd >& /dev/null
-}
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   EXEDIR=build/src/app/release

@@ -11,9 +11,6 @@
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 IFS=$'\n\t'
 
-pushd .
-trap "popd" EXIT HUP INT QUIT TERM
-
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 source "${CUR_GIT_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
@@ -138,10 +135,16 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-  true
-  # TODO?
+  # TODO? release?
   #windows_deploy "--release" ${EXEDIR} ${PLUGINDIR} ${SHIPDIR}
-  #windows_deploy "--debug" ${EXEDIRDBG} ${PLUGINDIRDBG} ${SHIPDIRDBG}
+
+  EXEDIRDBG=cbuild/stage
+  PLUGINDIRDBG=cbuild/stage
+  SHIPDIRDBG=cbuild/windeployfolder_debug
+
+  #windows_deploy "--release" ${EXEDIR} ${PLUGINDIR} ${SHIPDIR}
+  windows_deploy "--debug" ${EXEDIRDBG} ${PLUGINDIRDBG} ${SHIPDIRDBG}
+
 fi
 
 echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'

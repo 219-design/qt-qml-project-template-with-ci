@@ -25,3 +25,22 @@ then
   echo "Assuming C.I. environment."
   echo "Found at least one of GITHUB_ACTIONS, BITBUCKET_REPO_OWNER, BITBUCKET_REPO_FULL_NAME in env."
 fi
+
+windows_deploy () {
+  FLAVOR="$1"
+  EXEDIR="$2"
+  PDIR="$3"
+  SHIPDIR="$4"
+  mkdir -p ${SHIPDIR}
+  cp ${EXEDIR}/*.exe ${SHIPDIR}  # copy main and tests. tests must be side-by-side with Qt DLL(s), too.
+  cp ${PDIR}/libstylesplugin.dll ${SHIPDIR}
+
+  pushd ${SHIPDIR}
+    # Technically, we should set qmldir to our own 'src' dir, to allow
+    # windeployqt to deploy the MINIMUM necessary QML support files. However,
+    # this is a popular workaround for various bugs and annoyances -- by
+    # pointing qmldir to the Qt framework install dir itself, we just deploy ALL
+    # qml-related support files that Qt offers.
+    windeployqt "${FLAVOR}" --qmldir "${WINALLQML}"  app.exe
+  popd
+}

@@ -57,4 +57,6 @@ set_target_properties(
   libstyles
   PROPERTIES BUILD_RPATH_USE_ORIGIN
              TRUE
+             OUTPUT_NAME
+             "libstylesplugin" # to match old qmake DLL name for our sh scripts
 )
