@@ -32,4 +32,5 @@ jobs:
         # MYAPP_TEMPLATE_BUILD_ANDROID: 1 # we've not yet established a working qt6 android setup
         # MYAPP_TEMPLATE_BUILD_APPIMAGE: 1 # we've not yet established a working qt6 appimage setup
         MYAPP_TEMPLATE_QT6: 1
+        MYAPP_TEMPLATE_PREFER_QMAKE: 1
       run: ./run_all_tests.sh

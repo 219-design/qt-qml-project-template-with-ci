@@ -31,4 +31,4 @@ jobs:
       env:
         NOTYET_MYAPP_TEMPLATE_BUILD_ANDROID: 1
         NOTYET_MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
-      run: ./build_cmake_app.sh
+      run: ./run_all_tests.sh

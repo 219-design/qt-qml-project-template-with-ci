@@ -56,8 +56,11 @@ else
   tools/formatters/enforce_clang_format.sh ${THISDIR}/src check_only
 fi
 
-
-./build_app.sh
+if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
+  ./build_app.sh
+else
+  ./build_cmake_app.sh
+fi
 
 # run all test binaries that got built in the expected dir:
 tools/auto_test/run_cpp_auto_tests.sh

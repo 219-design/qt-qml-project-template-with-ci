@@ -25,9 +25,16 @@ run_a_test() {
 
 cd $CUR_GIT_ROOT
 
-OUR_TEST_BINARIES_DIR=build/src/app
-if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-  OUR_TEST_BINARIES_DIR=build/windeployfolder
+if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
+  OUR_TEST_BINARIES_DIR=build/src/app
+  if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+    OUR_TEST_BINARIES_DIR=build/windeployfolder
+  fi
+else
+  OUR_TEST_BINARIES_DIR=cbuild/stage
+  if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+    OUR_TEST_BINARIES_DIR=cbuild/windeployfolder_debug
+  fi
 fi
 
 # run all test binaries that got built in the expected dir:

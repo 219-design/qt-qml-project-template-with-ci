@@ -17,15 +17,23 @@ fi
 
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
+if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
+  APP_TO_LAUNCH=${CUR_GIT_ROOT}/build/src/app/app
+  #if [[ "$OSTYPE" == "darwin"* ]]; then
+  #fi
+else
+  APP_TO_LAUNCH=${CUR_GIT_ROOT}/cbuild/stage/app
+fi
+
 cd $CUR_GIT_ROOT
 rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps locally.
 
 if [[ -n ${BITBUCKET_REPO_OWNER-} ]]; then
-  ${CUR_GIT_ROOT}/build/src/app/app -g 2>&1 | tee gui_test.log
- elif [[ "$OSTYPE" != "darwin"* ]]; then
+  ${APP_TO_LAUNCH} -g 2>&1 | tee gui_test.log
+elif [[ "$OSTYPE" != "darwin"* ]]; then
     # "run, bt, run" is a workaround for a gdb behavior change between gdb 8 and gdb 9
     # for more info, see: https://sourceware.org/bugzilla/show_bug.cgi?id=27125
-    gdb -n -batch -return-child-result -ex "set args -g -v" -ex "run" -ex "bt" -ex "run" ${CUR_GIT_ROOT}/build/src/app/app 2>&1 | tee gui_test.log
+    gdb -n -batch -return-child-result -ex "set args -g -v" -ex "run" -ex "bt" -ex "run" ${APP_TO_LAUNCH} 2>&1 | tee gui_test.log
 else
   build/src/app/app.app/Contents/MacOS/app -g 2>&1 | tee gui_test.log
 fi

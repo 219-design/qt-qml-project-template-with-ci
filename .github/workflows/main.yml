@@ -31,4 +31,5 @@ jobs:
       env:
         MYAPP_TEMPLATE_BUILD_ANDROID: 1
         MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
+        MYAPP_TEMPLATE_PREFER_QMAKE: 1
       run: ./run_all_tests.sh

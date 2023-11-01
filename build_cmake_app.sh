@@ -19,28 +19,6 @@ cd $DIR  # enter this script's directory. (in case called from root of repositor
 
 cmake --version # print version to CI logs.
 
-if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]];
-# The '-' hyphen above tests without angering the 'set -u' about unbound variables
-then
-  echo "C.I. environment was detected."
-
-  # Try various ways to print OS version info.
-  # This lets us keep a record of this in our CI logs,
-  # in case the CI docker images change.
-  uname -a       || true
-  lsb_release -a || true
-  gcc --version  || true  # oddly, gcc often prints great OS information
-  cat /etc/issue || true
-
-  # What environment variables did the C.I. system set? Print them:
-  env
-
-  ./tools/ci/provision.sh
-  git submodule update --init # avoid '--recursive' (as long as we can) due to inner qmlfmt deps
-
-  XDISPLAY=":1"
-fi
-
 MYAPP_JOBS="-j$(nproc)"
 
 if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]];
