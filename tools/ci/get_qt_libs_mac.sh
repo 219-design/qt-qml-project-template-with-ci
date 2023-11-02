@@ -30,6 +30,7 @@ else
    qttools
 
   # we still need qt6 in order to execute qmlfmt.
+  # TODO: update our qmlfmt binary so we can use Qt 6.5.3
   bash -x $CUR_GIT_ROOT/tools/ci/install-qt.sh \
    --directory $DL_FOLDER/Qt_desktop \
    --version 6.2.2 \

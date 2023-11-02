@@ -65,6 +65,7 @@ sudo apt-get --assume-yes install \
   libsdl1.2debian:i386 \
   libstdc++6:i386 \
   libtiff5 \
+  libxcb-cursor0 \
   libxcb-icccm4 \
   libxcb-image0 \
   libxcb-keysyms1 \

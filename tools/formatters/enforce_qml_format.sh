@@ -33,7 +33,7 @@ MY_FMT_EXTRAARGS="-i 2" # newer qmlfmt supports indent spaces count
 if [[ "$OSTYPE" == "darwin"* ]]; then
   qml_formatter="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/macos/extrabin/qmlfmt"
 else
-  export LD_LIBRARY_PATH="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/gcc_64/lib"
+  export LD_LIBRARY_PATH="${DL_FOLDER}/Qt_desktop/6.5.3/gcc_64/lib"
   qml_formatter="${DL_FOLDER}/Qt_desktop/${MY_QT_VERSION}/gcc_64/extrabin/qmlfmt"
 fi
 

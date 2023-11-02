@@ -28,13 +28,13 @@ pip3 install --upgrade pip
 pip3 install setuptools
 pip3 install -r ${DIR}/for_pip/requirements.txt # install aqtinstall
 
-if [ -d $DL_FOLDER/Qt_desktop/6.2.2/gcc_64/bin ]; then
+if [ -d $DL_FOLDER/Qt_desktop/6.5.3/gcc_64/bin ]; then
     echo "no need to download qt for desktop"
 else
 
   if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.2.2 --modules \
+    python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.5.3 --modules \
      qtconnectivity \
      qtimageformats \
      qt5compat
@@ -54,7 +54,7 @@ else
 
     # we still need qt6 in order to execute qmlfmt.
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.2.2 --modules \
+    python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.5.3 --modules \
      qt5compat
   fi
 
