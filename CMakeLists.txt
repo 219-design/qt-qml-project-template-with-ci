@@ -1,10 +1,10 @@
 cmake_minimum_required(
-  VERSION 3.20
+  VERSION 3.24
 )
 
 cmake_policy(
   VERSION
-  3.20
+  3.24
 )
 
 if(NOT
@@ -112,10 +112,6 @@ endif()
 
 include(
   cmake_include/cross_platform_settings.cmake
-)
-
-message(
-  STATUS "CMake install RPATH: ${CMAKE_INSTALL_RPATH}"
 )
 
 add_subdirectory(
