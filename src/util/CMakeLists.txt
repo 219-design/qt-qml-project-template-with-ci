@@ -50,7 +50,7 @@ set(util_tests_sources
     tests/timer_service_test.cc
 )
 
-if(WIN32)
+if(MSVC)
   # Most of our project has seen success with MSVC: "/experimental:external"
   # "/external:W0" "/external:I"
   #
@@ -67,7 +67,7 @@ if(WIN32)
     PROPERTIES COMPILE_FLAGS
                "/wd4355 /wd5204"
   )
-endif() # if(WIN32)
+endif() # if(MSVC)
 
 add_executable(
   util_tests

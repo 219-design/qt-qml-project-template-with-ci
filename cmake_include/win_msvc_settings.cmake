@@ -1,4 +1,4 @@
-if(WIN32)
+if(MSVC)
 
   # '/EHs', catch C++ exceptions AND assume that extern C functions may also
   # throw an exception
@@ -90,4 +90,4 @@ if(WIN32)
     "$ENV{VSINSTALLDIR}"
   )
 
-endif() # if (WIN32) ... this whole file is WIN32-only
+endif() # if (MSVC) ... this whole file is MSVC-only
