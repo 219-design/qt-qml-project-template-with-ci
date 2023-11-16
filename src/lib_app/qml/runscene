@@ -2,9 +2,10 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source "${DIR}/../../../tools/ci/rootdirhelper.bash"
 
-source $CUR_GIT_ROOT/path_to_qmake.bash # path to qmake is also path to qmlscene
+source $CUR_GUICODE_ROOT/path_to_qmake.bash # path to qmake is also path to qmlscene
 
 # In order to cause our DebugRectangle instances to become visible, uncomment:
 # export QT_QUICK_CONTROLS_MATERIAL_ACCENT="#0B610B"

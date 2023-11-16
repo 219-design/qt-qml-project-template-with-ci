@@ -2,9 +2,10 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source "${THISDIR}/rootdirhelper.bash"
 
-DL_FOLDER=$CUR_GIT_ROOT/dl_third_party/android_kits
+DL_FOLDER=$CUR_GUICODE_ROOT/dl_third_party/android_kits
 
 mkdir -p $DL_FOLDER
 

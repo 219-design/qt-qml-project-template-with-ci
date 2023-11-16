@@ -25,6 +25,7 @@ then
 fi
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source "${THISDIR}/../ci/rootdirhelper.bash"
 
 GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.txt"
 
@@ -53,10 +54,8 @@ check_clang_format() {
   done
 }
 
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
-
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-  WINBASHPATH=$(cygpath -u $CUR_GIT_ROOT)
+  WINBASHPATH=$(cygpath -u $CUR_GUICODE_ROOT)
   export PATH="$WINBASHPATH/dl_third_party/win_bin/:$PATH"
   GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.win.txt.disableattr"
 fi

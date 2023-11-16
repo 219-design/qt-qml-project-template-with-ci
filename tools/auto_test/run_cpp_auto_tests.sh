@@ -11,9 +11,9 @@
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+source "${THISDIR}/../ci/rootdirhelper.bash"
 
-source "${CUR_GIT_ROOT}/tools/ci/utils.bash" # for terminal colorization
+source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
 run_a_test() {
   while read filenames; do
@@ -23,7 +23,7 @@ run_a_test() {
   done
 }
 
-cd $CUR_GIT_ROOT
+cd $CUR_GUICODE_ROOT
 
 if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
   OUR_TEST_BINARIES_DIR=build/src/app

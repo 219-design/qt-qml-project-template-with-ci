@@ -15,17 +15,18 @@ if [[ "$OSTYPE" != "darwin"* ]]; then
   export DISPLAY="${1:-"$DISPLAY"}"
 fi
 
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source "${DIR}/../ci/rootdirhelper.bash"
 
 if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
-  APP_TO_LAUNCH=${CUR_GIT_ROOT}/build/src/app/app
+  APP_TO_LAUNCH=${CUR_GUICODE_ROOT}/build/src/app/app
   #if [[ "$OSTYPE" == "darwin"* ]]; then
   #fi
 else
-  APP_TO_LAUNCH=${CUR_GIT_ROOT}/cbuild/stage/app
+  APP_TO_LAUNCH=${CUR_GUICODE_ROOT}/cbuild/stage/app
 fi
 
-cd $CUR_GIT_ROOT
+cd $CUR_GUICODE_ROOT
 rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps locally.
 
 if [[ -n ${BITBUCKET_REPO_OWNER-} ]]; then

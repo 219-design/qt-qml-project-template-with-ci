@@ -2,15 +2,17 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
+THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+source "${THISDIR}/rootdirhelper.bash"
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
-  ${CUR_GIT_ROOT}/tools/ci/provision_mac.sh
+  ${CUR_GUICODE_ROOT}/tools/ci/provision_mac.sh
   exit 0
 fi
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-  CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
-  ${CUR_GIT_ROOT}/tools/ci/provision_win.sh
+  ${CUR_GUICODE_ROOT}/tools/ci/provision_win.sh
   exit 0
 fi
 
@@ -89,9 +91,8 @@ sudo apt-get --assume-yes install \
   zlib1g:i386
 
 ## BEGIN: clang-format from LLVM
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
-${CUR_GIT_ROOT}/tools/ci/get_llvm_clang-format.sh
+${CUR_GUICODE_ROOT}/tools/ci/get_llvm_clang-format.sh
 ## END: clang-format from LLVM
 
 
-${CUR_GIT_ROOT}/tools/ci/get_qt_libs.sh
+${CUR_GUICODE_ROOT}/tools/ci/get_qt_libs.sh

@@ -11,11 +11,10 @@
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 IFS=$'\n\t'
 
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
-source "${CUR_GIT_ROOT}/tools/ci/utils.bash" # for terminal colorization
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR  # enter this script's directory. (in case called from root of repository)
+source "${DIR}/tools/ci/rootdirhelper.bash"
+source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
 cmake --version # print version to CI logs.
 

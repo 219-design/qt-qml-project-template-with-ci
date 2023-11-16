@@ -2,10 +2,10 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
-
-DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source "${DIR}/rootdirhelper.bash"
+
+DL_FOLDER=$CUR_GUICODE_ROOT/dl_third_party
 
 pip3 install -r ${DIR}/for_pip/requirements.txt  # https://github.com/miurahr/aqtinstall
 #
