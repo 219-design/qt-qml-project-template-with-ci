@@ -31,7 +31,13 @@ sed -i -e "s/Hello World/Hello {{ cookiecutter.folder_name }}/g" src/lib_app/qml
 
 # Finally, moves the project folder to a cookiecutter namespace
 mkdir "{{ cookiecutter.folder_name }}"
-rm src/lib_app/qml/images qmake.conf clang-format
+
+# get symlinks out of the way. (we restore them in cookiecutter/init_repo.sh)
+rm src/lib_app/qml/images \
+   qmake.conf \
+   clang-format \
+   dl_third_party/Qt_desktop/6.5.3/clang_64
+
 git add "{{ cookiecutter.folder_name }}"
 shopt -s dotglob nullglob extglob # so hidden files move, too. https://unix.stackexchange.com/q/6393/11592
 git mv -k !(.gitmodules|..|.) "{{ cookiecutter.folder_name }}"/

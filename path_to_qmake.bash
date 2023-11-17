@@ -14,7 +14,7 @@ if [[ -n ${MYAPP_TEMPLATE_DL_FOLDER_OVERRIDE-} ]]; then
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  export PATH="$DL_FOLDER/Qt_desktop/5.15.0/clang_64/bin/:$PATH"
+  export PATH="$DL_FOLDER/Qt_desktop/6.5.3/macos/bin/:$PATH"
 elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   WINDLPATH=$(cygpath -u $DL_FOLDER)
   export PATH="${WINDLPATH}/Qt_desktop/5.15.0/msvc2019_64/bin:$PATH"

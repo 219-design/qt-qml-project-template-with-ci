@@ -10,6 +10,7 @@ THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ln -sf src/libstyles/imports/libstyles/images src/lib_app/qml/images
 ln -sf .qmake.conf qmake.conf
 ln -sf .clang-format clang-format
+ln -sf macos dl_third_party/Qt_desktop/6.5.3/clang_64
 
 # the new repo is NOT a template. the new repo need not have a cookiecutter job:
 rm -f .github/workflows/cookiecutter.yml

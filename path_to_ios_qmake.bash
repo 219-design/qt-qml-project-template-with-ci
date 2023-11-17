@@ -10,4 +10,4 @@ CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
 DL_FOLDER=$CUR_GIT_ROOT/dl_third_party
 
-export PATH="$DL_FOLDER/Qt_desktop/5.15.0/ios/bin/:$PATH"
+export PATH="$DL_FOLDER/Qt_desktop/6.5.3/ios/bin/:$PATH"
