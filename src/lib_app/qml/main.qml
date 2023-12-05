@@ -2,7 +2,6 @@
 // See LICENSE.txt
 // https://www.219design.com
 // Software | Electrical | Mechanical | Product Design
-import QtGraphicalEffects 1.12
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Universal 2.2
@@ -219,15 +218,5 @@ ApplicationWindow {
         anchors.fill: parent
       }
     }
-  }
-
-  Desaturate {
-    // turns the whole GUI application to black and white, for evaluating certain design choices.
-    visible: false // flip to true when/if you find it helpful in UI design.
-    enabled: visible
-
-    anchors.fill: main
-    source: main
-    desaturation: 1 // 0 to 1. 1 is 100% desaturated, which means grayscale
   }
 }
