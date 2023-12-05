@@ -7,18 +7,10 @@ cmake_policy(
   3.24
 )
 
-if(NOT
-   DEFINED
-   ENV{Qt5_DIR}
-)
-  message(
-    FATAL_ERROR
-      "You must set Qt5_DIR. This project was intended to be very\
- strict about requiring your explicit path to your chosen Qt toolchain.\
- (remove this check from the project if/when no longer relevant)"
-  )
-endif()
-
+# For now, we preserve our ENV VAR check in the hopes that it will someday be
+# meaningful again. Meanwhile (in 2023), finding Qt6 just by setting Qt6_DIR
+# currently does not work. Our build uses -DCMAKE_TOOLCHAIN_FILE now instead.
+# https://forum.qt.io/topic/137551/cmake-finds-cross-compiled-qt6-config-files-but-qt6_found-is-set-to-false
 if(NOT
    DEFINED
    ENV{Qt6_DIR}
@@ -40,7 +32,7 @@ set(CMAKE_CXX_STANDARD
 )
 
 find_package(
-  Qt5
+  Qt6
   CONFIG
   REQUIRED
   COMPONENTS Core

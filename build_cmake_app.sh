@@ -75,7 +75,12 @@ source $DIR/path_to_qmake.bash
 mkdir -p cbuild
 pushd cbuild
 
-  cmake ${MYAPP_EXTRA_CONF[@]} -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON $DIR
+  # Finding Qt6 just by setting Qt6_DIR currently does not work.
+  # https://forum.qt.io/topic/137551/cmake-finds-cross-compiled-qt6-config-files-but-qt6_found-is-set-to-false
+  cmake ${MYAPP_EXTRA_CONF[@]} \
+        -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+        -DCMAKE_TOOLCHAIN_FILE=${Qt6_DIR}/qt.toolchain.cmake \
+        $DIR
 
   ${makecmd} ${MYAPP_JOBS}
 

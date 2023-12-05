@@ -1,11 +1,3 @@
-find_package(
-  Qt5QuickCompiler
-) # TODO (move to top-level?)
-qtquick_compiler_add_resources(
-  RESOURCES
-  libresources.qrc
-) # TODO: we probably also need qt_add_resources like in libstyles?
-
 qt_add_resources(
   RC_SRC
   libresources.qrc
