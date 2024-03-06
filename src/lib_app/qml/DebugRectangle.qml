@@ -22,4 +22,10 @@ Rectangle {
   color: "transparent"
   border.color: customColor
   border.width: customThickness
+
+  Component.onCompleted: {
+    // We maintain this file in the github repo because things on the web link to it.
+    // However, the enhanced replacement for this element now lives in DebugRect.qml.
+    console.warn('DebugRectangle is deprecated in favor of DebugRect')
+  }
 }

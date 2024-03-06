@@ -2,6 +2,7 @@
   <qresource prefix="">
     <!-- PLEASE OBEY ALPHABETICAL ORDER -->
     <file>qml/ColorPaletteSwatch.qml</file>
+    <file>qml/DebugRect.qml</file>
     <file>qml/DebugRectangle.qml</file>
     <file>qml/ImageSvgHelper.qml</file>
     <file>qml/LogTags.qml</file>

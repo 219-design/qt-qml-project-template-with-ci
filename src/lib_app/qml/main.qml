@@ -160,9 +160,11 @@ ApplicationWindow {
       Label {
         text: "SPACEBAR (on logo): rotates logo"
 
-        DebugRectangle {// To make the DebugRectangle show up in the GUI, change your environment:
+        DebugRect {
+          // To make the DebugRect show up in the GUI, change your environment:
           //     export QT_QUICK_CONTROLS_MATERIAL_ACCENT="#0B610B"
-          // (See comments in DebugRectangle.qml for more information.)
+          // (See comments in DebugRect.qml for more information.)
+          color: red
         }
       }
 
