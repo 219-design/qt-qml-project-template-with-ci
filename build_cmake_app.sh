@@ -18,6 +18,10 @@ source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
 cmake --version # print version to CI logs.
 
+file /usr/bin/c++ || true # cmake seems to choose `c++`, so print what it's linked to.
+file /etc/alternatives/c++ || true
+c++ --version || true
+
 MYAPP_JOBS="-j$(nproc)"
 
 if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]];
