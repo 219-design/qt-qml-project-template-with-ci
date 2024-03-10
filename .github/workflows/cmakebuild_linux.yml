@@ -27,8 +27,15 @@ jobs:
       # Fix (another kind) of azure ubuntu apt repo issue. (Unable to connect to azure.archive.ubuntu.com)
       run: sed -e 's/azure.archive.ubuntu.com/us.archive.ubuntu.com/g' -e t -e d /etc/apt/sources.list | sudo tee /etc/apt/sources.list.d/nonazure.list
 
-    - name: run_all_tests
+    - name: run_all_tests_clang
+      env:
+        MYAPP_TEMPLATE_COMPILERCHOICE_CLANG: 1
+      run: ./run_all_tests.sh
+
+    # If we were to enable AppImage tests, then this one must go last.
+    - name: run_all_tests_gcc
       env:
         NOTYET_MYAPP_TEMPLATE_BUILD_ANDROID: 1
+        # Note: AppImage test (not used here) does destructive actions and can break further tests.
         NOTYET_MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
       run: ./run_all_tests.sh

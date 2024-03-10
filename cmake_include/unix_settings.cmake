@@ -26,16 +26,20 @@ if(UNIX)
       "-Werror"
     )
 
-    list(
-      APPEND
-      MYAPP_COMPILER_WARNINGS
-      "-Wduplicated-branches"
-      "-Wduplicated-cond"
-      "-Wlogical-op"
-      "-Wmisleading-indentation"
-      "-Wrestrict"
-      "-Wunused-but-set-parameter"
+    if(NOT
+       wants_clang
     )
+      list(
+        APPEND
+        MYAPP_COMPILER_WARNINGS
+        "-Wduplicated-branches"
+        "-Wduplicated-cond"
+        "-Wlogical-op"
+        "-Wmisleading-indentation"
+        "-Wrestrict"
+        "-Wunused-but-set-parameter"
+      )
+    endif() # if (NOT wants_clang)
   endif() # if (NOT ANDROID)
 
   # some compiler warnings inspired by:
@@ -50,8 +54,7 @@ if(UNIX)
     "-Wcast-qual"
     "-Wconversion"
     "-Wdisabled-optimization"
-    "-Wduplicated-branches"
-    "-Wduplicated-cond"
+    # "-Wduplicated-branches -Wduplicated-cond" # conditionally added above
     "-Werror=switch"
     "-Wextra"
     "-Wfloat-equal"
@@ -61,8 +64,7 @@ if(UNIX)
     "-Wimport"
     "-Winit-self"
     "-Winline"
-    "-Wlogical-op"
-    "-Wmisleading-indentation"
+    # "-Wlogical-op -Wmisleading-indentation" # conditionally added above
     "-Wmissing-declarations"
     "-Wmissing-field-initializers"
     "-Wmissing-format-attribute"
@@ -74,7 +76,7 @@ if(UNIX)
     "-Wpedantic"
     "-Wpointer-arith"
     "-Wredundant-decls"
-    "-Wrestrict"
+    # "-Wrestrict" # conditionally added above
     "-Wshadow"
     "-Wstack-protector"
     "-Wswitch-default"
@@ -83,7 +85,7 @@ if(UNIX)
     "-Wuninitialized"
     "-Wunreachable-code"
     "-Wunused"
-    "-Wunused-but-set-parameter"
+    # "-Wunused-but-set-parameter" # conditionally added above
     "-Wunused-parameter"
     "-Wvariadic-macros"
     "-Wwrite-strings"

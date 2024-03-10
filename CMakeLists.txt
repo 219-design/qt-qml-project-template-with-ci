@@ -7,6 +7,15 @@ cmake_policy(
   3.24
 )
 
+if(wants_clang)
+  set(CMAKE_C_COMPILER
+      "clang"
+  )
+  set(CMAKE_CXX_COMPILER
+      "clang++"
+  )
+endif()
+
 if(NOT
    DEFINED
    ENV{Qt5_DIR}

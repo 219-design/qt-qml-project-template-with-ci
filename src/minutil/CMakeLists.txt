@@ -3,6 +3,16 @@ set(minutil_sources
     x_unistd.cc
 )
 
+if(UNIX
+   AND wants_clang
+)
+  set_source_files_properties(
+    logger.cc
+    PROPERTIES COMPILE_FLAGS
+               "-Wno-error=format-nonliteral"
+  )
+endif() # if(UNIX AND wants_clang)
+
 # Leave off SHARED/STATIC in add_library. Controlled at top-level.
 add_library(
   minutil

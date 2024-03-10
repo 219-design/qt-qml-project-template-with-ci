@@ -16,6 +16,12 @@ cd $DIR  # enter this script's directory. (in case called from root of repositor
 source "${DIR}/tools/ci/rootdirhelper.bash"
 source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
+if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
+  # Some workflows on github build multiple times with different flags.
+  # Therefore, when under CI, we always build from zero. Remove any prior artifacts:
+  rm -rf cbuild
+fi
+
 cmake --version # print version to CI logs.
 
 file /usr/bin/c++ || true # cmake seems to choose `c++`, so print what it's linked to.
@@ -82,6 +88,11 @@ fi
 $DIR/tools/ci/version.sh cbuild
 
 source $DIR/path_to_qmake.bash
+
+if [[ -n ${MYAPP_TEMPLATE_COMPILERCHOICE_CLANG-} ]]; then
+  clang -v # to print info into CI log.
+  MYAPP_EXTRA_CONF+=( "-Dwants_clang=ON" )
+fi
 
 mkdir -p cbuild
 pushd cbuild
