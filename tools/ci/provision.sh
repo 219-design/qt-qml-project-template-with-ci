@@ -43,6 +43,7 @@ sudo apt-get update
 # https://github.com/openjdk/jdk/pull/2128/files
 sudo apt-get --assume-yes install libc6:i386 libc6-dev:i386
 
+# libstdc++-10-dev was added for the sake of clang. see: https://stackoverflow.com/q/26333823/10278
 sudo apt-get --assume-yes install \
   build-essential \
   curl \
@@ -65,6 +66,7 @@ sudo apt-get --assume-yes install \
   libjpeg8 \
   libncurses5:i386 \
   libsdl1.2debian:i386 \
+  libstdc++-10-dev \
   libstdc++6:i386 \
   libtiff5 \
   libxcb-cursor0 \

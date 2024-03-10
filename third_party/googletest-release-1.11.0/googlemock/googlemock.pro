@@ -3,11 +3,13 @@ include($$top_srcdir/compiler_flags.pri)
 !win32 {
 # relax some of the checks that compiler_flags.pri normally enables:
 linux:!android {
+  !wants_clang {
     QMAKE_CXXFLAGS += "\
         -Wno-error=duplicated-branches \
         -Wno-error=suggest-attribute=format \
         -Wno-error=suggest-attribute=noreturn \
         "
+  }
 
   greaterThan(QT_MAJOR_VERSION, 5) {
     QMAKE_CXXFLAGS += "\

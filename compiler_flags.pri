@@ -7,14 +7,20 @@
 #
 
 linux:!android {
-  greaterThan(QT_MAJOR_VERSION, 5) {
-    QMAKE_CXX = g++-9
-    QMAKE_LINK = g++-9
-    QMAKE_CC = gcc-9
+  wants_clang {
+    QMAKE_CXX = clang++
+    QMAKE_LINK = clang++
+    QMAKE_CC = clang
   } else {
-    QMAKE_CXX = g++-7
-    QMAKE_LINK = g++-7
-    QMAKE_CC = gcc-7
+    greaterThan(QT_MAJOR_VERSION, 5) {
+      QMAKE_CXX = g++-9
+      QMAKE_LINK = g++-9
+      QMAKE_CC = gcc-9
+    } else {
+      QMAKE_CXX = g++-7
+      QMAKE_LINK = g++-7
+      QMAKE_CC = gcc-7
+    }
   }
 }
 
@@ -57,6 +63,7 @@ ios|macx {
   }
 
   linux:!android {
+    !wants_clang {
       QMAKE_CXXFLAGS += "\
            -Wduplicated-branches \
            -Wduplicated-cond \
@@ -65,6 +72,7 @@ ios|macx {
            -Wrestrict \
            -Wunused-but-set-parameter \
            "
+    }
   }
 
   !android {

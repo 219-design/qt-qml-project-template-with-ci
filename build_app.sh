@@ -18,6 +18,12 @@ cd $DIR  # enter this script's directory. (in case called from root of repositor
 source "${DIR}/tools/ci/rootdirhelper.bash"
 source "${DIR}/tools/ci/utils.bash" # for terminal colorization
 
+if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
+  # Some workflows on github build multiple times with different flags.
+  # Therefore, when under CI, we always build from zero. Remove any prior artifacts:
+  rm -rf build
+fi
+
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   if [[ -z ${VCToolsInstallDir-} ]]; then
     echo "WHOOPS. vcvars64 (or vcvarsall) was not called yet."
@@ -68,6 +74,11 @@ fi
 $DIR/tools/ci/version.sh
 
 source $DIR/path_to_qmake.bash
+
+if [[ -n ${MYAPP_TEMPLATE_COMPILERCHOICE_CLANG-} ]]; then
+  clang -v # to print info into CI log.
+  MYAPP_EXTRA_CONF="${MYAPP_EXTRA_CONF} CONFIG+=wants_clang"
+fi
 
 mkdir -p build
 pushd build >& /dev/null
