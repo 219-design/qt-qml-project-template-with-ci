@@ -7,7 +7,15 @@ sudo xcode-select -s "/Applications/Xcode_14.3.1.app"
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
 export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
-brew install \
+# Note: perhaps use HOMEBREW_NO_INSTALL_UPGRADE? https://docs.brew.sh/Manpage#environment
+
+# TODO: remove '--overwrite python@3.12' when possible.
+#   '--overwrite python@3.12' suddenly became necessary on newer github Mac runner images.
+#   This is a github CI homebrew issue, March 2024.
+#   https://github.com/actions/runner-images/issues/6817
+brew \
+  install \
+  --overwrite python@3.12 \
      clang-format@11 \
      fontconfig \
      gdbm \
