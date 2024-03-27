@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 
-import org.qtproject.qt5.android.bindings.QtActivity;
+import org.qtproject.qt.android.bindings.QtActivity;
 
 public class MyAppActivity extends QtActivity
 {

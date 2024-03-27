@@ -21,7 +21,7 @@ SOURCES += \
     resources.cc
 
 android {
-    QT += androidextras
+    QT += core-private
 
     SOURCES += \
         android/intent_to_email.cc

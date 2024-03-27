@@ -1,8 +1,6 @@
 #include <QDebug>
+#include <QJniObject>
 #include <QString>
-#include <QtAndroidExtras/QAndroidIntent>
-#include <QtAndroidExtras/QAndroidJniObject>
-#include <QtAndroidExtras/QtAndroid>
 
 namespace project
 {
@@ -12,7 +10,7 @@ bool AndroidDebuggerConnected()
 {
     // To discover the correct JNI signature string, do:
     //   javap -s classes/com/mycompany/myapp/MyAppActivity.class
-    const auto jbool = QAndroidJniObject::callStaticMethod<jboolean>(
+    const auto jbool = QJniObject::callStaticMethod<jboolean>(
         "com/mycompany/myapp/MyAppActivity",
         "isAndroidDebuggerConnected",
         "()Z" );

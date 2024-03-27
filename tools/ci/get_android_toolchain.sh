@@ -10,25 +10,20 @@ DL_FOLDER_ANDROID=$DL_FOLDER/android_kits
 
 mkdir -p $DL_FOLDER_ANDROID
 
-if [ -d $DL_FOLDER/Qt/5.15.0/android/bin ]; then
-    echo "no need to download qt5"
+QTMIRROR='http://ftp.fau.de/qtproject'
+
+pip3 install --upgrade pip
+pip3 install setuptools
+pip3 install -r ${THISDIR}/for_pip/requirements.txt # install aqtinstall
+
+if [ -d $DL_FOLDER/Qt_desktop/6.5.3/android_armv7/bin ]; then
+    echo "no need to download qt6 android"
 else
 
-  bash -x $CUR_GUICODE_ROOT/tools/ci/install-qt.sh \
-   --directory $DL_FOLDER/Qt \
-   --version 5.15.0 \
-   --target android \
-   --toolchain any \
-   qtandroidextras \
-   qtbase \
-   qtconnectivity \
-   qtdeclarative \
-   qtgraphicaleffects \
-   qtimageformats \
-   qtquickcontrols \
-   qtquickcontrols2 \
-   qtsvg \
-   qttools
+  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.5.3 android_armv7 --autodesktop --modules \
+     qtconnectivity \
+     qtimageformats \
+     qt5compat
 
 fi
 

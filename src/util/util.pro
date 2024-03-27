@@ -2,10 +2,6 @@
 
 QT += core
 
-android {
-    QT += androidextras
-}
-
 TEMPLATE = lib
 !ios {
   CONFIG += shared

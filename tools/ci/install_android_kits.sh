@@ -19,10 +19,13 @@ pushd $DL_FOLDER >& /dev/null
   # in general we still want pipefail, but 'yes'/pipefail is misbehaving specifically on the GitHub CI runner
   # (another reference on pipefail and SIGPIPE: http://www.pixelbeat.org/programming/sigpipe_handling.html)
   set +o pipefail
-  yes | tools/bin/sdkmanager --sdk_root=$PWD "platforms;android-27" \
+  yes | tools/bin/sdkmanager --sdk_root=$PWD "platforms;android-33" \
     || test $? -eq 141 # ignoring the pipefail caused by 'yes' https://stackoverflow.com/a/33026977/10278
 
-  yes | tools/bin/sdkmanager --sdk_root=$PWD "ndk-bundle" \
+  # Note: 23.1.7779620 is also known as Android NDK r25b.
+  # Qt 6.5.3 requires r25b, per:
+  #  https://wiki.qt.io/Qt_6.5_Tools_and_Versions#Software_configurations_for_Qt_6.5.3
+  yes | tools/bin/sdkmanager --sdk_root=$PWD "ndk;23.1.7779620" \
     || test $? -eq 141 # ignoring the pipefail caused by 'yes' https://stackoverflow.com/a/33026977/10278
 
   # restore pipefail now that we are done with 'yes' (btw: yes is used to accept the license prompt)

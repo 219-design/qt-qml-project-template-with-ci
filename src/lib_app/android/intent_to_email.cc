@@ -1,8 +1,7 @@
 #include <QDebug>
+#include <QJniObject>
 #include <QString>
-#include <QtAndroidExtras/QAndroidIntent>
-#include <QtAndroidExtras/QAndroidJniObject>
-#include <QtAndroidExtras/QtAndroid>
+#include <QtCore/private/qandroidextras_p.h>
 
 namespace project
 {
@@ -10,12 +9,12 @@ namespace
 {
 void AndroidHandleMobileLink( const QString& subj, const QString& bod )
 {
-    const QAndroidJniObject subject = QAndroidJniObject::fromString( subj );
-    const QAndroidJniObject body = QAndroidJniObject::fromString( bod );
+    const QJniObject subject = QJniObject::fromString( subj );
+    const QJniObject body = QJniObject::fromString( bod );
 
     // To discover the correct JNI signature string, do:
     //   javap -s classes/com/mycompany/myapp/MyAppActivity.class
-    QAndroidJniObject::callStaticMethod<void>(
+    QJniObject::callStaticMethod<void>(
         "com/mycompany/myapp/MyAppActivity",
         "sendMailWithSubject",
         "(Ljava/lang/String;Ljava/lang/String;)V",

@@ -25,10 +25,9 @@ QML_ROOT_PATH += \
     $${top_srcdir}/src
 
 android {
-    QT += androidextras
-
     DISTFILES += \
-        $$top_srcdir/src/lib_app/android/AndroidManifest.xml
+        $$top_srcdir/src/lib_app/android/AndroidManifest.xml \
+        $$top_srcdir/src/lib_app/android/build.gradle
 
     ANDROID_PACKAGE_SOURCE_DIR = $$top_srcdir/src/lib_app/android
 }
