@@ -8,14 +8,6 @@ set(libstyles_headers
     resource_helper.h
 )
 
-find_package(
-  Qt5QuickCompiler
-) # TODO (move to top-level?)
-qtquick_compiler_add_resources(
-  RESOURCES
-  imports/libstyles/libstyles.qrc
-)
-
 qt_add_resources(
   RC_SRC
   imports/libstyles/libstyles.qrc

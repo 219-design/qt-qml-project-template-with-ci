@@ -5,7 +5,6 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source "${THISDIR}/rootdirhelper.bash"
 
-DL_FOLDER=$CUR_GUICODE_ROOT/dl_third_party
 DL_FOLDER_ANDROID=$DL_FOLDER/android_kits
 
 mkdir -p $DL_FOLDER_ANDROID
@@ -21,6 +20,21 @@ if [ -d $DL_FOLDER/Qt_desktop/6.5.3/android_armv7/bin ]; then
 else
 
   python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.5.3 android_armv7 --autodesktop --modules \
+     qtconnectivity \
+     qtimageformats \
+     qt5compat
+
+  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.5.3 android_arm64_v8a --autodesktop --modules \
+     qtconnectivity \
+     qtimageformats \
+     qt5compat
+
+  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.5.3 android_x86 --autodesktop --modules \
+     qtconnectivity \
+     qtimageformats \
+     qt5compat
+
+  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.5.3 android_x86_64 --autodesktop --modules \
      qtconnectivity \
      qtimageformats \
      qt5compat

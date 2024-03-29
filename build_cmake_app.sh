@@ -112,9 +112,8 @@ pushd cbuild
 popd # pushd cbuild
 
 if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
-  true
-  #tools/ci/get_android_toolchain.sh
-  #tools/ci/build_android_app.sh cbuild/for_android "CONFIG+=force_debug_info"
+  tools/ci/get_android_toolchain.sh
+  tools/ci/build_android_app.sh build/for_android "CONFIG+=force_debug_info"
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then

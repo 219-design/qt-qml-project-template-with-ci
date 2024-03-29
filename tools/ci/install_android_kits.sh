@@ -22,10 +22,13 @@ pushd $DL_FOLDER >& /dev/null
   yes | tools/bin/sdkmanager --sdk_root=$PWD "platforms;android-33" \
     || test $? -eq 141 # ignoring the pipefail caused by 'yes' https://stackoverflow.com/a/33026977/10278
 
-  # Note: 23.1.7779620 is also known as Android NDK r25b.
+  yes | tools/bin/sdkmanager --sdk_root=$PWD "build-tools;34.0.0" \
+    || test $? -eq 141 # ignoring the pipefail caused by 'yes' https://stackoverflow.com/a/33026977/10278
+
+  # Note: 25.1.8937393 is also known as Android NDK r25b.
   # Qt 6.5.3 requires r25b, per:
   #  https://wiki.qt.io/Qt_6.5_Tools_and_Versions#Software_configurations_for_Qt_6.5.3
-  yes | tools/bin/sdkmanager --sdk_root=$PWD "ndk;23.1.7779620" \
+  yes | tools/bin/sdkmanager --sdk_root=$PWD "ndk;25.1.8937393" \
     || test $? -eq 141 # ignoring the pipefail caused by 'yes' https://stackoverflow.com/a/33026977/10278
 
   # restore pipefail now that we are done with 'yes' (btw: yes is used to accept the license prompt)

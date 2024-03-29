@@ -1,11 +1,3 @@
-find_package(
-  Qt5QuickCompiler
-) # TODO (move to top-level?)
-qtquick_compiler_add_resources(
-  RESOURCES
-  libresources.qrc
-) # TODO: we probably also need qt_add_resources like in libstyles?
-
 qt_add_resources(
   RC_SRC
   libresources.qrc
@@ -29,6 +21,13 @@ else()
       ios/ios_log_redirect.cc
   )
 endif() # if (IOS)
+
+if(ANDROID)
+  set(lib_app_sources
+      ${lib_app_sources}
+      android/intent_to_email.cc
+  )
+endif() # if (ANDROID)
 
 # Note: only list headers that need MOC
 set(lib_app_headers
@@ -59,6 +58,13 @@ target_link_libraries(
           lib_example
           util
 )
+
+if(ANDROID)
+  target_link_libraries(
+    lib_app
+    PRIVATE Qt::CorePrivate
+  )
+endif() # if (ANDROID)
 
 target_compile_options(
   lib_app

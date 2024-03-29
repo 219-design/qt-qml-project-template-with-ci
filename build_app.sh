@@ -97,8 +97,8 @@ pushd build >& /dev/null
 popd >& /dev/null
 
 if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
-  tools/ci/get_android_toolchain.sh
-  tools/ci/build_android_app.sh build/for_android "CONFIG+=force_debug_info"
+  echo "Refusing qmake for android. Set MYAPP_TEMPLATE_QT6 and/or use build_cmake_app.sh"
+  exit 1
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then

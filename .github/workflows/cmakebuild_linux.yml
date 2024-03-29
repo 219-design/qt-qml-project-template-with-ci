@@ -32,10 +32,15 @@ jobs:
         MYAPP_TEMPLATE_COMPILERCHOICE_CLANG: 1
       run: ./run_all_tests.sh
 
+    - name: run_all_tests_qt6_android
+      env:
+        MYAPP_TEMPLATE_BUILD_ANDROID: 1
+        MYAPP_TEMPLATE_QT6: 1
+      run: ./run_all_tests.sh
+
     # If we were to enable AppImage tests, then this one must go last.
     - name: run_all_tests_gcc
       env:
-        NOTYET_MYAPP_TEMPLATE_BUILD_ANDROID: 1
         # Note: AppImage test (not used here) does destructive actions and can break further tests.
         NOTYET_MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
       run: ./run_all_tests.sh

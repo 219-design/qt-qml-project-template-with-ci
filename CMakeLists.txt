@@ -48,16 +48,42 @@ set(CMAKE_CXX_STANDARD
     17
 )
 
-find_package(
-  Qt5
-  CONFIG
-  REQUIRED
-  COMPONENTS Core
-             Qml
-             Quick
-             QuickControls2
-             Test
-             Widgets
+if(ANDROID)
+  find_package(
+    Qt6
+    CONFIG
+    REQUIRED
+    COMPONENTS Core
+               Qml
+               Quick
+               QuickControls2
+               Test
+               Widgets
+  )
+
+  qt_standard_project_setup(
+    REQUIRES
+    6.5.3
+  )
+else()
+  find_package(
+    Qt5
+    CONFIG
+    REQUIRED
+    COMPONENTS Core
+               Qml
+               Quick
+               QuickControls2
+               Test
+               Widgets
+  )
+endif()
+
+# Regarding QT_DEFAULT_MAJOR_VERSION, see:
+# https://doc.qt.io/qt-5/cmake-variable-reference.html
+message(
+  STATUS
+    "After find_package, QT_DEFAULT_MAJOR_VERSION is ${QT_DEFAULT_MAJOR_VERSION}"
 )
 
 set(CMAKE_AUTOMOC
