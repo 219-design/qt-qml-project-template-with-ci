@@ -174,6 +174,7 @@ QmlMessageInterceptor::~QmlMessageInterceptor()
     FASSERT( original_handler, "should be impossible for this to be null here" );
     qInstallMessageHandler( original_handler );
     original_handler = nullptr;
+    our_interceptor = nullptr;
     delete m_pimpl;
 }
 
