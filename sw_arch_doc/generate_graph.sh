@@ -30,7 +30,8 @@ fi
 
 # Grep (filter) only the edges lines and sort them (so we can have meaningful
 # diffs over time):
-cat ${ARCH_DOC_DIR}/all_src.dot | "${THEGREP}" -P '\t"' | sort > sorted_edges.tmp
+cat ${ARCH_DOC_DIR}/all_src.dot | "${THEGREP}" -P '\t"' | LC_ALL=C sort > sorted_edges.tmp
+# To understand our use of LC_ALL on prior line, see: https://github.com/coreutils/coreutils/issues/30
 
 # Re-compose a whole graphviz dot files, concatenating a header + edges + tail
 cat \
