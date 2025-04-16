@@ -12,15 +12,9 @@ linux:!android {
     QMAKE_LINK = clang++
     QMAKE_CC = clang
   } else {
-    greaterThan(QT_MAJOR_VERSION, 5) {
-      QMAKE_CXX = g++-9
-      QMAKE_LINK = g++-9
-      QMAKE_CC = gcc-9
-    } else {
-      QMAKE_CXX = g++-7
-      QMAKE_LINK = g++-7
-      QMAKE_CC = gcc-7
-    }
+    QMAKE_CXX = g++-11
+    QMAKE_LINK = g++-11
+    QMAKE_CC = gcc-11
   }
 }
 

@@ -21,7 +21,6 @@ git commit -am "cookiecutterized invocation($INVOCATION_ID)"
 
 # Exercise cookiecutter and associated tests
 cd $HOME
-pip3 install -U pip setuptools
 pip3 install cookiecutter
 pip3 show cookiecutter
 sudo apt install tree

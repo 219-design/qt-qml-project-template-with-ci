@@ -25,14 +25,6 @@ if ! [ -x "$(command -v sudo)" ]; then
   apt-get --assume-yes install sudo
 fi
 
-if [[ -n ${GITHUB_ACTIONS-} ]];
-then
-   # A workaround (for github action) from: https://github.com/Microsoft/azure-pipelines-image-generation/issues/672
-   sudo apt-get remove -y clang-6.0 libclang-common-6.0-dev libclang1-6.0 libllvm6.0
-   sudo apt-get autoremove
-   # end workaround
-fi
-
 sudo dpkg --add-architecture i386
 
 sudo apt-get update
@@ -51,7 +43,7 @@ sudo apt-get --assume-yes install \
   gdb \
   git \
   gnupg \
-  g++-7 \
+  g++-11 \
   libc-bin \
   libdbus-1-3 \
   libfontconfig1 \
