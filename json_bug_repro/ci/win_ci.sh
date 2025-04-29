@@ -29,10 +29,10 @@ export PATH="${MSVCPATHFORBUILDING}:$PATH" # make sure MSVC link.exe is found (n
 WINDLPATH=$(cygpath -u $DL_FOLDER)
 
 # Variables used by CMakeLists
-export Qt6_DIR="${WINDLPATH}/Qt_desktop/6.5.3/msvc2019_64/lib/cmake/Qt6/"
+export Qt6_DIR="${WINDLPATH}/Qt_desktop/6.7.3/msvc2019_64/lib/cmake/Qt6/"
 
 # Put qmake on the PATH:
-export PATH="${WINDLPATH}/Qt_desktop/6.5.3/msvc2019_64/bin:$PATH"
+export PATH="${WINDLPATH}/Qt_desktop/6.7.3/msvc2019_64/bin:$PATH"
 
 
 

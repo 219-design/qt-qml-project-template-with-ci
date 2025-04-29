@@ -13,7 +13,7 @@ fi
 pip3 install -r ${DIR}/requirements.txt  # https://github.com/miurahr/aqtinstall
 
 python3 -m aqt install-qt --outputdir $DL_FOLDER/Qt_desktop \
-  windows desktop 6.5.3 win64_msvc2019_64 \
+  windows desktop 6.7.3 win64_msvc2019_64 \
   --modules \
   qtconnectivity \
   qtimageformats \
