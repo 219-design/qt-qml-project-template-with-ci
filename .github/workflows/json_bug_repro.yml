@@ -1,0 +1,17 @@
+name: json_bug_repro
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: nmake_build
+      shell: cmd
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        "C:\Program Files\Git\bin\bash.exe" ./json_bug_repro/ci/win_ci.sh
