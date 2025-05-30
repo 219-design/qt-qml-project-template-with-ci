@@ -58,7 +58,7 @@ else
   MYAPP_EXTRA_CONF=()
   # adding this next line here (rather than in run_all_tests.sh), because we think
   # of the graph-generation as more of a "build" step than a "test":
-  $DIR/sw_arch_doc/generate_graph.sh ${DIR}/src/ ${DIR}/
+  $DIR/sw_arch_doc/generate_graph.sh -s ${DIR}/src/ -f ${DIR}/ -x $DIR/sw_arch_doc/excludes.txt
 
   # Next step done here (rather than inside generate_graph.sh) because the
   # graph script does not need to be "git aware".

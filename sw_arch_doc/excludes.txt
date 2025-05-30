@@ -1,0 +1,24 @@
+# Lines starting with '#' are comments and will be ignored. (as will blank lines)
+
+# List only the file "stem" (GOOD: "logutil", BAD: "logutil.h")
+
+# Following is an android-specific helper:
+intent_to_email
+
+# Following is a header only for windows DLL import/export defs boilerplate:
+libstyles_global
+
+sample_header_exempt_from_warnings
+detect_debugging
+qml_list_property_helper
+logger
+x_unistd
+qt_test_main
+test_main
+util-assert
+version
+deleter_with_qt_deferred_deletion
+ios_log_redirect
+am_i_inside_debugger
+navigation_test
+resources

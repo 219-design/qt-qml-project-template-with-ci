@@ -4,16 +4,94 @@ digraph "source tree" {
     fontsize="16";
     fontname="Helvetica";
 	clusterrank="local";
-	"event_filter" -> "every_so_often"
-	"lib" -> "example_shared"
-	"lib" -> "quarantined_awaiting_warning_fixes"
-	"main" -> "ios_log_redirect"
-	"main" -> "logger"
-	"main" -> "view_model_collection"
-	"quarantined_awaiting_warning_fixes" -> "sample_header_exempt_from_warnings"
-	"timer_service_test" -> "timer_service"
-	"view_model_collection" -> "event_filter"
-	"view_model_collection" -> "gui_tests"
-	"view_model_collection" -> "lib"
-	"view_model_collection" -> "qml_message_interceptor"
+subgraph "cluster_box_dir_lib_app" {
+        label="lib_app";
+        "cli_options";
+}
+"cli_options"
+subgraph "cluster_box_dir_app" {
+        label="app";
+        "event_filter";
+}
+"event_filter"
+"event_filter" -> "every_so_often"
+subgraph "cluster_box_dir_util" {
+        label="util";
+        "every_so_often";
+}
+"every_so_often"
+subgraph "cluster_box_dir_lib_example_shared" {
+        label="lib_example_shared";
+        "example_shared";
+}
+"example_shared"
+subgraph "cluster_box_dir_app" {
+        label="app";
+        "gui_tests";
+}
+"gui_tests"
+subgraph "cluster_box_dir_lib_app" {
+        label="lib_app";
+        "lib";
+}
+"lib"
+"lib" -> "example_shared"
+"lib" -> "quarantined_awaiting_warning_fixes"
+subgraph "cluster_box_dir_lib_app" {
+        label="lib_app";
+        "logging_tags";
+}
+"logging_tags"
+"logging_tags" -> "cli_options"
+subgraph "cluster_box_dir_app" {
+        label="app";
+        "main";
+}
+"main"
+"main" -> "cli_options"
+"main" -> "view_model_collection"
+subgraph "cluster_box_dir_util" {
+        label="util";
+        "qml_message_interceptor";
+}
+"qml_message_interceptor"
+subgraph "cluster_box_dir_lib_app" {
+        label="lib_app";
+        "quarantined_awaiting_warning_fixes";
+}
+"quarantined_awaiting_warning_fixes"
+subgraph "cluster_box_dir_libstyles" {
+        label="libstyles";
+        "resource_helper";
+}
+"resource_helper"
+subgraph "cluster_box_dir_util" {
+        label="util";
+        "timer_service";
+}
+"timer_service"
+subgraph "cluster_box_dir_tests" {
+        label="tests";
+        "timer_service_test";
+}
+"timer_service_test"
+"timer_service_test" -> "timer_service"
+subgraph "cluster_box_dir_util" {
+        label="util";
+        "usage_log_t";
+}
+"usage_log_t"
+subgraph "cluster_box_dir_app" {
+        label="app";
+        "view_model_collection";
+}
+"view_model_collection"
+"view_model_collection" -> "cli_options"
+"view_model_collection" -> "event_filter"
+"view_model_collection" -> "gui_tests"
+"view_model_collection" -> "lib"
+"view_model_collection" -> "logging_tags"
+"view_model_collection" -> "qml_message_interceptor"
+"view_model_collection" -> "resource_helper"
+"view_model_collection" -> "usage_log_t"
 }
