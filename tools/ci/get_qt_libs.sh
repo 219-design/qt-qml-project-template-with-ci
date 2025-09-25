@@ -32,13 +32,17 @@ if [ -d $DL_FOLDER/Qt_desktop/6.5.3/gcc_64/bin ]; then
     echo "no need to download qt for desktop"
 else
 
-  if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
+  # If we are doing Qt6, or if this is CI (which wants both)...
+  if [[ -n ${MYAPP_TEMPLATE_QT6-} || -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
     python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.5.3 --modules \
      qtconnectivity \
      qtimageformats \
      qt5compat
-  else
+  fi
+
+  # If we are doing Qt5, or if this is CI (which wants both 5 and 6)...
+  if [[ -z ${MYAPP_TEMPLATE_QT6-} || -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
     python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 5.15.0 --archives \
      icu \

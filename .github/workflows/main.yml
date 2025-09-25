@@ -27,9 +27,19 @@ jobs:
       # Fix (another kind) of azure ubuntu apt repo issue. (Unable to connect to azure.archive.ubuntu.com)
       run: sed -e 's/azure.archive.ubuntu.com/us.archive.ubuntu.com/g' -e t -e d /etc/apt/sources.list | sudo tee /etc/apt/sources.list.d/nonazure.list
 
-    # This one must go last, because it does the AppImage tests.
+    # If we were to enable AppImage tests, then this one must go last.
     - name: run_all_tests_gcc
       env:
+        # Note: AppImage test (not used here) does destructive actions and can break further tests.
+        NOTYET_MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
+        # For a clang (not gcc) qt6 build, see: cmakebuild_linux.yml
+        MYAPP_TEMPLATE_QT6: 1
+      run: ./run_all_tests.sh
+
+    # This one must go last, because it does the AppImage tests.
+    - name: run_all_tests_gcc_qt5
+      env:
+        # Nice-to-have: update our AppImage scripts for Qt6.
         # MYAPP_TEMPLATE_BUILD_ANDROID: 1 # <--- see cmakebuild_linux.yml for android
         # Note that AppImage test does destructive actions and can break further tests.
         MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
