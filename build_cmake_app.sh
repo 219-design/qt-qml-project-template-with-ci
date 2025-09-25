@@ -97,7 +97,11 @@ fi
 mkdir -p cbuild
 pushd cbuild
 
-  cmake ${MYAPP_EXTRA_CONF[@]} -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON $DIR
+  cmake \
+    ${MYAPP_EXTRA_CONF[@]} \
+    -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON \
+    $DIR
 
   ${makecmd} ${MYAPP_JOBS}
 
@@ -108,6 +112,17 @@ pushd cbuild
   #if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   #  ${makecmd} debug
   #fi
+
+  # Works on Linux, Mac, and Windows as long as you have `jq`:
+  "${CUR_GUICODE_ROOT}"/tools/formatters/write_sorted_json.sh \
+    compile_commands.json \
+    sorted_compile_commands.json
+
+  if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
+    # In CI, let's dump this info into the log. (Admittedly, it is on-the-whole
+    # redundant with prior cmake commands in the log, but at least now it is sorted)
+    cat sorted_compile_commands.json
+  fi
 
 popd # pushd cbuild
 
