@@ -20,7 +20,7 @@ function missing_primary_branch() {
     git branch -a
 }
 
-PRIMARY_BRANCH=origin/master
+PRIMARY_BRANCH=origin/main
 echo "Primary branch is ${PRIMARY_BRANCH}."
 
 trap missing_primary_branch EXIT
