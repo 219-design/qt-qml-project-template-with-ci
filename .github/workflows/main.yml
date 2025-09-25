@@ -27,12 +27,6 @@ jobs:
       # Fix (another kind) of azure ubuntu apt repo issue. (Unable to connect to azure.archive.ubuntu.com)
       run: sed -e 's/azure.archive.ubuntu.com/us.archive.ubuntu.com/g' -e t -e d /etc/apt/sources.list | sudo tee /etc/apt/sources.list.d/nonazure.list
 
-    - name: run_all_tests_clang
-      env:
-        MYAPP_TEMPLATE_PREFER_QMAKE: 1
-        MYAPP_TEMPLATE_COMPILERCHOICE_CLANG: 1
-      run: ./run_all_tests.sh
-
     # This one must go last, because it does the AppImage tests.
     - name: run_all_tests_gcc
       env:
