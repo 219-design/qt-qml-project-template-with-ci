@@ -59,7 +59,17 @@ fi
 if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
   ./build_app.sh
 else
-  ./build_cmake_app.sh
+  # Run a Release build (except where it doesn't make sense)
+  if [[ "$OSTYPE" != "darwin"* ]]; then
+    # On Mac, we skip. (We could come up with something better at some point.)
+    # Mac uses a cmake multi-generator, so it doesn't make sense to re-generate
+    # the cmake (conceptual) 'makefile' outputs twice.
+    # Additionally, Mac CI minutes are more precious than CI on other platforms.
+    # This tag is referenced elsewhere in the repo: "mac-release-build-nice-to-have"
+    ./build_cmake_app.sh Release
+  fi
+
+  ./build_cmake_app.sh  # <-- the default invocation (no args) will build debug.
 fi
 
 # run all test binaries that got built in the expected dir:

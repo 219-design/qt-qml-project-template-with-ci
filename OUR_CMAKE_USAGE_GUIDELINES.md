@@ -114,3 +114,58 @@ target. `PUBLIC` will at times be the correct decision. If you are unsure, start
 with `PRIVATE` and then adjust as needed.
 
 --------------------------------------------------------------------------------
+### avoid-unigenerator-assumption ###
+
+Note that the following assumes too much:
+```
+if(CMAKE_BUILD_TYPE ....  # NOT recommended
+```
+
+The issue is that `CMAKE_BUILD_TYPE` is only meaningful for (what CMake refers
+to as) "single-configuration generators."
+
+That means that using `CMAKE_BUILD_TYPE` for branching in your scripts is not
+portable to Xcode nor to MSVC nor to some variations/usages of Ninja.
+
+Instead of any `if/else` based on `CMAKE_BUILD_TYPE`, the recommendation is to
+write one statement (or one block of statements), without branching, and instead
+embed "generator expressions" into the statements so that they expand
+appropriately to a configuration-specific value at the appropriate later time.
+
+See: CMake docs for multi-configuration generators and for generator expressions.
+
+--------------------------------------------------------------------------------
+### always-supply-a-buildtype-at-command-line ###
+
+Consider the following typical (and good) set of commands to run a build:
+
+```
+# Good example!
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE:STRING=Debug ../source
+cmake --build . --config Debug
+```
+
+For a given build, cmake can only be using either a single-config generator or a
+multi-config generator.
+
+Therefore, for a given build, only one of these will be "consumed" and the other
+will be ignored:
+```
+-DCMAKE_BUILD_TYPE:STRING=Debug  # consumed in single-config generator
+--config Debug                  # consumed (at build time) by multi-config
+```
+
+Even though one of those will always be silently ignored, the recommendation is
+to still always explictly name the build type when invoking the `cmake` program.
+
+Why? Explanation: It is a common and subtle error in a single-config generator
+setting to simply invoke `cmake` with minimal arguments and omit
+`CMAKE_BUILD_TYPE` entirely. Many people assume this results in a "debug build."
+It does not result in a debug build. It results in something we might call an
+"empty flags" build, wherein `cmake` doesn't try to send debug flags nor release
+flags to the compiler, so the build will end up with whatever the compiler's
+default behavior is when it receives zero (or close to zero) compiler flags.
+
+--------------------------------------------------------------------------------

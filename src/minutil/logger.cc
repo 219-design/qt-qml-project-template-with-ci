@@ -48,6 +48,7 @@ std::string GetDateTimeString()
         result.wHour, result.wMinute, result.wSecond );
     // Next line added per: https://stackoverflow.com/questions/51534284/how-to-circumvent-format-truncation-warning-in-gcc
     assert( printfResult < static_cast<int>( sizeof( buff ) ) );
+    (void) printfResult; // suppress unused warning in release
 
     return std::string( buff );
 }
@@ -60,7 +61,7 @@ std::string GetDateTimeString()
     localtime_r( &ltime, &result );
 
     // YYYY-MM-DD_HH_MM_SS
-    constexpr int BUFF_SIZE = 32;
+    constexpr int BUFF_SIZE = 64; // large for sake of: https://stackoverflow.com/a/61711631/10278
     char buff[ BUFF_SIZE ];
     memset( buff, '\0', BUFF_SIZE );
     const int printfResult = snprintf( buff,
@@ -72,6 +73,7 @@ std::string GetDateTimeString()
         result.tm_hour, result.tm_min, result.tm_sec );
     // Next line added per: https://stackoverflow.com/questions/51534284/how-to-circumvent-format-truncation-warning-in-gcc
     assert( printfResult < static_cast<int>( sizeof( buff ) ) );
+    (void) printfResult; // suppress unused warning in release
 
     return std::string( buff );
 }

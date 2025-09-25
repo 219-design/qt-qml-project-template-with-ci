@@ -16,10 +16,18 @@ cd $DIR  # enter this script's directory. (in case called from root of repositor
 source "${DIR}/tools/ci/rootdirhelper.bash"
 source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
+chosen_buildtype="Debug"
+chosen_folder_suffix=""
+if [[ -n ${1-} ]]; # the presence of ANY arg becomes our "build type"
+then
+    chosen_buildtype="${1}"
+    chosen_folder_suffix="_${1}"
+fi
+
 if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
   # Some workflows on github build multiple times with different flags.
   # Therefore, when under CI, we always build from zero. Remove any prior artifacts:
-  rm -rf cbuild
+  rm -rf "cbuild${chosen_folder_suffix}"
 fi
 
 cmake --version # print version to CI logs.
@@ -29,15 +37,6 @@ file /etc/alternatives/c++ || true
 c++ --version || true
 
 MYAPP_JOBS="-j$(nproc)"
-
-if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]];
-# The '-' hyphen above tests without angering the 'set -u' about unbound variables
-then
-  # Some projects will want to change this to speed up CI.
-  # The rationale for -j1 in CI in our case is so that CI logs are more deterministic,
-  # more human-readable (less interleaving of compiler invocations), and more diffable.
-  MYAPP_JOBS="-j1"
-fi
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   if [[ -z ${VCToolsInstallDir-} ]]; then
@@ -82,10 +81,11 @@ if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
   # Strip out usage of QML 'import QtGraphicalEffects' on Qt 6.
   # Effects have moved to 'import QtQuick3D.Effects' and we have not
   # yet made that available in our CI job.
+  git checkout "${CUR_GUICODE_ROOT}/src/lib_app/qml/main.qml"
   git apply $DIR/tools/ci/strip_effects_for_sake_of_qt6.patch
 fi
 
-$DIR/tools/ci/version.sh cbuild
+$DIR/tools/ci/version.sh "cbuild${chosen_folder_suffix}"
 
 source $DIR/path_to_qmake.bash
 
@@ -94,11 +94,15 @@ if [[ -n ${MYAPP_TEMPLATE_COMPILERCHOICE_CLANG-} ]]; then
   MYAPP_EXTRA_CONF+=( "-Dwants_clang=ON" )
 fi
 
-mkdir -p cbuild
-pushd cbuild
+mkdir -p "cbuild${chosen_folder_suffix}"
+pushd "cbuild${chosen_folder_suffix}"
 
+  # Note that CMAKE_BUILD_TYPE=Debug is silently ignored by Xcode (and others).
+  # Refer to: https://github.com/219-design/qt-qml-project-template-with-ci/blob/main/OUR_CMAKE_USAGE_GUIDELINES.md#avoid-unigenerator-assumption
+  # And: https://github.com/219-design/qt-qml-project-template-with-ci/blob/main/OUR_CMAKE_USAGE_GUIDELINES.md#always-supply-a-buildtype-at-command-line
   cmake \
     ${MYAPP_EXTRA_CONF[@]} \
+    -DCMAKE_BUILD_TYPE:STRING="${chosen_buildtype}" \
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
     -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON \
     $DIR
@@ -116,15 +120,17 @@ pushd cbuild
   # Works on Linux, Mac, and Windows as long as you have `jq`:
   "${CUR_GUICODE_ROOT}"/tools/formatters/write_sorted_json.sh \
     compile_commands.json \
-    sorted_compile_commands.json
+    "${chosen_buildtype}".sorted_compile_commands.json
 
   if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
     # In CI, let's dump this info into the log. (Admittedly, it is on-the-whole
-    # redundant with prior cmake commands in the log, but at least now it is sorted)
-    cat sorted_compile_commands.json
+    # redundant with prior cmake commands in the log, but at least now it is sorted,
+    # and it should also be 'ungarbled', as opposed to when the build executed, since
+    # execution can be parallelized.)
+    cat "${chosen_buildtype}".sorted_compile_commands.json
   fi
 
-popd # pushd cbuild
+popd # pushd "cbuild${chosen_folder_suffix}"
 
 if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
   tools/ci/get_android_toolchain.sh
@@ -132,6 +138,8 @@ if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+  # Once we get around to implementing this, we _must_ revisit the comment
+  # block in `run_all_tests.sh` tagged with "mac-release-build-nice-to-have".
   true
   #pushd cbuild/src/app
   #  macdeployqt app.app        -no-strip -libpath=$PWD -qmldir=../../../src/
@@ -146,9 +154,9 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   # TODO? release?
   #windows_deploy "--release" ${EXEDIR} ${PLUGINDIR} ${SHIPDIR}
 
-  EXEDIRDBG=cbuild/stage
-  PLUGINDIRDBG=cbuild/stage
-  SHIPDIRDBG=cbuild/windeployfolder_debug
+  EXEDIRDBG="cbuild${chosen_folder_suffix}"/stage
+  PLUGINDIRDBG="cbuild${chosen_folder_suffix}"/stage
+  SHIPDIRDBG="cbuild${chosen_folder_suffix}"/windeployfolder_debug
 
   #windows_deploy "--release" ${EXEDIR} ${PLUGINDIR} ${SHIPDIR}
   windows_deploy "--debug" ${EXEDIRDBG} ${PLUGINDIRDBG} ${SHIPDIRDBG}
