@@ -40,6 +40,45 @@ if(UNIX)
         "-Wunused-but-set-parameter"
       )
     endif() # if (NOT wants_clang)
+
+    set(MYAPP_UNIX_SANITIZER_FLAGS
+        " -fsanitize=address,undefined,leak \
+          -fno-sanitize-recover \
+          -fno-omit-frame-pointer \
+        "
+    )
+
+    string(
+      APPEND
+      CMAKE_C_FLAGS_DEBUG
+      "${MYAPP_UNIX_SANITIZER_FLAGS}"
+    )
+    string(
+      APPEND
+      CMAKE_CXX_FLAGS_DEBUG
+      "${MYAPP_UNIX_SANITIZER_FLAGS}"
+    )
+    string(
+      APPEND
+      CMAKE_EXE_LINKER_FLAGS_DEBUG
+      "${MYAPP_UNIX_SANITIZER_FLAGS}"
+    )
+    string(
+      APPEND
+      CMAKE_SHARED_LINKER_FLAGS_DEBUG
+      "${MYAPP_UNIX_SANITIZER_FLAGS}"
+    )
+    string(
+      APPEND
+      CMAKE_STATIC_LINKER_FLAGS_DEBUG
+      "${MYAPP_UNIX_SANITIZER_FLAGS}"
+    )
+    string(
+      APPEND
+      CMAKE_MODULE_LINKER_FLAGS_DEBUG
+      "${MYAPP_UNIX_SANITIZER_FLAGS}"
+    )
+
   endif() # if (NOT ANDROID)
 
   # some compiler warnings inspired by:

@@ -22,3 +22,4 @@ ios_log_redirect
 am_i_inside_debugger
 navigation_test
 resources
+debug_sanitizer_config

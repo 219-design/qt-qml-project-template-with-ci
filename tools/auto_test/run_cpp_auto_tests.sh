@@ -15,6 +15,18 @@ source "${THISDIR}/../ci/rootdirhelper.bash"
 
 source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
+# Note that we also "bake in" some sanitization options at compile-time
+# through the use of our file: debug_sanitizer_config.cc
+#   ... feel free to mix and match based on per-project needs.
+export ASAN_OPTIONS="check_initialization_order=true:strict_init_order=true"
+export ASAN_OPTIONS="${ASAN_OPTIONS}:detect_stack_use_after_return=1"
+
+export UBSAN_OPTIONS="print_stacktrace=1"
+
+# On a ROS2 project, you will likely need:
+#  export ASAN_OPTIONS="${ASAN_OPTIONS}:new_delete_type_mismatch=0"
+#  ^^ Until this is fixed: https://github.com/ros2/rclcpp/issues/2220
+
 run_a_test() {
   while read filenames; do
     for fl in "$filenames"; do

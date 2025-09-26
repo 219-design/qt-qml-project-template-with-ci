@@ -32,9 +32,14 @@ rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps 
 if [[ -n ${BITBUCKET_REPO_OWNER-} ]]; then
   ${APP_TO_LAUNCH} -g 2>&1 | tee gui_test.log
 elif [[ "$OSTYPE" != "darwin"* ]]; then
+    # leaksan and gdb "compete" for ptrace, so when we want gdb we have
+    # to disable leaksan: ASAN_OPTIONS=detect_leaks=0
+
     # "run, bt, run" is a workaround for a gdb behavior change between gdb 8 and gdb 9
     # for more info, see: https://sourceware.org/bugzilla/show_bug.cgi?id=27125
-    gdb -n -batch -return-child-result -ex "set args -g -v" -ex "run" -ex "bt" -ex "run" ${APP_TO_LAUNCH} 2>&1 | tee gui_test.log
+    ASAN_OPTIONS=detect_leaks=0 gdb -n -batch -return-child-result \
+        -ex "set args -g -v" -ex "run" -ex "bt" -ex "run" \
+        ${APP_TO_LAUNCH} 2>&1 | tee gui_test.log
 else
   build/src/app/app.app/Contents/MacOS/app -g 2>&1 | tee gui_test.log
 fi

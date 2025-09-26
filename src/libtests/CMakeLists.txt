@@ -17,6 +17,11 @@ target_include_directories(
     ${PROJECT_SOURCE_DIR}/third_party/googletest-release-1.11.0/googletest/include
 )
 
+target_include_directories(
+  testmain
+  PRIVATE ${PROJECT_SOURCE_DIR}
+)
+
 target_link_libraries(
   testmain
   PRIVATE Qt::Core

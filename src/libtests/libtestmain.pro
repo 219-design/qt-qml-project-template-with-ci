@@ -16,6 +16,8 @@ TARGET  = testmain
 SOURCES += \
     test_main.cc
 
+INCLUDEPATH += $${top_srcdir}
+
 !include(../../third_party/googletest-release-1.11.0/googlemock/googlemock.pri) { error() }
 !include(../../third_party/googletest-release-1.11.0/googletest/googletest.pri) { error() }
 

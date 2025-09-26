@@ -18,6 +18,10 @@
 #include "src/util/am_i_inside_debugger.h"
 #include "util-assert.h"
 
+#if defined( __linux__ )
+#    include "src/minutil/debug_sanitizer_config.cc" // <-- not a header! meant as inline code here.
+#endif // #if defined( __linux__ )
+
 int main( int argc, char* argv[] )
 {
     project::SetAppVersionStringForLogging( project::GIT_HASH_WHEN_BUILT );
