@@ -117,17 +117,20 @@ pushd "cbuild${chosen_folder_suffix}"
   #  ${makecmd} debug
   #fi
 
+  mkdir -p compiler_info_artifacts # <-- a github action in CI looks for this path
+  date_fileprefix=$(date +"%Y-%m-%d_%H%M%S")
+  output_jsonfile=compiler_info_artifacts/"${date_fileprefix}.${chosen_buildtype}".sorted_compile_commands.json
   # Works on Linux, Mac, and Windows as long as you have `jq`:
   "${CUR_GUICODE_ROOT}"/tools/formatters/write_sorted_json.sh \
     compile_commands.json \
-    "${chosen_buildtype}".sorted_compile_commands.json
+    "${output_jsonfile}"
 
   if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
     # In CI, let's dump this info into the log. (Admittedly, it is on-the-whole
     # redundant with prior cmake commands in the log, but at least now it is sorted,
     # and it should also be 'ungarbled', as opposed to when the build executed, since
     # execution can be parallelized.)
-    cat "${chosen_buildtype}".sorted_compile_commands.json
+    cat "${output_jsonfile}"
   fi
 
 popd # pushd "cbuild${chosen_folder_suffix}"
