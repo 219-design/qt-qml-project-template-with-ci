@@ -25,7 +25,7 @@ elif [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   export Qt6_DIR="${WINDLPATH}/Qt_desktop/6.5.3/msvc2019_64/lib/cmake/Qt6/"
   export Qt5_DIR="${WINDLPATH}/Qt_desktop/5.15.0/msvc2019_64/lib/cmake/Qt5/"
 else
-  if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
+  if [[ -z ${MYAPP_TEMPLATE_QT5-} ]]; then
     export PATH="$DL_FOLDER/Qt_desktop/6.5.3/gcc_64/bin/:$PATH"
   else
     export PATH="$DL_FOLDER/Qt_desktop/5.15.0/gcc_64/bin/:$PATH"

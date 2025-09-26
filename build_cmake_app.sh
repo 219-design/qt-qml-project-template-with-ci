@@ -77,7 +77,7 @@ else
   fi
 fi
 
-if [[ -n ${MYAPP_TEMPLATE_QT6-} ]]; then
+if [[ -z ${MYAPP_TEMPLATE_QT5-} ]]; then
   # Strip out usage of QML 'import QtGraphicalEffects' on Qt 6.
   # Effects have moved to 'import QtQuick3D.Effects' and we have not
   # yet made that available in our CI job.

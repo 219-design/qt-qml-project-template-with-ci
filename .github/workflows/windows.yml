@@ -20,6 +20,7 @@ jobs:
     - name: run_windows
       shell: cmd
       env:
+        MYAPP_TEMPLATE_QT5: 1
         MYAPP_TEMPLATE_PREFER_QMAKE: 1
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"

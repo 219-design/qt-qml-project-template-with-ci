@@ -30,4 +30,5 @@ jobs:
         # MYAPP_TEMPLATE_BUILD_ANDROID: 1 # TODO: reenable when we prefer Qt6 on this job
         MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
         MYAPP_TEMPLATE_PREFER_QMAKE: 1
+        MYAPP_TEMPLATE_QT5: 1
       run: ./cookiecutter/cutterize_and_test.sh

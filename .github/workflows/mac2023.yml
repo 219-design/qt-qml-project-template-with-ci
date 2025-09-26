@@ -12,6 +12,5 @@ jobs:
 
     - name: run_all_tests
       env:
-        MYAPP_TEMPLATE_QT6: 1
         MYAPP_TEMPLATE_PREFER_QMAKE: 1
       run: ./run_all_tests.sh

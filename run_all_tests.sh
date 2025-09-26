@@ -70,6 +70,12 @@ else
   fi
 
   ./build_cmake_app.sh  # <-- the default invocation (no args) will build debug.
+
+  if [[ -z ${MYAPP_TEMPLATE_QT5-} ]]; then
+    # Nice-to-have: figure out why cmake-qt6 moved `app` such that we now need this.
+    # (even nicer) Nice-to-have: "seek and destroy" other tests hardcoded to look for "cbuild"
+    ln -sf bin/app ${THISDIR}/cbuild/stage/app
+  fi
 fi
 
 # run all test binaries that got built in the expected dir:

@@ -48,7 +48,10 @@ set(CMAKE_CXX_STANDARD
     17
 )
 
-if(ANDROID)
+if(NOT
+   DEFINED
+   ENV{MYAPP_TEMPLATE_QT5}
+)
   find_package(
     Qt6
     CONFIG
@@ -81,6 +84,7 @@ endif()
 
 # Regarding QT_DEFAULT_MAJOR_VERSION, see:
 # https://doc.qt.io/qt-5/cmake-variable-reference.html
+# https://doc.qt.io/qt-6/cmake-qt5-and-qt6-compatibility.html
 message(
   STATUS
     "After find_package, QT_DEFAULT_MAJOR_VERSION is ${QT_DEFAULT_MAJOR_VERSION}"

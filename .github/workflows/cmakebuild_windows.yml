@@ -19,6 +19,8 @@ jobs:
 
     - name: run_windows
       shell: cmd
+      env:
+        MYAPP_TEMPLATE_QT5: 1
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         "C:\Program Files\Git\bin\bash.exe" run_all_tests.sh

@@ -31,16 +31,15 @@ jobs:
       env:
         # For a g++ (not clang) qt6 build, see: main.yml
         MYAPP_TEMPLATE_COMPILERCHOICE_CLANG: 1
-        MYAPP_TEMPLATE_QT6: 1
       run: ./run_all_tests.sh
 
     - name: run_all_tests_clang_qt5
       env:
+        MYAPP_TEMPLATE_QT5: 1
         MYAPP_TEMPLATE_COMPILERCHOICE_CLANG: 1
       run: ./run_all_tests.sh
 
     - name: run_all_tests_qt6_android
       env:
         MYAPP_TEMPLATE_BUILD_ANDROID: 1
-        MYAPP_TEMPLATE_QT6: 1
       run: ./run_all_tests.sh
