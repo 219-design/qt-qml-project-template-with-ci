@@ -29,12 +29,28 @@ source "${THISDIR}/../ci/rootdirhelper.bash"
 
 GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.txt"
 
+chosen_clangformat_exe=clang-format-19
+
+if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
+  which clang-format
+  # in CI, ^^ the above ^^ yields:
+  #   /c/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/clang-format
+  clang-format --version # version 19.1.5 as of 2025-10-02
+  chosen_clangformat_exe=clang-format
+fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  which clang-format
+  clang-format --version # version 21 as of 2025-10-02
+  chosen_clangformat_exe=clang-format
+fi
+
 check_clang_format() {
   if [ $only_report != 0 ]; then
       while read filenames; do
         for d in "$filenames"; do
           echo $d
-          clang_result=$(clang-format-12 -style=file -output-replacements-xml "$d")
+          clang_result=$(${chosen_clangformat_exe} -style=file -output-replacements-xml "$d")
           diff  <(echo $clang_result) <(cat "${THISDIR}/${GOLDEN_RESULT_FILE}")
           diff_rslt=$?
           # per 'man diff': Exit status is 0 if inputs are the same
@@ -49,14 +65,12 @@ check_clang_format() {
   while read filenames; do
     for d in "$filenames"; do
       echo $d
-      clang_result=$(clang-format-12 -style=file -i "$d")
+      clang_result=$(${chosen_clangformat_exe} -style=file -i "$d")
     done
   done
 }
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-  WINBASHPATH=$(cygpath -u $CUR_GUICODE_ROOT)
-  export PATH="$WINBASHPATH/dl_third_party/win_bin/:$PATH"
   GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.win.txt.disableattr"
 fi
 

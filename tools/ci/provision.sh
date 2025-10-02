@@ -38,29 +38,31 @@ sudo apt-get --assume-yes install libc6:i386 libc6-dev:i386
 # libstdc++-10-dev was added for the sake of clang. see: https://stackoverflow.com/q/26333823/10278
 sudo apt-get --assume-yes install \
   build-essential \
+  clang-format-19 \
+  cmake \
   curl \
   graphviz \
+  g++-11 \
   gdb \
   git \
   gnupg \
-  g++-11 \
+  jq \
   libc-bin \
   libdbus-1-3 \
   libfontconfig1 \
   libfuse2 \
   libgcc1:i386 \
   libgl1-mesa-dev \
-  libgl1-mesa-glx \
   libglib2.0-0 \
   libglu1-mesa-dev \
   libgtk-3-0 \
   libharfbuzz0b \
   libjpeg8 \
-  libncurses5:i386 \
+  libncurses6:i386 \
   libsdl1.2debian:i386 \
   libstdc++-10-dev \
   libstdc++6:i386 \
-  libtiff5 \
+  libtiff6 \
   libxcb-cursor0 \
   libxcb-icccm4 \
   libxcb-image0 \
@@ -83,10 +85,6 @@ sudo apt-get --assume-yes install \
   wget \
   xvfb \
   zlib1g:i386
-
-## BEGIN: clang-format from LLVM
-${CUR_GUICODE_ROOT}/tools/ci/get_llvm_clang-format.sh
-## END: clang-format from LLVM
 
 
 ${CUR_GUICODE_ROOT}/tools/ci/get_qt_libs.sh

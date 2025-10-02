@@ -16,7 +16,7 @@ export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 brew \
   install \
   --overwrite python@3.12 \
-     clang-format@11 \
+     clang-format@21 \
      fontconfig \
      gdbm \
      glib \
@@ -32,10 +32,5 @@ brew \
      tree \
      x265 \
      xz
-
-pushd /usr/local/bin >& /dev/null
-  sudo ln -sf clang-format clang-format-12
-  sudo ln -sf clang-format-11 clang-format-12
-popd >& /dev/null
 
 ${CUR_GIT_ROOT}/tools/ci/get_qt_libs_aqt_mac.sh

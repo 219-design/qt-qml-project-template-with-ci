@@ -32,7 +32,8 @@ if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REP
 then
   echo "Assuming C.I. environment."
   echo "Found at least one of GITHUB_ACTIONS, BITBUCKET_REPO_OWNER, BITBUCKET_REPO_FULL_NAME in env."
-  ./tools/ci/get_llvm_clang-format.sh # we need to install clang-format for init_repo.sh
+  sudo apt-get --assume-yes install \
+    clang-format-19
 fi
 
 ./init_repo.sh

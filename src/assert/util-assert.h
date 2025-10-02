@@ -1,7 +1,7 @@
 #ifndef CROSSPLATFORM_UTILITY_CODE_CASSERT_WRAPPER
 #define CROSSPLATFORM_UTILITY_CODE_CASSERT_WRAPPER
 
-//#define FLEX_DISABLE_ASSERT // <--- disabling should be done in a release build
+// #define FLEX_DISABLE_ASSERT // <--- disabling should be done in a release build
 
 // If NDEBUG is defined as a macro name at the point in the source code where <cassert> is included,
 // then assert does nothing.
@@ -57,7 +57,7 @@ static inline void UnSuppress_All_Assertions()
 
 #    if !defined( _WIN32 )
     /*const int ret =*/unsetenv( "FLEX_SUPALL_ASRT" ); // on posix, the above set it to "", and HERE we nullify it
-#    endif //#if ! defined(_WIN32)
+#    endif // #if ! defined(_WIN32)
 
 #endif // FLEX_DISABLE_ASSERT
 }
@@ -132,8 +132,8 @@ static inline void OptionToContinue(
     CFOptionFlags response;
 
     CFUserNotificationDisplayAlert( 0, // timeout. (apparently in seconds) The amount of time to wait for the user to dismiss
-        // the notification dialog before the dialog dismisses
-        // itself. Pass 0 to have the dialog never time out.
+                                       // the notification dialog before the dialog dismisses
+                                       // itself. Pass 0 to have the dialog never time out.
         kCFUserNotificationCautionAlertLevel,
         NULL, // iconURL
         NULL, // soundURL
@@ -256,7 +256,7 @@ static inline void Flex_Fail_Unix( const char* message,
         funcname );
 }
 
-#endif //#if defined(__APPLE__)
+#endif // #if defined(__APPLE__)
 
 static inline bool GetEnv_WinOnly( const char* name )
 {

@@ -21,7 +21,7 @@
 namespace project
 {
 struct QmlMessageInterceptor::Pimpl // "effectively private" due to no definition in header, but provides full access to
-    // Interceptor
+                                    // Interceptor
 {
     explicit Pimpl( QmlMessageInterceptor* o )
         : owner( o )
@@ -155,9 +155,9 @@ QmlMessageInterceptor::QmlMessageInterceptor( const bool suppressDefaultLogWhenS
     : m_pimpl(
 #if defined( _WIN32 )
 #    pragma warning( suppress : 4355 )
-        new Pimpl( this ) )
+          new Pimpl( this ) )
 #else
-        new Pimpl( this ) )
+          new Pimpl( this ) )
 #endif // if  defined( _WIN32 )
     , m_suppressDefaultLogWhenSinkIsPresent( suppressDefaultLogWhenSinkIsPresent )
 {

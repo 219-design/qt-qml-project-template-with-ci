@@ -21,7 +21,7 @@ void log( const char* fmt, ... );
 #else
 // Wrapper around fprintf to STDERR. Adds timestamp, thread_id, etc.
 void log( const char* fmt, ... ) __attribute__( ( format( printf, 1, 2 ) ) );
-#endif //if defined(WIN32) || defined(_WIN32)
+#endif // if defined(WIN32) || defined(_WIN32)
 
 /*
     https://gcc.gnu.org/onlinedocs/gcc-4.0.1/gcc/Function-Attributes.html#Function-Attributes

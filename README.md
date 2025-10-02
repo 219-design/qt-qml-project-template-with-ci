@@ -68,9 +68,9 @@ You must also read "Your first commit" (below) before continuing further:
 ### Your first commit:
 
 Once either the GitHub "Use this template" button or cookiecutter has completed
-its work, make sure you have `clang-format-12` installed:
+its work, make sure you have `clang-format-19` installed:
 ```
-sudo apt install clang-format-12
+sudo apt install clang-format-19
 ```
 
 Then `cd` into the project directory and:
@@ -98,9 +98,9 @@ After that, please proceed to "How to build" (below) before continuing further:
 ## How to build and launch the app
 
 1. Use one of these operating systems:
-     - Ubuntu 18.04 LTS "Bionic"
+     - Ubuntu 24.04 LTS "Noble"
      - Mac OS X 10.15 "Catalina"
-     - Windows 10; or Windows Server 2019 (**PLEASE SEE "Windows Notes" section, below**)
+     - Windows 10; or Windows Server 2025 (**PLEASE SEE "Windows Notes" section, below**)
 
 2. Run *one* of the following, depending on your host platform (the second one is for Mac OS X):
      - `tools/ci/provision.sh`

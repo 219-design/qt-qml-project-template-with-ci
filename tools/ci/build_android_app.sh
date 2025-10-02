@@ -32,12 +32,6 @@ then
   MYAPP_JOBS="-j1"
 fi
 
-# Strip out usage of QML 'import QtGraphicalEffects' on Qt 6.
-# Effects have moved to 'import QtQuick3D.Effects' and we have not
-# yet made that available in our CI job.
-git apply $CUR_GIT_ROOT/tools/ci/strip_effects_for_sake_of_qt6.patch || true
-
-
 tools/ci/version.sh
 
 source ${CUR_GUICODE_ROOT}/path_to_qmake.bash
