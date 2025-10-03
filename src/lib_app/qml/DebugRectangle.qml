@@ -15,7 +15,17 @@ Rectangle {
   // or under qmlscene), then just do this before launch:
   // export QT_QUICK_CONTROLS_MATERIAL_ACCENT="#0B610B"
   readonly property color sentinelColor: "#0B610B"
-  visible: Material.accent == sentinelColor
+  visible: {
+    // If the environment variable configured the ACCENT color to match our sentinel,
+    // then every instance of DebugRect will become visible:
+    var detectionInQt5 = (Material.accent == sentinelColor)
+    // See the `runscene` script in this repo. Qt6 requires a new approach:
+    var detectionInQt6 = ('-myqmldebug' == Qt.application.arguments.find(
+                            element => element == '-myqmldebug'))
+
+    // Either detection mechanism can enable the DebugRect(s):
+    detectionInQt5 || detectionInQt6
+  }
 
   anchors.fill: toFill
   z: 200

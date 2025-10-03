@@ -7,10 +7,18 @@ source "${DIR}/../../../tools/ci/rootdirhelper.bash"
 
 source $CUR_GUICODE_ROOT/path_to_qmake.bash # path to qmake is also path to qmlscene
 
-# In order to cause our DebugRectangle instances to become visible, uncomment:
+# In order to cause our DebugRectangle instances to become visible, do the following
+# in your terminal before you call `runscene`:
 # export QT_QUICK_CONTROLS_MATERIAL_ACCENT="#0B610B"
+
+RUNSCENE_EXTRA_CONF=()
+if [[ ${QT_QUICK_CONTROLS_MATERIAL_ACCENT-} == "#0B610B" ]]; then
+  # The 'material accent' hack only worked in Qt5.
+  # Here is our adaptation for Qt6:
+  RUNSCENE_EXTRA_CONF=('-myqmldebug')
+fi
 
 # In order that all the qml 'import' statements for our supporting libraries can
 # successfully load, you must feed some additional paths to qmlscene like so:
 
-qmlscene -I ../../libstyles/imports/ -style fusion "$@"
+qmlscene -I ../../libstyles/imports/ ${RUNSCENE_EXTRA_CONF[@]} -style fusion "$@"

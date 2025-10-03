@@ -22,7 +22,13 @@ Item {
   visible: {
     // If the environment variable configured the ACCENT color to match our sentinel,
     // then every instance of DebugRect will become visible:
-    Material.accent == sentinelColor
+    var detectionInQt5 = (Material.accent == sentinelColor)
+    // See the `runscene` script in this repo. Qt6 requires a new approach:
+    var detectionInQt6 = ('-myqmldebug' == Qt.application.arguments.find(
+                            element => element == '-myqmldebug'))
+
+    // Either detection mechanism can enable the DebugRect(s):
+    detectionInQt5 || detectionInQt6
   }
 
   // Limiting ourselves to this palette helps us unambiguously grep for color names

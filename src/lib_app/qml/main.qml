@@ -160,8 +160,8 @@ ApplicationWindow {
         text: "SPACEBAR (on logo): rotates logo"
 
         DebugRect {
-          // To make the DebugRect show up in the GUI, change your environment:
-          //     export QT_QUICK_CONTROLS_MATERIAL_ACCENT="#0B610B"
+          // This shows a "visual debug" border, but when only when you
+          // enable the feature.
           // (See comments in DebugRect.qml for more information.)
           color: red
         }
