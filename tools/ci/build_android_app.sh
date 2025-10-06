@@ -50,6 +50,7 @@ cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
   -DANDROID_NDK_ROOT=$DL_FOLDER/android_kits/ndk/25.1.8937393/ \
   -DANDROID_SDK_ROOT=$DL_FOLDER/android_kits/ \
   -DCMAKE_BUILD_TYPE=Debug \
+  -DQT_HOST_PATH:PATH=$DL_FOLDER/Qt_desktop/6.5.3/gcc_64 \
   -DCMAKE_FIND_ROOT_PATH:PATH=$DL_FOLDER/Qt_desktop/6.5.3/android_arm64_v8a \
   -DCMAKE_PREFIX_PATH:PATH=$DL_FOLDER/Qt_desktop/6.5.3/android_arm64_v8a \
   -DCMAKE_SYSTEM_NAME=Android \

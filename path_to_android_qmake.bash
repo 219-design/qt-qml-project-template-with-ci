@@ -9,7 +9,6 @@ fi
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source "${THISDIR}/tools/ci/rootdirhelper.bash"
 
-DL_FOLDER=$CUR_GUICODE_ROOT/dl_third_party
 DL_FOLDER_ANDROID=$DL_FOLDER/android_kits
 
 # Note: 25.1.8937393 is also known as Android NDK r25b.
