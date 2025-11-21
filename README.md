@@ -24,6 +24,15 @@ with your own app (adding supporting C++ view model classes as you see fit).
 Higher-level rationale was discussed in our [hello-world-template-toolchain blog
 post.](https://www.219design.com/hello-world-template-toolchain/)
 
+## If You Like At Least *Some* Of The Above...
+
+Maybe you like some of the features described above, but you aren't in search of
+a whole new default project template.
+
+For an *a la carte* approach to using the tools in the repo:
+
+- Also see our [project index](index.md)
+
 ## How to Start Using this Template Repository
 
 There are two supported ways for you to begin your own project based off of
@@ -100,7 +109,7 @@ After that, please proceed to "How to build" (below) before continuing further:
 1. Use one of these operating systems:
      - Ubuntu 24.04 LTS "Noble"
      - Mac OS X 10.15 "Catalina"
-     - Windows 10; or Windows Server 2025 (**PLEASE SEE "Windows Notes" section, below**)
+     - Windows 10/11; or Windows Server 2025 (**PLEASE SEE "Windows Notes" section, below**)
 
 2. Run *one* of the following, depending on your host platform (the second one is for Mac OS X):
      - `tools/ci/provision.sh`
@@ -185,8 +194,9 @@ interactively, here is a video:
 ### Notes About Qt Version
 
 The build scripts of this project download pre-built Qt modules using
-[aqtinstall](https://github.com/miurahr/aqtinstall) on Linux and a local copy of
-the [script provided by Qbs](https://github.com/qbs/qbs/blob/495d7767af8/scripts/install-qt.sh)
+[aqtinstall](https://github.com/miurahr/aqtinstall) on Linux and Windows, and a
+local copy of the
+[script provided by Qbs](https://github.com/qbs/qbs/blob/495d7767af8/scripts/install-qt.sh)
 on Mac OS X.
 
 Because the Qt modules are downloaded during the build, you do not need to
