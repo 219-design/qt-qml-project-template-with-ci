@@ -58,8 +58,8 @@ ApplicationWindow {
         id: logoImage
 
         source: blacknwhite.checked ? resourceHelper.imageSourcePrefix
-                                      + "images/blacknwhite.png" : resourceHelper.imageSourcePrefix
-                                      + "images/219Design.png"
+                                      + "images/blacknwhite.svg" : resourceHelper.imageSourcePrefix
+                                      + "images/219Design.svg"
         fillMode: Image.PreserveAspectFit
       }
     }
