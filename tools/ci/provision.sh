@@ -38,11 +38,13 @@ sudo apt-get --assume-yes install libc6:i386 libc6-dev:i386
 # libstdc++-10-dev was added for the sake of clang. see: https://stackoverflow.com/q/26333823/10278
 sudo apt-get --assume-yes install \
   build-essential \
+  clang \
   clang-format-19 \
   cmake \
   curl \
   graphviz \
   g++-11 \
+  gcovr \
   gdb \
   git \
   gnupg \
@@ -74,6 +76,7 @@ sudo apt-get --assume-yes install \
   libxcb-xkb1 \
   libxkbcommon-x11-0 \
   libxkbcommon0 \
+  llvm \
   mesa-common-dev \
   openjdk-8-jdk \
   openjdk-8-jre \

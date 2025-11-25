@@ -18,12 +18,14 @@ brew \
   --overwrite python@3.12 \
      clang-format@21 \
      fontconfig \
+     gcovr \
      gdbm \
      glib \
      gnu-sed \
      graphviz \
      grep \
      libtool \
+     llvm \
      p7zip \
      pcre \
      pcre2 \
