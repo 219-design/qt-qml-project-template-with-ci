@@ -7,7 +7,7 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-ln -sf src/libstyles/imports/libstyles/images src/lib_app/qml/images
+ln -sf ../../../src/libstyles/imports/libstyles/images src/lib_app/qml/images
 ln -sf .qmake.conf qmake.conf
 ln -sf .clang-format clang-format
 ln -sf macos dl_third_party/Qt_desktop/6.5.3/clang_64
