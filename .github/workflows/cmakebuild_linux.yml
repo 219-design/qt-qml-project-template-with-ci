@@ -17,6 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: compute nameid for this run
+      env:
+        nameidinput: "${{ github.head_ref || github.ref_name }}"
+      run: |
+        echo "our_nameid=${nameidinput//\//-}" >> $GITHUB_ENV
+
     # Remove apt repos that are known to break from time to time
     # See https://github.com/actions/virtual-environments/issues/323
     - name: Remove broken apt repos
@@ -48,7 +54,7 @@ jobs:
     - name: upload_compile_commands_json_artifact
       uses: actions/upload-artifact@v4
       with:
-        name: "${{ github.head_ref || github.ref_name }}.clang.qt6.debug.compiler_info"
+        name: "${{ env.our_nameid }}.clang.qt6.debug.compiler_info"
         # Note: it is surprisingly tedious to interpolate "current date" into an
         # artifact name here in yaml, so we make sure our own build scripts generate
         # the file with a datestring already prefixed to it, and we upload a directory
