@@ -41,7 +41,7 @@ This involves five key steps:
 ### Record And Track Compiler Flags
 
 - [Generate compile\_commands.json during CMake build](https://github.com/219-design/qt-qml-project-template-with-ci/blob/b0abc1b/build_cmake_app.sh#L95-L118)
-- [Publish compile\_commands.json as a CI build artifact](https://github.com/219-design/qt-qml-project-template-with-ci/blob/b0abc1b/.github/workflows/cmakebuild_linux.yml#L48-L61)
+- [Publish compile\_commands.json as a CI build artifact](https://github.com/219-design/qt-qml-project-template-with-ci/blob/4b02a48/.github/workflows/cmakebuild_linux.yml#L54-L67)
 
 ## Leverage Tools For Finding Warnings/Errors/UB/Bugs
 
