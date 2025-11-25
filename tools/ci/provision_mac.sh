@@ -2,7 +2,7 @@
 
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
-sudo xcode-select -s "/Applications/Xcode_14.3.1.app"
+sudo xcode-select -s "/Applications/Xcode_15.1.0.app"
 
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 
