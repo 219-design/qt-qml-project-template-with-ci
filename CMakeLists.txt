@@ -100,6 +100,43 @@ set(CMAKE_AUTOUIC
     ON
 )
 
+if (PROJECT_IS_TOP_LEVEL)
+    set(MYAPP_CLANG_COVERAGE_FLAGS
+        " -fprofile-instr-generate \
+          -fcoverage-mapping \
+        "
+    )
+    set(MYAPP_GCC_COVERAGE_FLAGS
+        " --coverage"
+    )
+    if (${CMAKE_C_COMPILER_ID} STREQUAL Clang)
+        string(
+            APPEND
+            CMAKE_C_FLAGS_DEBUG
+            "${MYAPP_CLANG_COVERAGE_FLAGS}"
+        )
+    elseif(${CMAKE_C_COMPILER_ID} STREQUAL GNU)
+        string(
+            APPEND
+            CMAKE_C_FLAGS_DEBUG
+            "${MYAPP_GCC_COVERAGE_FLAGS}"
+        )
+    endif()
+    if (${CMAKE_CXX_COMPILER_ID} STREQUAL Clang)
+        string(
+            APPEND
+            CMAKE_CXX_FLAGS_DEBUG
+            "${MYAPP_CLANG_COVERAGE_FLAGS}"
+        )
+    elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
+        string(
+            APPEND
+            CMAKE_CXX_FLAGS_DEBUG
+            "${MYAPP_GCC_COVERAGE_FLAGS}"
+        )
+    endif()
+endif() # PROJECT_IS_TOP_LEVEL
+
 # ##############################################################################
 # Begin section: based on the book "Professional CMake" by Craig Scott
 #

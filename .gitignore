@@ -14,3 +14,6 @@ aqtinstall.log
 
 # Qt Creator User File
 *.user
+
+# code coverage-related:
+**/*.profraw
