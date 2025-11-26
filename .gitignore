@@ -1,5 +1,7 @@
 dl_third_party
 build
+cbuild
+cbuild_*
 AppImage_staging
 linuxdeployqt-6-x86_64.AppImage
 gui_test.log
