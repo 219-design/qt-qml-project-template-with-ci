@@ -17,3 +17,4 @@ aqtinstall.log
 
 # code coverage-related:
 **/*.profraw
+coverage_reports

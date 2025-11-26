@@ -43,6 +43,17 @@ This involves five key steps:
 - [Generate compile\_commands.json during CMake build](https://github.com/219-design/qt-qml-project-template-with-ci/blob/b0abc1b/build_cmake_app.sh#L95-L118)
 - [Publish compile\_commands.json as a CI build artifact](https://github.com/219-design/qt-qml-project-template-with-ci/blob/4b02a48/.github/workflows/cmakebuild_linux.yml#L54-L67)
 
+### Check Code Coverage
+
+- Enable compiler code coverage instrumentation and generate `.html` code coverage reports (for some build types).
+   - Building with coverage instrumentation is supported (and enabled automatically) for CMake debug builds with either Clang or GCC compilers.
+      - The GCC case uses [`gcov`](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html) for coverage and [`gcovr`](https://gcovr.com/) for report generation.
+      - The Clang case uses [Clang Source-based Code Coverage](https://clang.llvm.org/docs/SourceBasedCodeCoverage.html) for coverage and report generation.
+         - We use Clang's native "source-based" coverage to give an example of using it and for a second angle on coverage, but note Clang advertises some "`gcov`-compatibility" options that might be worth exploring in multi-compiler situations where sharing coverage-processing code and report formats is preferred to having more perspectives.
+   - `run_all_tests.sh` generates `.html` code coverage reports for those supported build types.
+      - These reports are put in sub-directories with timestamp names, created within `coverage_reports/clang-llvm` and `coverage_reports/gcc-gcov` for Clang and GCC builds, respectively.
+      - Within each timestamp-named sub-directory, you can open `index.html` to view the report summary. Following hyperlinks from there, you can find per-directory reports and per-file reports that show exactly which lines are covered.
+
 ## Leverage Tools For Finding Warnings/Errors/UB/Bugs
 
 - [Enable ASan in CMake Debug Build](https://github.com/219-design/qt-qml-project-template-with-ci/blob/b0abc1b/cmake_include/unix_settings.cmake#L44-L80)

@@ -9,6 +9,7 @@ such as:
  - runtime "flexible asserts" to ensure you do not miss any QML runtime warnings
  - a wrapper script to make iterating on QML layouts painless with qmlscene
  - test-runner code to run any unit tests you add. (googletest is provided)
+ - instrumentation to check code coverage from your tests and generate reports
  - a basic '.github/workflow' to run tests on github for each commit
  - a basic GUI Test that launches the app in CI using Xvfb
  - automated Linux deployment via AppImage folder
