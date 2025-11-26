@@ -53,6 +53,7 @@ This involves five key steps:
    - `run_all_tests.sh` generates `.html` code coverage reports for those supported build types.
       - These reports are put in sub-directories with timestamp names, created within `coverage_reports/clang-llvm` and `coverage_reports/gcc-gcov` for Clang and GCC builds, respectively.
       - Within each timestamp-named sub-directory, you can open `index.html` to view the report summary. Following hyperlinks from there, you can find per-directory reports and per-file reports that show exactly which lines are covered.
+   - For each supported `run_all_tests.sh` run in CI, the generated coverage reports are saved as an artifact.
 
 ## Leverage Tools For Finding Warnings/Errors/UB/Bugs
 

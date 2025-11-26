@@ -39,10 +39,34 @@ jobs:
         MYAPP_TEMPLATE_COMPILERCHOICE_CLANG: 1
       run: ./run_all_tests.sh
 
+    - name: upload_clang_qt5_coverage_reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: "${{ env.our_nameid }}.clang.qt5.coverage_reports"
+        path: coverage_reports/
+        if-no-files-found: error
+        retention-days: 7
+        overwrite: false
+
+    - name: clear_clang_qt5_coverage_reports
+      run: rm -rf coverage_reports
+
     - name: run_all_tests_qt6_android
       env:
         MYAPP_TEMPLATE_BUILD_ANDROID: 1
       run: ./run_all_tests.sh
+
+    - name: upload_qt6_android_coverage_reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: "${{ env.our_nameid }}.gcc.qt6.android.coverage_reports"
+        path: coverage_reports/
+        if-no-files-found: error
+        retention-days: 7
+        overwrite: false
+
+    - name: clear_qt6_android_coverage_reports
+      run: rm -rf coverage_reports
 
     # Clang Qt6 build is the LAST one, so the artifact upload will have its commands:
     - name: run_all_tests_clang
@@ -64,4 +88,13 @@ jobs:
         if-no-files-found: error
         retention-days: 7
         # If overwrite==false, the action will fail if an artifact for the given name already exists.
+        overwrite: false
+
+    - name: upload_clang_coverage_reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: "${{ env.our_nameid }}.clang.qt6.coverage_reports"
+        path: coverage_reports/
+        if-no-files-found: error
+        retention-days: 7
         overwrite: false

@@ -17,6 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: compute nameid for this run
+      env:
+        nameidinput: "${{ github.head_ref || github.ref_name }}"
+      run: |
+        echo "our_nameid=${nameidinput//\//-}" >> $GITHUB_ENV
+
     # Remove apt repos that are known to break from time to time
     # See https://github.com/actions/virtual-environments/issues/323
     - name: Remove broken apt repos
@@ -34,6 +40,15 @@ jobs:
         NOTYET_MYAPP_TEMPLATE_BUILD_APPIMAGE: 1
         # For a clang (not gcc) qt6 build, see: cmakebuild_linux.yml
       run: ./run_all_tests.sh
+
+    - name: upload_gcc_coverage_reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: "${{ env.our_nameid }}.gcc.qt6.coverage_reports"
+        path: coverage_reports/
+        if-no-files-found: error
+        retention-days: 7
+        overwrite: false
 
     # This one must go last, because it does the AppImage tests.
     - name: run_all_tests_gcc_qt5
