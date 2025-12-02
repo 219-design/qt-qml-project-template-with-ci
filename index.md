@@ -46,14 +46,14 @@ This involves five key steps:
 ### Check Code Coverage
 
 - Enable compiler code coverage instrumentation and generate `.html` code coverage reports (for some build types).
-   - Building with coverage instrumentation is supported (and enabled automatically) for CMake debug builds with either Clang or GCC compilers.
+   - Building with coverage instrumentation is [supported (and enabled automatically) for CMake debug builds with either Clang or GCC compilers](https://github.com/219-design/qt-qml-project-template-with-ci/blob/699819e859fe3251bd15d63add08e19aa52bf282/CMakeLists.txt#L103).
       - The GCC case uses [`gcov`](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html) for coverage and [`gcovr`](https://gcovr.com/) for report generation.
       - The Clang case uses [Clang Source-based Code Coverage](https://clang.llvm.org/docs/SourceBasedCodeCoverage.html) for coverage and report generation.
          - We use Clang's native "source-based" coverage to give an example of using it and for a second angle on coverage, but note Clang advertises some "`gcov`-compatibility" options that might be worth exploring in multi-compiler situations where sharing coverage-processing code and report formats is preferred to having more perspectives.
-   - `run_all_tests.sh` generates `.html` code coverage reports for those supported build types.
+   - `run_all_tests.sh` [generates `.html` code coverage reports for those supported build types](https://github.com/219-design/qt-qml-project-template-with-ci/blob/699819e859fe3251bd15d63add08e19aa52bf282/run_all_tests.sh#L92).
       - These reports are put in sub-directories with timestamp names, created within `coverage_reports/clang-llvm` and `coverage_reports/gcc-gcov` for Clang and GCC builds, respectively.
       - Within each timestamp-named sub-directory, you can open `index.html` to view the report summary. Following hyperlinks from there, you can find per-directory reports and per-file reports that show exactly which lines are covered.
-   - For each supported `run_all_tests.sh` run in CI, the generated coverage reports are saved as an artifact.
+   - For each supported `run_all_tests.sh` run in CI, [the generated](https://github.com/219-design/qt-qml-project-template-with-ci/blob/699819e859fe3251bd15d63add08e19aa52bf282/.github/workflows/cmakebuild_linux.yml#L42) [coverage reports](https://github.com/219-design/qt-qml-project-template-with-ci/blob/699819e859fe3251bd15d63add08e19aa52bf282/.github/workflows/cmakebuild_linux.yml#L59) [are saved](https://github.com/219-design/qt-qml-project-template-with-ci/blob/699819e859fe3251bd15d63add08e19aa52bf282/.github/workflows/cmakebuild_linux.yml#L93) [as an artifact](https://github.com/219-design/qt-qml-project-template-with-ci/blob/699819e859fe3251bd15d63add08e19aa52bf282/.github/workflows/main.yml#L44).
 
 ## Leverage Tools For Finding Warnings/Errors/UB/Bugs
 
