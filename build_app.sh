@@ -21,7 +21,8 @@ source "${DIR}/tools/ci/utils.bash" # for terminal colorization
 if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
   # Some workflows on github build multiple times with different flags.
   # Therefore, when under CI, we always build from zero. Remove any prior artifacts:
-  rm -rf build
+  rm -rf "${BUILDOUT_DBG}"
+  rm -rf "${BUILDOUT_OPT}"
 fi
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
@@ -73,8 +74,8 @@ if [[ -n ${MYAPP_TEMPLATE_COMPILERCHOICE_CLANG-} ]]; then
   MYAPP_EXTRA_CONF="${MYAPP_EXTRA_CONF} CONFIG+=wants_clang"
 fi
 
-mkdir -p build
-pushd build >& /dev/null
+mkdir -p "${BUILDOUT_DBG}"
+pushd "${BUILDOUT_DBG}"
 
   # When you need release: CONFIG+=release
   ${qmakecmd} $MYAPP_EXTRA_CONF CONFIG+=force_debug_info "$DIR" # note: debug INFO (symbols) are ok even in release
@@ -87,7 +88,7 @@ pushd build >& /dev/null
     ${makecmd} debug
   fi
 
-popd >& /dev/null
+popd
 
 if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
   echo "Refusing qmake for android. Use build_cmake_app.sh"
@@ -95,23 +96,23 @@ if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  pushd build/src/app >& /dev/null
+  pushd "${BUILDOUT_DBG}"/src/app
     macdeployqt app.app        -no-strip -libpath=$PWD -qmldir=../../../src/
     macdeployqt lib_tests.app  -no-strip -libpath=$PWD -qmldir=../../../src/
     macdeployqt util_tests.app -no-strip -libpath=$PWD -qmldir=../../../src/
-  popd >& /dev/null
+  popd
 
   ./build_ios_app.sh
 fi
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-  EXEDIR=build/src/app/release
-  PLUGINDIR=build/src/libstyles/release
-  SHIPDIR=build/windeployfolder
+  EXEDIR="${BUILDOUT_DBG}"/src/app/release
+  PLUGINDIR="${BUILDOUT_DBG}"/src/libstyles/release
+  SHIPDIR="${BUILDOUT_DBG}"/windeployfolder
 
-  EXEDIRDBG=build/src/app/debug
-  PLUGINDIRDBG=build/src/libstyles/debug
-  SHIPDIRDBG=build/windeployfolder_debug
+  EXEDIRDBG="${BUILDOUT_DBG}"/src/app/debug
+  PLUGINDIRDBG="${BUILDOUT_DBG}"/src/libstyles/debug
+  SHIPDIRDBG="${BUILDOUT_DBG}"/windeployfolder_debug
 
   windows_deploy "--release" ${EXEDIR} ${PLUGINDIR} ${SHIPDIR}
   windows_deploy "--debug" ${EXEDIRDBG} ${PLUGINDIRDBG} ${SHIPDIRDBG}

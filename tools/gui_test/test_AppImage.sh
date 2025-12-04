@@ -13,9 +13,10 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 echo "reading single argument (should be either empty or ':1' to choose display)"
 export DISPLAY="${1:-"$DISPLAY"}"
 
-CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source "${DIR}/../ci/rootdirhelper.bash"
 
-cd $CUR_GIT_ROOT
+cd $CUR_GUICODE_ROOT
 ./install_linux.sh # build the AppImage folder structure
 
 if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REPO_FULL_NAME-} ]];
@@ -23,11 +24,11 @@ if [[ -n ${GITHUB_ACTIONS-} || -n ${BITBUCKET_REPO_OWNER-} || -n ${BITBUCKET_REP
 then
   echo "Assuming C.I. environment."
   echo "Deleting various binaries except for AppImage (to prove AppImage works)"
-  rm -rf build # highly destructive! we want to prove the AppImage is standalone
-  rm -rf dl_third_party # highly destructive! we want to prove the AppImage is standalone
+  rm -rf "${BUILDOUT_DBG}" # highly destructive! we want to prove the AppImage is standalone
+  rm -rf "${DL_FOLDER}" # highly destructive! we want to prove the AppImage is standalone
 fi
 
-cd $CUR_GIT_ROOT
+cd $CUR_GUICODE_ROOT
 rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps locally.
 
 # -g flag causes app to close when test is done:

@@ -84,7 +84,7 @@ jobs:
         # the file with a datestring already prefixed to it, and we upload a directory
         # (instead of just the file), so that inside the dir, that datestring prefix
         # is preserved on the file:
-        path: cbuild/compiler_info_artifacts/
+        path: cbuild_Debug/compiler_info_artifacts/
         if-no-files-found: error
         retention-days: 7
         # If overwrite==false, the action will fail if an artifact for the given name already exists.

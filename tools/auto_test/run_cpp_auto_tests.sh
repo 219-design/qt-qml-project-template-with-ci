@@ -15,6 +15,14 @@ source "${THISDIR}/../ci/rootdirhelper.bash"
 
 source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
+# See docs on LLVM_PROFILE_FILE at: https://clang.llvm.org/docs/SourceBasedCodeCoverage.html
+export LLVM_PROFILE_FILE="${CLANG_COVERAGE_DATA_DIR}/%p.profraw"
+
+# Clear any existing gcov data so it does not contribute to this run's coverage results.
+find ${BUILDOUT_DBG} -name "*.gcda" -o -name "*.gcov" -delete
+# Clear any existing llvm-cov data so it does not contribute to this run's coverage results.
+rm -rf "${CLANG_COVERAGE_DATA_DIR}/coverage_data/"
+
 # Note that we also "bake in" some sanitization options at compile-time
 # through the use of our file: debug_sanitizer_config.cc
 #   ... feel free to mix and match based on per-project needs.
@@ -38,14 +46,14 @@ run_a_test() {
 cd $CUR_GUICODE_ROOT
 
 if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
-  OUR_TEST_BINARIES_DIR=build/src/app
+  OUR_TEST_BINARIES_DIR="${BUILDOUT_DBG}"/src/app
   if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-    OUR_TEST_BINARIES_DIR=build/windeployfolder
+    OUR_TEST_BINARIES_DIR="${BUILDOUT_DBG}"/windeployfolder
   fi
 else
-  OUR_TEST_BINARIES_DIR=cbuild/stage
+  OUR_TEST_BINARIES_DIR="${BUILDOUT_DBG}"/stage
   if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-    OUR_TEST_BINARIES_DIR=cbuild/windeployfolder_debug
+    OUR_TEST_BINARIES_DIR="${BUILDOUT_DBG}"/windeployfolder_debug
   fi
 fi
 

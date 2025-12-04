@@ -12,6 +12,7 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR  # enter this script's directory.
+source "${DIR}/tools/ci/rootdirhelper.bash"
 
 source $DIR/path_to_qmake.bash
 
@@ -25,7 +26,7 @@ mkdir -p usr/share/icons/hicolor/256x256/apps
 
 cp "$DIR/tools/AppImage/logo256.png" usr/share/icons/hicolor/256x256/apps/app.png
 cp "$DIR/tools/AppImage/app.desktop" usr/share/applications/
-cp "$DIR/build/src/app/"* usr/bin/
+cp "${BUILDOUT_DBG}/src/app/"* usr/bin/
 
 # unless you run linuxdeployqt with '-bundle-non-qt-libs', the end user on
 # target install machine will need to run provision.sh, too. So put it in the

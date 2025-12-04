@@ -17,17 +17,17 @@ source "${DIR}/tools/ci/rootdirhelper.bash"
 source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
 chosen_buildtype="Debug"
-chosen_folder_suffix=""
-if [[ -n ${1-} ]]; # the presence of ANY arg becomes our "build type"
+chosen_folder="${BUILDOUT_DBG}"
+if [[ -n ${1-} ]]; # the presence of ANY arg becomes our "RELEASE build type name"
 then
     chosen_buildtype="${1}"
-    chosen_folder_suffix="_${1}"
+    chosen_folder="${BUILDOUT_OPT}"
 fi
 
 if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
   # Some workflows on github build multiple times with different flags.
   # Therefore, when under CI, we always build from zero. Remove any prior artifacts:
-  rm -rf "cbuild${chosen_folder_suffix}"
+  rm -rf "${chosen_folder}"
 fi
 
 cmake --version # print version to CI logs.
@@ -77,7 +77,7 @@ else
   fi
 fi
 
-$DIR/tools/ci/version.sh "cbuild${chosen_folder_suffix}"
+$DIR/tools/ci/version.sh "${chosen_folder}"
 
 source $DIR/path_to_qmake.bash
 
@@ -86,8 +86,8 @@ if [[ -n ${MYAPP_TEMPLATE_COMPILERCHOICE_CLANG-} ]]; then
   MYAPP_EXTRA_CONF+=( "-Dwants_clang=ON" )
 fi
 
-mkdir -p "cbuild${chosen_folder_suffix}"
-pushd "cbuild${chosen_folder_suffix}"
+mkdir -p "${chosen_folder}"
+pushd "${chosen_folder}"
 
   # Note that CMAKE_BUILD_TYPE=Debug is silently ignored by Xcode (and others).
   # Refer to: https://github.com/219-design/qt-qml-project-template-with-ci/blob/main/OUR_CMAKE_USAGE_GUIDELINES.md#avoid-unigenerator-assumption
@@ -125,11 +125,11 @@ pushd "cbuild${chosen_folder_suffix}"
     cat "${output_jsonfile}"
   fi
 
-popd # pushd "cbuild${chosen_folder_suffix}"
+popd # pushd "${chosen_folder}"
 
 if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
   tools/ci/get_android_toolchain.sh
-  tools/ci/build_android_app.sh build/for_android "CONFIG+=force_debug_info"
+  tools/ci/build_android_app.sh ${chosen_folder}/for_android "CONFIG+=force_debug_info"
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -149,9 +149,9 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   # TODO? release?
   #windows_deploy "--release" ${EXEDIR} ${PLUGINDIR} ${SHIPDIR}
 
-  EXEDIRDBG="cbuild${chosen_folder_suffix}"/stage
-  PLUGINDIRDBG="cbuild${chosen_folder_suffix}"/stage
-  SHIPDIRDBG="cbuild${chosen_folder_suffix}"/windeployfolder_debug
+  EXEDIRDBG="${chosen_folder}"/stage
+  PLUGINDIRDBG="${chosen_folder}"/stage
+  SHIPDIRDBG="${chosen_folder}"/windeployfolder_debug
 
   #windows_deploy "--release" ${EXEDIR} ${PLUGINDIR} ${SHIPDIR}
   windows_deploy "--debug" ${EXEDIRDBG} ${PLUGINDIRDBG} ${SHIPDIRDBG}

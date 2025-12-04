@@ -21,6 +21,7 @@ fi
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+source "${THISDIR}/tools/ci/rootdirhelper.bash"
 source ${THISDIR}/tools/ci/utils.bash # will compute UTILS_WE_ARE_RUNNING_IN_CI
 
 if [[ -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]];
@@ -58,7 +59,6 @@ fi
 
 if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
   ./build_app.sh
-  DEBUG_BUILD_DIR="${THISDIR}/build"
 else
   # Run a Release build (except where it doesn't make sense)
   if [[ "$OSTYPE" != "darwin"* ]]; then
@@ -71,69 +71,19 @@ else
   fi
 
   ./build_cmake_app.sh  # <-- the default invocation (no args) will build debug.
-  DEBUG_BUILD_DIR="${THISDIR}/cbuild"
 
   if [[ -z ${MYAPP_TEMPLATE_QT5-} ]]; then
     # Nice-to-have: figure out why cmake-qt6 moved `app` such that we now need this.
-    # (even nicer) Nice-to-have: "seek and destroy" other tests hardcoded to look for "cbuild"
-    ln -sf bin/app ${THISDIR}/cbuild/stage/app
+    ln -sf bin/app ${BUILDOUT_DBG}/stage/app
   fi
 fi
-
-# Note coverage-related operations are structured to be no-ops unless the corresponding
-# instrumentation is present.
-COVERAGE_RUN_TIMESTAMP="$(date +%Y-%m-%d_%H%M%S_%N)"
-CLANG_COVERAGE_DATA_DIR="${DEBUG_BUILD_DIR}/coverage_data/${COVERAGE_RUN_TIMESTAMP}"
-export LLVM_PROFILE_FILE="${CLANG_COVERAGE_DATA_DIR}/%p.profraw"
-
-# Clear any existing gcov data so it does not contribute to this run's coverage results.
-find ${DEBUG_BUILD_DIR} -name "*.gcda" -o -name "*.gcov" -delete
-
-process_coverage_data() {
-    if [[ -d "${CLANG_COVERAGE_DATA_DIR}" ]]; then
-        llvm-profdata merge $(find ${CLANG_COVERAGE_DATA_DIR} -name "*.profraw") \
-            -o ${CLANG_COVERAGE_DATA_DIR}/coverage.profdata
-        CLANG_COVERAGE_REPORTS_DIR="${THISDIR}/coverage_reports/clang-llvm/${COVERAGE_RUN_TIMESTAMP}"
-        mkdir -p ${CLANG_COVERAGE_REPORTS_DIR}
-
-        # Individually prefacing each relevant binary file with "-object" is seemingly
-        # unavoidable for llvm-cov. In spite of the fact it's willing to treat a single
-        # non-option argument as a binary file, it's not willing to do that for files
-        # after the first, nor is it willing to accept a directory.
-        LLVM_COV_BINARY_FILE_ARGS=""
-        for BINARY_FILE in $(find -L ${DEBUG_BUILD_DIR}/stage -type f); do
-            LLVM_COV_BINARY_FILE_ARGS+=" -object ${BINARY_FILE}"
-        done
-
-        llvm-cov show \
-            -instr-profile ${CLANG_COVERAGE_DATA_DIR}/coverage.profdata \
-            ${LLVM_COV_BINARY_FILE_ARGS} \
-            -sources ${THISDIR}/src \
-            -output-dir=${CLANG_COVERAGE_REPORTS_DIR} \
-            -format=html \
-            -show-branches=count \
-            -show-line-counts-or-regions \
-            -show-directory-coverage
-    fi
-    if [[ -n $(find ${DEBUG_BUILD_DIR} -name "*.gcda") ]]; then
-        GCC_COVERAGE_REPORTS_DIR="${THISDIR}/coverage_reports/gcc-gcov/${COVERAGE_RUN_TIMESTAMP}"
-        mkdir -p ${GCC_COVERAGE_REPORTS_DIR}
-        pushd "${DEBUG_BUILD_DIR}"
-            gcovr \
-                --root ${THISDIR} \
-                --filter "${THISDIR}/src" \
-                --html-nested ${GCC_COVERAGE_REPORTS_DIR}/index.html \
-                --decisions
-        popd # ${DEBUG_BUILD_DIR}
-    fi
-}
 
 # run all test binaries that got built in the expected dir:
 tools/auto_test/run_cpp_auto_tests.sh
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   ####################   EARLY EXIT FOR MICROSOFT WINDOWS.  (TODO: tools/gui_test for WIN32)
-  process_coverage_data
+  tools/auto_test/process_coverage_data.sh
   echo 'EARLY EXIT FOR MICROSOFT WINDOWS.  (TODO: tools/gui_test for WIN32)'
   exit 0
 fi
@@ -159,7 +109,7 @@ fi
 # run gui tests which execute the actual app binary:
 tools/gui_test/launch_gui_for_display.sh "${XDISPLAY}"
 
-process_coverage_data
+tools/auto_test/process_coverage_data.sh
 
 if [[ -n ${MYAPP_TEMPLATE_BUILD_APPIMAGE-} ]]; then
   # this MUST happen last because (on the C.I. server) it destroys folders (intentionally)
@@ -171,3 +121,7 @@ if [[ -n ${XDISPLAY-} ]]; then
     kill -SIGINT $VIRT_FB_PID
   fi
 fi
+
+echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'
+echo 'Assuming so, then getting here means:'
+echo "${u_green}run_all_tests SUCCESS${u_resetcolor}"

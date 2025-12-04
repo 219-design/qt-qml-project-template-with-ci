@@ -18,12 +18,15 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source "${DIR}/../ci/rootdirhelper.bash"
 
+# See docs on LLVM_PROFILE_FILE at: https://clang.llvm.org/docs/SourceBasedCodeCoverage.html
+export LLVM_PROFILE_FILE="${CLANG_COVERAGE_DATA_DIR}/%p.profraw"
+
 if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
-  APP_TO_LAUNCH=${CUR_GUICODE_ROOT}/build/src/app/app
+  APP_TO_LAUNCH="${BUILDOUT_DBG}"/src/app/app
   #if [[ "$OSTYPE" == "darwin"* ]]; then
   #fi
 else
-  APP_TO_LAUNCH=${CUR_GUICODE_ROOT}/cbuild/stage/app
+  APP_TO_LAUNCH="${BUILDOUT_DBG}"/stage/app
 fi
 
 cd $CUR_GUICODE_ROOT
@@ -41,7 +44,7 @@ elif [[ "$OSTYPE" != "darwin"* ]]; then
         -ex "set args -g -v" -ex "run" -ex "bt" -ex "run" \
         ${APP_TO_LAUNCH} 2>&1 | tee gui_test.log
 else
-  build/src/app/app.app/Contents/MacOS/app -g 2>&1 | tee gui_test.log
+  "${BUILDOUT_DBG}"/src/app/app.app/Contents/MacOS/app -g 2>&1 | tee gui_test.log
 fi
 
 tools/gui_test/check_gui_test_log.py gui_test.log
