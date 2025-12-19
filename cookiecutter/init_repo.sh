@@ -27,6 +27,8 @@ git add -f dl_third_party/Qt_desktop/6.2.2/gcc_64/extrabin/qmlfmt
 git add -f dl_third_party/Qt_desktop/5.15.0/ios/mkspecs/qconfig.pri
 git add -f dl_third_party/Qt_desktop/5.15.0/msvc2019_64/mkspecs/qconfig.pri
 git add -f dl_third_party/android_kits/commandlinetools-linux-6200805_latest.zip.sha256
+git add -f dl_third_party/Qt_desktop/6.5.3/clang_64
+git add -f dl_third_party/Qt_desktop/6.5.3/README.txt
 
 git commit -m "init"
 
