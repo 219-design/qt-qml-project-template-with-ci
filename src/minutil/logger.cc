@@ -39,14 +39,12 @@ std::string GetDateTimeString()
     constexpr int BUFF_SIZE = 32;
     char buff[ BUFF_SIZE ];
     memset( buff, '\0', BUFF_SIZE );
-    const int printfResult = snprintf( buff,
-        sizeof( buff ),
-        "%04d-%02d-%02d %02d:%02d:%02d",
+    const int printfResult = snprintf( buff, sizeof( buff ), "%04d-%02d-%02d %02d:%02d:%02d",
         ( result.wYear ), // tm struct counts years from 1900
         result.wMonth, // tm struct counts months starting with 0
-        result.wDay,
-        result.wHour, result.wMinute, result.wSecond );
-    // Next line added per: https://stackoverflow.com/questions/51534284/how-to-circumvent-format-truncation-warning-in-gcc
+        result.wDay, result.wHour, result.wMinute, result.wSecond );
+    // Next line added per:
+    // https://stackoverflow.com/questions/51534284/how-to-circumvent-format-truncation-warning-in-gcc
     assert( printfResult < static_cast<int>( sizeof( buff ) ) );
     (void) printfResult; // suppress unused warning in release
 
@@ -64,14 +62,12 @@ std::string GetDateTimeString()
     constexpr int BUFF_SIZE = 64; // large for sake of: https://stackoverflow.com/a/61711631/10278
     char buff[ BUFF_SIZE ];
     memset( buff, '\0', BUFF_SIZE );
-    const int printfResult = snprintf( buff,
-        sizeof( buff ),
-        "%04d-%02d-%02d %02d:%02d:%02d",
+    const int printfResult = snprintf( buff, sizeof( buff ), "%04d-%02d-%02d %02d:%02d:%02d",
         ( result.tm_year + 1900 ), // tm struct counts years from 1900
         result.tm_mon + 1, // tm struct counts months starting with 0
-        result.tm_mday,
-        result.tm_hour, result.tm_min, result.tm_sec );
-    // Next line added per: https://stackoverflow.com/questions/51534284/how-to-circumvent-format-truncation-warning-in-gcc
+        result.tm_mday, result.tm_hour, result.tm_min, result.tm_sec );
+    // Next line added per:
+    // https://stackoverflow.com/questions/51534284/how-to-circumvent-format-truncation-warning-in-gcc
     assert( printfResult < static_cast<int>( sizeof( buff ) ) );
     (void) printfResult; // suppress unused warning in release
 

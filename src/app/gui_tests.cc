@@ -25,12 +25,12 @@ constexpr char EXPECTED_FIRST_LOADED_FILE[] = "main.qml";
 
 GuiTests::GuiTests( QQmlEngine& engine )
 {
-    const QQmlApplicationEngine* appEngine
-        = dynamic_cast<const QQmlApplicationEngine*>( &engine );
+    const QQmlApplicationEngine* appEngine = dynamic_cast<const QQmlApplicationEngine*>( &engine );
     FASSERT( appEngine, "not null. downcast must succeed." );
 
     connect( appEngine, &QQmlApplicationEngine::objectCreated, [ = ]( QObject*, const QUrl& url ) {
-        FASSERT( url.fileName() == QString( EXPECTED_FIRST_LOADED_FILE ), "something must have changed in loading behavior of QQmlApplicationEngine" );
+        FASSERT( url.fileName() == QString( EXPECTED_FIRST_LOADED_FILE ),
+            "something must have changed in loading behavior of QQmlApplicationEngine" );
 
         // quit during next event-loop cycle
         QTimer::singleShot( 1 /*milliseconds*/, QCoreApplication::instance(), QCoreApplication::quit );

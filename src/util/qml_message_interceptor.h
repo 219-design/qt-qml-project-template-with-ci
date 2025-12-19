@@ -21,8 +21,8 @@ class QmlMessageInterceptor
 public:
     explicit QmlMessageInterceptor( bool suppressDefaultLogWhenSinkIsPresent );
 
-    void AddMessageSink(
-        std::weak_ptr<std::function<void( QtMsgType type, const QMessageLogContext& context, const QString& message )>>
+    void AddMessageSink( std::weak_ptr<
+        std::function<void( QtMsgType type, const QMessageLogContext& context, const QString& message )>>
             sink );
 
     ~QmlMessageInterceptor();
@@ -36,8 +36,8 @@ private:
 
     Pimpl* const m_pimpl;
     const bool m_suppressDefaultLogWhenSinkIsPresent;
-    std::vector<
-        std::weak_ptr<std::function<void( QtMsgType type, const QMessageLogContext& context, const QString& message )>>>
+    std::vector<std::weak_ptr<
+        std::function<void( QtMsgType type, const QMessageLogContext& context, const QString& message )>>>
         m_sinks;
 };
 

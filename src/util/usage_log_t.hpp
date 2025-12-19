@@ -18,8 +18,7 @@ public:
     // Look for uses of this helper throughout view_model_collection.cc to see
     // how it makes it less tedious to comprehensively log all interactions with
     // any member-object you with to track.
-    explicit Log( std::string s, const WrappedPtrIsh& wrapped )
-        : str( s ), w( wrapped )
+    explicit Log( std::string s, const WrappedPtrIsh& wrapped ) : str( s ), w( wrapped )
     {
     }
 

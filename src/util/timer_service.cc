@@ -13,8 +13,7 @@ namespace project
 {
 TimerService TimerService::k_instance;
 
-Timer::Timer( QObject* parent )
-    : QObject( parent )
+Timer::Timer( QObject* parent ) : QObject( parent )
 {
     TimerService::RegisterTimer( this );
     if( m_timerImpl.has_value() )
@@ -139,9 +138,7 @@ void TimerService::UnregisterTimer( Timer* timer )
 
 void TimerService::UnregisterTimerInternal( Timer* timer )
 {
-    m_registeredTimers.erase( std::remove( m_registeredTimers.begin(),
-                                  m_registeredTimers.end(),
-                                  timer ),
+    m_registeredTimers.erase( std::remove( m_registeredTimers.begin(), m_registeredTimers.end(), timer ),
         m_registeredTimers.end() );
 }
 

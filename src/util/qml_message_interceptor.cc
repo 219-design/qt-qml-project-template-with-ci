@@ -20,11 +20,10 @@
 
 namespace project
 {
-struct QmlMessageInterceptor::Pimpl // "effectively private" due to no definition in header, but provides full access to
-                                    // Interceptor
+struct QmlMessageInterceptor::Pimpl // "effectively private" due to no definition in header, but provides full
+                                    // access to Interceptor
 {
-    explicit Pimpl( QmlMessageInterceptor* o )
-        : owner( o )
+    explicit Pimpl( QmlMessageInterceptor* o ) : owner( o )
     {
         FASSERT( owner, "cannot be nullptr" );
     }
@@ -74,14 +73,17 @@ bool IndividualWarningIsMarkedAsIgnored( const QString& currentLogMessage )
     {
         didLazyLoad = true;
         const QString tmp = QStandardPaths::writableLocation( QStandardPaths::TempLocation );
-        const QFileInfo fileInfo( tmp + "/" + QCoreApplication::applicationName() + "_qml_suppressed_warnings.txt" );
-        const bool fileOk = fileInfo.exists() && fileInfo.isReadable() && fileInfo.isFile() && fileInfo.size() > 0 && fileInfo.size() < 100000;
+        const QFileInfo fileInfo(
+            tmp + "/" + QCoreApplication::applicationName() + "_qml_suppressed_warnings.txt" );
+        const bool fileOk = fileInfo.exists() && fileInfo.isReadable() && fileInfo.isFile()
+                            && fileInfo.size() > 0 && fileInfo.size() < 100000;
 
         if( !fileOk )
         {
             // Note: do not log this with Qt logging, since we are currently
             // IN A HANDLER PROCESSING Qt logging.
-            fprintf( stderr, "qml_message_interceptor found no usable suppressions in: %s\n", fileInfo.absoluteFilePath().toStdString().c_str() );
+            fprintf( stderr, "qml_message_interceptor found no usable suppressions in: %s\n",
+                fileInfo.absoluteFilePath().toStdString().c_str() );
         }
         else
         {
@@ -106,7 +108,8 @@ bool IndividualWarningIsMarkedAsIgnored( const QString& currentLogMessage )
             // Note: do not log this with Qt logging, since we are currently
             // IN A HANDLER PROCESSING Qt logging.
             fprintf( stderr, "qml_message_interceptor applied %d usable suppression(s) in: %s\n",
-                static_cast<int>( ignoredMessages.count() ), fileInfo.absoluteFilePath().toStdString().c_str() );
+                static_cast<int>( ignoredMessages.count() ),
+                fileInfo.absoluteFilePath().toStdString().c_str() );
         }
     }
 
@@ -134,7 +137,8 @@ void FilterQmlWarnings( const char* file, const QString& message )
     // IMPOSSIBLE to ever match on '/qqmlapplicationengine.cpp' because they
     // seem to strip out file info (it shows "unknown") for the filename in
     // certain RELEASE/optimized qt builds.
-    if( EndsWith( file, ".qml" ) || EndsWith( file, ".js" ) || EndsWith( file, "/qqmlapplicationengine.cpp" ) )
+    if( EndsWith( file, ".qml" ) || EndsWith( file, ".js" )
+        || EndsWith( file, "/qqmlapplicationengine.cpp" ) )
     {
         if( !IndividualWarningIsMarkedAsIgnored( message ) )
         {
@@ -161,10 +165,10 @@ QmlMessageInterceptor::QmlMessageInterceptor( const bool suppressDefaultLogWhenS
 #endif // if  defined( _WIN32 )
     , m_suppressDefaultLogWhenSinkIsPresent( suppressDefaultLogWhenSinkIsPresent )
 {
-    FASSERT( original_handler == nullptr,
-        "Qt supports just one handler at a time, so it would be an error to construct more than one of these" );
-    FASSERT( our_interceptor == nullptr,
-        "Qt supports just one handler at a time, so it would be an error to construct more than one of these" );
+    FASSERT( original_handler == nullptr, "Qt supports just one handler at a time, so it would be an error "
+                                          "to construct more than one of these" );
+    FASSERT( our_interceptor == nullptr, "Qt supports just one handler at a time, so it would be an error to "
+                                         "construct more than one of these" );
     our_interceptor = m_pimpl;
     original_handler = qInstallMessageHandler( DecoratorFunc );
 }
@@ -178,8 +182,8 @@ QmlMessageInterceptor::~QmlMessageInterceptor()
     delete m_pimpl;
 }
 
-void QmlMessageInterceptor::AddMessageSink(
-    std::weak_ptr<std::function<void( QtMsgType type, const QMessageLogContext& context, const QString& message )>>
+void QmlMessageInterceptor::AddMessageSink( std::weak_ptr<
+    std::function<void( QtMsgType type, const QMessageLogContext& context, const QString& message )>>
         sink )
 {
     m_sinks.push_back( sink );
@@ -215,7 +219,8 @@ void QmlMessageInterceptor::DecoratorFunction(
     }
 }
 
-int QmlMessageInterceptor::TeeToSinks( QtMsgType type, const QMessageLogContext& context, const QString& message )
+int QmlMessageInterceptor::TeeToSinks(
+    QtMsgType type, const QMessageLogContext& context, const QString& message )
 {
     int sinksThatWereLoggedTo = 0;
     for( auto& sink : m_sinks )

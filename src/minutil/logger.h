@@ -28,7 +28,8 @@ void log( const char* fmt, ... ) __attribute__( ( format( printf, 1, 2 ) ) );
 
     format (archetype, string-index, first-to-check)
 
-    The format attribute specifies that a function takes printf, scanf, strftime or strfmon style arguments which should be type-checked against a format string. For example, the declaration:
+    The format attribute specifies that a function takes printf, scanf, strftime or strfmon style arguments
+   which should be type-checked against a format string. For example, the declaration:
 
                     __attribute__ ((format (printf, 2, 3)));
 

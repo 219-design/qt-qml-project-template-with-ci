@@ -49,9 +49,12 @@ const CliOptions& ViewModelCollection::Options() const
 void ViewModelCollection::ExportContextPropertiesToQml( QQmlEngine* engine )
 {
     // Sort of a "silly" demo usage of project::Log<>
-    Log( str( "rootContext" ), engine )->rootContext()->setContextProperty( "versionInfoBuildDateString", BUILD_ON_DATE );
+    Log( str( "rootContext" ), engine )
+        ->rootContext()
+        ->setContextProperty( "versionInfoBuildDateString", BUILD_ON_DATE );
     // Another sort of "silly" demo usage of project::Log<>
-    Log( str( "setContextProperty" ), engine->rootContext() )->setContextProperty( "versionInfoGitHash", GIT_HASH_WHEN_BUILT );
+    Log( str( "setContextProperty" ), engine->rootContext() )
+        ->setContextProperty( "versionInfoGitHash", GIT_HASH_WHEN_BUILT );
     fprintf( stderr, "GUI Build Info: %s %s\n", BUILD_ON_DATE, GIT_HASH_WHEN_BUILT );
 
     // m_navigation->ExportContextPropertiesToQml( engine );
@@ -60,7 +63,8 @@ void ViewModelCollection::ExportContextPropertiesToQml( QQmlEngine* engine )
 
     engine->rootContext()->setContextProperty( "libraryClass", m_libraryClass.get() );
 
-    // Keep this at the END of the 'ExportContext...' method, so all view models are exported before any tests run
+    // Keep this at the END of the 'ExportContext...' method, so all view models are exported before any tests
+    // run
     if( Log( str( "RunningGuiTests" ), m_opts )->RunningGuiTests() )
     {
         m_guiTests = std::make_unique<GuiTests>( *engine );

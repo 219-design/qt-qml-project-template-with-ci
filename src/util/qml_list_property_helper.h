@@ -20,38 +20,32 @@ namespace project
 {
 namespace internal
 {
-template <typename T>
-T* GetPointer( T* ptr )
+template <typename T> T* GetPointer( T* ptr )
 {
     return ptr;
 }
 
-template <typename T>
-T* GetPointer( T& ptr )
+template <typename T> T* GetPointer( T& ptr )
 {
     return &ptr;
 }
 
-template <typename T>
-T* GetPointer( std::unique_ptr<T>& ptr )
+template <typename T> T* GetPointer( std::unique_ptr<T>& ptr )
 {
     return ptr.get();
 }
 
-template <typename T>
-T* GetPointer( std::shared_ptr<T>& ptr )
+template <typename T> T* GetPointer( std::shared_ptr<T>& ptr )
 {
     return ptr.get();
 }
 
-template <typename T>
-T* GetPointer( QSharedPointer<T>& ptr )
+template <typename T> T* GetPointer( QSharedPointer<T>& ptr )
 {
     return ptr.get();
 }
 
-template <typename T, typename Collection>
-class QmlListHelper
+template <typename T, typename Collection> class QmlListHelper
 {
 public:
     static int ItemCount( QQmlListProperty<T>* property )
@@ -65,9 +59,7 @@ public:
         auto* items = reinterpret_cast<Collection*>( property->data );
         auto* item = GetPointer( items->at( index ) );
 
-        static_assert(
-            std::is_base_of<
-                T, typename std::remove_pointer<decltype( item )>::type>::value,
+        static_assert( std::is_base_of<T, typename std::remove_pointer<decltype( item )>::type>::value,
             "Can only create QQmlListProperty<T> from classes derived from T" );
 
         return item;
@@ -79,8 +71,7 @@ public:
 template <typename T, typename Collection>
 QQmlListProperty<T> MakeQmlListProperty( QObject* owner, Collection* items )
 {
-    return QQmlListProperty<T>( owner, items,
-        &internal::QmlListHelper<T, Collection>::ItemCount,
+    return QQmlListProperty<T>( owner, items, &internal::QmlListHelper<T, Collection>::ItemCount,
         &internal::QmlListHelper<T, Collection>::ItemAt );
 }
 

@@ -14,8 +14,7 @@ namespace
 class NavigationTest : public ::testing::Test
 {
 protected:
-    NavigationTest()
-        : m_name( "Fake Dialog" ), m_got_focus( false )
+    NavigationTest() : m_name( "Fake Dialog" ), m_got_focus( false )
     {
     }
 

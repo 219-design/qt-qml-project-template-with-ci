@@ -67,7 +67,8 @@ TEST_F( TimerServiceTest, Interleaved )
     MockFunction<void()> lateCallback;
     ConnectCallbackToTimer( &lateTimer, &lateCallback );
 
-    // Interleave the callbacks to the recurring timer should happen before, between, and after the other timers.
+    // Interleave the callbacks to the recurring timer should happen before, between, and after the other
+    // timers.
     recurringTimer.Start( 1000 );
     earlyTimer.Start( 1500 );
     lateTimer.Start( 2500 );
@@ -142,7 +143,8 @@ TEST_F( TimerServiceTest, TimerStartTimeMatters )
         // The (early, late) timer will start at 0 but end at 3000
         // The (late, early) timer will start at 500 but end at 2000
         // The (late, latest) timer will start at 500 but end at 4000
-        // The simulation will run until 3000, which should trigger the first two timers but not the latest one.
+        // The simulation will run until 3000, which should trigger the first two timers but not the latest
+        // one.
         earlyStartLateTriggerTimer.Start( 3000 );
         TimerService::AdvanceCurrentTime( 500 );
         lateStartEarlyTriggerTimer.Start( 1500 );
@@ -163,7 +165,8 @@ TEST_F( TimerServiceTest, ChangingInterval )
     MockFunction<void()> lateCallback;
     ConnectCallbackToTimer( &becomesLateTimer, &lateCallback );
 
-    // Change the intervals to make one occur earlier than the other, creating them with the opposite ordering.
+    // Change the intervals to make one occur earlier than the other, creating them with the opposite
+    // ordering.
     becomesEarlyTimer.Start( 1500 );
     becomesLateTimer.Start( 500 );
     becomesEarlyTimer.SetInterval( 500 );

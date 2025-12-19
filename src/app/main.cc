@@ -28,9 +28,11 @@ int main( int argc, char* argv[] )
     project::WhenOnIos_RerouteStdoutStderrToDeviceFilesystem();
 
     // You can override this using an environment variable. For example:
-    //   export QT_MESSAGE_PATTERN='%{time hh:mm:ss} [%{type}][thr:%{threadid}]%{if-category}%{category}: %{endif}: %{message}'
-    qSetMessagePattern( QString( "%{time yyyy-MM-dd hh:mm:ss.zzz} [QT-%{type}][v-" ) + project::GIT_HASH_WHEN_BUILT
-                        + "][thr:%{threadid}]%{if-category}%{category}: %{endif}%{file}(%{line}): %{message}" );
+    //   export QT_MESSAGE_PATTERN='%{time hh:mm:ss} [%{type}][thr:%{threadid}]%{if-category}%{category}:
+    //   %{endif}: %{message}'
+    qSetMessagePattern(
+        QString( "%{time yyyy-MM-dd hh:mm:ss.zzz} [QT-%{type}][v-" ) + project::GIT_HASH_WHEN_BUILT
+        + "][thr:%{threadid}]%{if-category}%{category}: %{endif}%{file}(%{line}): %{message}" );
 
     if( !project::OkToEnableAssertions() )
     {
