@@ -55,6 +55,11 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
 else
   tools/formatters/enforce_qml_format.sh ${THISDIR}/src check_only
   tools/formatters/enforce_clang_format.sh ${THISDIR}/src check_only
+
+  if [[ "$OSTYPE" != "darwin"* ]]; then
+    # TODO: shellcheck on mac and windows, too
+    tools/formatters/run_shellcheck_all.sh
+  fi
 fi
 
 if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then

@@ -4,15 +4,16 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# shellcheck disable=SC1091 # rootdirhelper.bash was not specified as input
 source "${THISDIR}/rootdirhelper.bash"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  ${CUR_GUICODE_ROOT}/tools/ci/provision_mac.sh
+  "${CUR_GUICODE_ROOT}"/tools/ci/provision_mac.sh
   exit 0
 fi
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
-  ${CUR_GUICODE_ROOT}/tools/ci/provision_win.sh
+  "${CUR_GUICODE_ROOT}"/tools/ci/provision_win.sh
   exit 0
 fi
 
@@ -89,5 +90,7 @@ sudo apt-get --assume-yes install \
   xvfb \
   zlib1g:i386
 
+# TODO: shellcheck on mac and windows, too
+"${CUR_GUICODE_ROOT}"/tools/ci/get_shellcheck.sh
 
-${CUR_GUICODE_ROOT}/tools/ci/get_qt_libs.sh
+"${CUR_GUICODE_ROOT}"/tools/ci/get_qt_libs.sh
