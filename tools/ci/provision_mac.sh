@@ -35,4 +35,4 @@ brew \
      x265 \
      xz
 
-${CUR_GIT_ROOT}/tools/ci/get_qt_libs_aqt_mac.sh
+"${CUR_GIT_ROOT}"/tools/ci/get_qt_libs_aqt_mac.sh

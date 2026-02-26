@@ -7,7 +7,7 @@ ARCH_DOC_DIR=${THISDIR}/
 INC_2_DOT=${ARCH_DOC_DIR}/print_graph_edges_from_pound_includes.py
 
 wants_help=0
-for i in ${@}; do
+for i in "${@}"; do
   if [ "-h" == "$i" ]; then
     wants_help=1
   elif [ "--help" == "$i" ]; then
@@ -18,6 +18,7 @@ done
 if [ "$wants_help" == 1 ]; then
   set +x
   echo ""
+  # shellcheck disable=SC2016 # we want to print/echo a literal tick ` sign. not a mistake:
   echo 'Note that `generate_graph.sh` forwards arguments and delegates most of the work to:'
   echo "  ./print_graph_edges_from_pound_includes.py"
   echo ""
@@ -28,18 +29,18 @@ if [ "$wants_help" == 1 ]; then
   exit 0
 fi
 
-${INC_2_DOT} "$@"  > ${ARCH_DOC_DIR}/sorted_edges.tmp
+${INC_2_DOT} "$@"  > "${ARCH_DOC_DIR}"/sorted_edges.tmp
 
 # Re-compose a whole graphviz dot files, concatenating a header + edges + tail
 cat \
-  ${ARCH_DOC_DIR}/dot_head.part \
-  ${ARCH_DOC_DIR}/sorted_edges.tmp \
-  ${ARCH_DOC_DIR}/dot_tail.part \
-  > ${ARCH_DOC_DIR}/all_src.dot
+  "${ARCH_DOC_DIR}"/dot_head.part \
+  "${ARCH_DOC_DIR}"/sorted_edges.tmp \
+  "${ARCH_DOC_DIR}"/dot_tail.part \
+  > "${ARCH_DOC_DIR}"/all_src.dot
 
-rm ${ARCH_DOC_DIR}/sorted_edges.tmp # remove our temp file
+rm "${ARCH_DOC_DIR}"/sorted_edges.tmp # remove our temp file
 
-dot -Tsvg < ${ARCH_DOC_DIR}/all_src.dot > ${ARCH_DOC_DIR}/all_src.svg
+dot -Tsvg < "${ARCH_DOC_DIR}"/all_src.dot > "${ARCH_DOC_DIR}"/all_src.svg
 
 echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'

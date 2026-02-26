@@ -3,11 +3,12 @@
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# shellcheck disable=SC1091 # rootdirhelper.bash was not specified as input
 source "${DIR}/rootdirhelper.bash"
 
 DL_FOLDER=$CUR_GUICODE_ROOT/dl_third_party
 
-pip3 install -r ${DIR}/for_pip/requirements.txt  # https://github.com/miurahr/aqtinstall
+pip3 install -r "${DIR}/for_pip/requirements.txt"  # https://github.com/miurahr/aqtinstall
 #
 # NOTE: as of Nov 23, 2020, it is not clear whether 'win64_msvc2019_64' is the right ARCH
 # argument to pass to aqtinstall. We may need to try other options:
@@ -16,7 +17,7 @@ pip3 install -r ${DIR}/for_pip/requirements.txt  # https://github.com/miurahr/aq
 # Refer to: https://github.com/miurahr/aqtinstall#usage
 
 # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-python -m aqt install-qt --outputdir $DL_FOLDER/Qt_desktop windows desktop 5.15.0 win64_msvc2019_64 --archives \
+python -m aqt install-qt --outputdir "$DL_FOLDER/Qt_desktop" windows desktop 5.15.0 win64_msvc2019_64 --archives \
         icu \
         qtbase \
         qtconnectivity \
@@ -29,4 +30,4 @@ python -m aqt install-qt --outputdir $DL_FOLDER/Qt_desktop windows desktop 5.15.
         qttools
 
 
-git checkout ${DL_FOLDER}/Qt_desktop/5.15.0/msvc2019_64/mkspecs/qconfig.pri
+git checkout "${DL_FOLDER}/Qt_desktop/5.15.0/msvc2019_64/mkspecs/qconfig.pri"

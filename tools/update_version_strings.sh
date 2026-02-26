@@ -1,6 +1,7 @@
 #!/bin/bash
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
+# shellcheck disable=SC2016 # we want to print/echo a literal $ sign. not a mistake:
 echo 'reading two arguments ($1 is input file and $2 is output file)'
 STRINGSFILE=$1
 GENFILE=$2
@@ -12,13 +13,14 @@ if [[ "$F_EXT" != "h" ]]; then
     exit 1
 fi
 
-mkdir -p $(dirname "${GENFILE}")
+mkdir -p "$(dirname "${GENFILE}")"
 
-BUILD_DATE=`date '+%Y-%m-%d'`
+BUILD_DATE=$(date '+%Y-%m-%d')
 
-LAST_KNOWN_HASH=`git rev-parse --verify --short=10 HEAD`
+LAST_KNOWN_HASH=$(git rev-parse --verify --short=10 HEAD)
 
 if [ -f "${GENFILE}" ]; then
+  # shellcheck disable=SC2143
   if [[ $(grep "${BUILD_DATE}" "${GENFILE}") ]]; then
       echo "Correct preexisting date ${BUILD_DATE} found in ${GENFILE}"
       if [[ $(grep "${LAST_KNOWN_HASH}" "${GENFILE}") ]]; then

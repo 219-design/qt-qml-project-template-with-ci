@@ -27,3 +27,11 @@ else
 fi
 
 CLANG_COVERAGE_DATA_DIR="${BUILDOUT_DBG}/coverage_data/"
+
+
+export CUR_GIT_ROOT
+export CUR_GUICODE_ROOT
+export DL_FOLDER
+export BUILDOUT_DBG
+export BUILDOUT_OPT
+export CLANG_COVERAGE_DATA_DIR

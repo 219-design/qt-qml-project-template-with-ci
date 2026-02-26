@@ -21,4 +21,5 @@ jq -S -f "${DIR}"/normalize.jq "$INPUT_FILE" > "$OUT_FILE"
 THIS_FILENAME=$(basename "$0")
 echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'
+# shellcheck disable=SC2154 # u_green and u_resetcolor come from utils.bash
 echo "${u_green}${THIS_FILENAME} '$INPUT_FILE' '$OUT_FILE' SUCCESS${u_resetcolor}"

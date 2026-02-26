@@ -4,7 +4,7 @@
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
 CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
-cd $CUR_GIT_ROOT
+cd "$CUR_GIT_ROOT"
 
 # Escapes literal {{ in the code. See https://jinja.palletsprojects.com/en/2.11.x/templates/#escaping
 grep -l -R --binary-files=without-match "{{" src .github | xargs sed -i "s/{{/{{ '{{' }}/g"
@@ -14,7 +14,7 @@ git mv LICENSE.txt 219Design.LICENSE.txt
 grep -l -E -R --binary-files=without-match 'Copyright \(c\) [0-9]{4}, 219 Design, LLC' src |\
     xargs sed -Ei -e "s/[0-9]{4}, 219 Design, LLC/{{ cookiecutter.year }}, {{ cookiecutter.who_am_I }} ({{ cookiecutter.email }})/g"\
     -e "s#https://www.219design.com#{{ cookiecutter.website }}#g"
-find src/ -type f | xargs sed -i "/Software | Electrical | Mechanical | Product Design/d"
+find src/ -type f -print0 | xargs sed -i "/Software | Electrical | Mechanical | Product Design/d"
 
 ## Sets a custom namespace for the project
 ## Unfortunately sed doesn't play nicely with multi-line matches. Perl to the rescue

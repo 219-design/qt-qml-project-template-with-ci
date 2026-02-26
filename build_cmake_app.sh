@@ -12,8 +12,10 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 IFS=$'\n\t'
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-cd $DIR  # enter this script's directory. (in case called from root of repository)
+cd "$DIR"  # enter this script's directory. (in case called from root of repository)
+# shellcheck disable=SC1091 # rootdirhelper.bash was not specified as input
 source "${DIR}/tools/ci/rootdirhelper.bash"
+# shellcheck disable=SC1091 # utils.bash was not specified as input
 source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
 chosen_buildtype="Debug"
@@ -53,15 +55,15 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   MSVCPATHFORBUILDING=$(cygpath -u "${VCToolsInstallDir}/bin/HOSTx64/x64")
   export PATH="${MSVCPATHFORBUILDING}:$PATH" # make sure MSVC link.exe is found (not bash/unix 'link' tool)
 else
-  makecmd=make
+  makecmd="make"
   MYAPP_EXTRA_CONF=()
   # adding this next line here (rather than in run_all_tests.sh), because we think
   # of the graph-generation as more of a "build" step than a "test":
-  $DIR/sw_arch_doc/generate_graph.sh -s ${DIR}/src/ -f ${DIR}/ -x $DIR/sw_arch_doc/excludes.txt
+  "${DIR}"/sw_arch_doc/generate_graph.sh -s "${DIR}"/src/ -f "${DIR}"/ -x "${DIR}"/sw_arch_doc/excludes.txt
 
   # Next step done here (rather than inside generate_graph.sh) because the
   # graph script does not need to be "git aware".
-  sw_arch_changed=$(git diff --exit-code ${DIR}/sw_arch_doc/all_src.dot || true)
+  sw_arch_changed=$(git diff --exit-code "${DIR}"/sw_arch_doc/all_src.dot || true)
   if [[ -z ${sw_arch_changed} ]]; then
       # What this block achieves is:
       #
@@ -73,13 +75,14 @@ else
       # on that contributor's build machine is not an exact match for the
       # graphviz/dot version used by whoever caused the most recent changes in
       # sw_arch_doc/.
-      git checkout ${DIR}/sw_arch_doc/all_src.svg
+      git checkout "${DIR}"/sw_arch_doc/all_src.svg
   fi
 fi
 
-$DIR/tools/ci/version.sh "${chosen_folder}"
+"${DIR}"/tools/ci/version.sh "${chosen_folder}"
 
-source $DIR/path_to_qmake.bash
+# shellcheck disable=SC1091 # path_to_qmake.bash was not specified as input
+source "${DIR}"/path_to_qmake.bash
 
 if [[ -n ${MYAPP_TEMPLATE_COMPILERCHOICE_CLANG-} ]]; then
   clang -v # to print info into CI log.
@@ -97,7 +100,7 @@ pushd "${chosen_folder}"
     -DCMAKE_BUILD_TYPE:STRING="${chosen_buildtype}" \
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
     -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON \
-    $DIR
+    "${DIR}"
 
   ${makecmd} ${MYAPP_JOBS}
 
@@ -129,7 +132,7 @@ popd # pushd "${chosen_folder}"
 
 if [[ -n ${MYAPP_TEMPLATE_BUILD_ANDROID-} ]]; then
   tools/ci/get_android_toolchain.sh
-  tools/ci/build_android_app.sh ${chosen_folder}/for_android "CONFIG+=force_debug_info"
+  tools/ci/build_android_app.sh "${chosen_folder}"/for_android "CONFIG+=force_debug_info"
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -154,10 +157,11 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   SHIPDIRDBG="${chosen_folder}"/windeployfolder_debug
 
   #windows_deploy "--release" ${EXEDIR} ${PLUGINDIR} ${SHIPDIR}
-  windows_deploy "--debug" ${EXEDIRDBG} ${PLUGINDIRDBG} ${SHIPDIRDBG}
+  windows_deploy "--debug" "${EXEDIRDBG}" "${PLUGINDIRDBG}" "${SHIPDIRDBG}"
 
 fi
 
 echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'
+# shellcheck disable=SC2154 # u_green and u_resetcolor come from utils.bash
 echo "${u_green}build_cmake_app.sh SUCCESS${u_resetcolor}"

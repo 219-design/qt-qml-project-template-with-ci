@@ -32,5 +32,5 @@ git add -f dl_third_party/Qt_desktop/6.5.3/README.txt
 
 git commit -m "init"
 
-./tools/formatters/enforce_clang_format.sh ${THISDIR}/src
+./tools/formatters/enforce_clang_format.sh "${THISDIR}"/src
 echo "Examine git status to see if clang-format made changes. Refer to README.md for build instructions."

@@ -7,6 +7,7 @@ then
 fi
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# shellcheck disable=SC1091 # rootdirhelper.bash was not specified as input
 source "${THISDIR}/tools/ci/rootdirhelper.bash"
 
 DL_FOLDER=$CUR_GUICODE_ROOT/dl_third_party

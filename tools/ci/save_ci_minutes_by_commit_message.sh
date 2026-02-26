@@ -8,7 +8,7 @@ if [[ -n ${GITHUB_ACTIONS-} ]]
 then
   echo "Assuming Github C.I. environment."
 
-  IFS=$'\n' read -r -d '' -a COMMIT_MSG_LINES < <( git log -1 $GITHUB_SHA && printf '\0' )
+  IFS=$'\n' read -r -d '' -a COMMIT_MSG_LINES < <( git log -1 "$GITHUB_SHA" && printf '\0' )
 
   # GITHUB ENVIRONMENT WILL CONTAIN 'RUNNER_OS' AUTOMATICALLY.
   # THESE ARE THE POSSIBILITIES WE CONSIDER:

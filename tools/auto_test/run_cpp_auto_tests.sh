@@ -11,15 +11,16 @@
 set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# shellcheck disable=SC1091 # rootdirhelper.bash was not specified as input
 source "${THISDIR}/../ci/rootdirhelper.bash"
-
+# shellcheck disable=SC1091 # utils.bash was not specified as input
 source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 
 # See docs on LLVM_PROFILE_FILE at: https://clang.llvm.org/docs/SourceBasedCodeCoverage.html
 export LLVM_PROFILE_FILE="${CLANG_COVERAGE_DATA_DIR}/%p.profraw"
 
 # Clear any existing gcov data so it does not contribute to this run's coverage results.
-find ${BUILDOUT_DBG} -name "*.gcda" -o -name "*.gcov" -delete
+find "${BUILDOUT_DBG}" -name "*.gcda" -o -name "*.gcov" -delete
 # Clear any existing llvm-cov data so it does not contribute to this run's coverage results.
 rm -rf "${CLANG_COVERAGE_DATA_DIR}/coverage_data/"
 
@@ -43,7 +44,7 @@ run_a_test() {
   done
 }
 
-cd $CUR_GUICODE_ROOT
+cd "$CUR_GUICODE_ROOT"
 
 if [[ -n ${MYAPP_TEMPLATE_PREFER_QMAKE-} ]]; then
   OUR_TEST_BINARIES_DIR="${BUILDOUT_DBG}"/src/app
@@ -62,4 +63,5 @@ find "${OUR_TEST_BINARIES_DIR}" -type f \( -name '*test' -o -name '*tests' -o -n
 
 echo 'We assume this was run with '\''set -e'\'' (look at upper lines of this script).'
 echo 'Assuming so, then getting here means:'
+# shellcheck disable=SC2154 # u_green and u_resetcolor come from utils.bash
 echo "${u_green}run_cpp_auto_tests SUCCESS${u_resetcolor}"
