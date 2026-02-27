@@ -8,6 +8,7 @@
   "year": "2026",
   "_copy_without_render": [
     "*third_party",
-    "sw_arch_doc"
+    "sw_arch_doc",
+    "*tools/formatters/run_shellcheck_all.sh"
   ]
 }
