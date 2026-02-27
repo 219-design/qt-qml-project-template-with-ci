@@ -22,8 +22,8 @@ QTSIXMIRROR='http://ftp.fau.de/qtproject'
 # TODO: remove --break-system-packages, likely by using a venv.
 #  --break-system-packages works around a cascading consequence of:
 #  https://github.com/actions/runner-images/issues/6817
-pip3 install --upgrade pip --break-system-packages # related to homebrew issue, March 2024
-pip3 install --break-system-packages setuptools
+#  https://github.com/actions/runner-images/issues/11545
+#  https://github.com/actions/runner-images/issues/9966
 pip3 install --break-system-packages -r ${DIR}/for_pip/requirements.txt # install aqtinstall
 
 if [ -d $DL_FOLDER/Qt_desktop/6.5.3/macos/bin ]; then
