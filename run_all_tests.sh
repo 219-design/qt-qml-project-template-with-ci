@@ -53,12 +53,20 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   #tools/formatters/enforce_qml_format.sh ${THISDIR}/src check_only # TODO: qmlfmt on win32?
   tools/formatters/enforce_clang_format.sh ${THISDIR}/src check_only
 else
+  # This runs on linux and macos:
   tools/formatters/enforce_qml_format.sh ${THISDIR}/src check_only
-  tools/formatters/enforce_clang_format.sh ${THISDIR}/src check_only
 
+  # Next we restrict narrowly downward from "unices/unixes" to just linux:
   if [[ "$OSTYPE" != "darwin"* ]]; then
     # TODO: shellcheck on mac and windows, too
     tools/formatters/run_shellcheck_all.sh
+    # Note that clang-format runs fine on macos, but it has historically been
+    # tricky to make sure we can install the SAME VERSION of clang-format on
+    # all platforms, and different versions flag our single codebase differently,
+    # causing us to fail the format check on one platform in such a way that "fixing it"
+    # then causes it to fail on a different platform.
+    # Therefore, just run this on linux and windows (but not mac) for now:
+    tools/formatters/enforce_clang_format.sh ${THISDIR}/src check_only
   fi
 fi
 

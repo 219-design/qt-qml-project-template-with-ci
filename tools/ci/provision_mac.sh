@@ -16,7 +16,6 @@ export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 brew \
   install \
   --overwrite python@3.12 \
-     clang-format@21 \
      fontconfig \
      gcovr \
      gdbm \
