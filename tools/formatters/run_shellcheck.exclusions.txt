@@ -16,4 +16,3 @@
 ./tools/formatters/enforce_qml_format.sh
 ./tools/gui_test/launch_gui_for_display.sh
 ./tools/gui_test/test_AppImage.sh
-./verify_authors.sh

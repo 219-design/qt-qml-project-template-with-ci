@@ -12,7 +12,7 @@ set -euo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_p
 IFS=$'\n\t'
 
 function error() {
-    echo $@ >& /dev/stderr
+    echo "$@" >& /dev/stderr
 }
 
 function missing_primary_branch() {
@@ -24,33 +24,33 @@ PRIMARY_BRANCH=origin/main
 echo "Primary branch is ${PRIMARY_BRANCH}."
 
 trap missing_primary_branch EXIT
-ancestor_commit=$(git merge-base ${PRIMARY_BRANCH} HEAD)
+ancestor_commit=$(git merge-base "${PRIMARY_BRANCH}" HEAD)
 trap "" EXIT
 echo "The most recent common ancestor commit with the primary branch is ${ancestor_commit}."
 
 authors=$(cat AUTHORS)
-git_authors=$(git shortlog -se ${ancestor_commit}..HEAD | cut -f 2)
-git_committers=$(git shortlog -se --committer ${ancestor_commit}..HEAD | cut -f 2)
+git_authors=$(git shortlog -se "${ancestor_commit}"..HEAD | cut -f 2)
+git_committers=$(git shortlog -se --committer "${ancestor_commit}"..HEAD | cut -f 2)
 
 echo
 echo "AUTHORS file lines:"
 for author in $authors
 do
-    echo $author
+    echo "${author}"
 done
 
 echo
 echo "git Authors:"
 for git_author in $git_authors
 do
-    echo $git_author
+    echo "${git_author}"
 done
 
 echo
 echo "git Committers:"
 for git_committer in $git_committers
 do
-    echo $git_committer
+    echo "${git_committer}"
 done
 
 echo
@@ -71,7 +71,7 @@ do
     then
         error "Failed to find git author \"${git_author}\" in AUTHORS file."
         error "Note that \`git commit --amend\` is not sufficient to change a commit author."
-        exit -1
+        exit 1
     fi
 done
 echo "Verified git Authors."
@@ -92,7 +92,7 @@ do
     then
         error "Failed to find git committer \"${git_committer}\" in AUTHORS file."
         error "Note that you can't see the committer with \`git log\` but can with \`git log --pretty=full\`."
-        exit -1
+        exit 1
     fi
 done
 echo "Verified git Committers."
