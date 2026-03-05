@@ -13,7 +13,6 @@
 ./tools/ci/get_qt_libs_mac.sh
 ./tools/ci/install-qt.sh
 ./tools/ci/install_android_kits.sh
-./tools/formatters/enforce_clang_format.sh
 ./tools/formatters/enforce_qml_format.sh
 ./tools/gui_test/launch_gui_for_display.sh
 ./tools/gui_test/test_AppImage.sh

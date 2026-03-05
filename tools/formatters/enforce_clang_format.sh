@@ -25,6 +25,7 @@ then
 fi
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# shellcheck disable=SC1091 # rootdirhelper.bash was not specified as input
 source "${THISDIR}/../ci/rootdirhelper.bash"
 
 GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.txt"
@@ -47,26 +48,23 @@ fi
 
 check_clang_format() {
   if [ $only_report != 0 ]; then
-      while read filenames; do
-        for d in "$filenames"; do
-          echo $d
-          clang_result=$(${chosen_clangformat_exe} -style=file -output-replacements-xml "$d")
+      while read -r filename; do
+          echo "$filename"
+          clang_result=$(${chosen_clangformat_exe} -style=file -output-replacements-xml "$filename")
+          # shellcheck disable=SC2086 # must not quote $clang_result: IFS splits newlines to spaces to match golden file
           diff  <(echo $clang_result) <(cat "${THISDIR}/${GOLDEN_RESULT_FILE}")
           diff_rslt=$?
           # per 'man diff': Exit status is 0 if inputs are the same
           # If someone disables 'set -e', then explicitly fail here regardless:
-          if [ $diff_rslt != 0 ]; then echo early termination at $LINENO; return -1; fi
-        done
+          if [ $diff_rslt != 0 ]; then echo early termination at $LINENO; return 255; fi
       done
 
       return 0
   fi
 
-  while read filenames; do
-    for d in "$filenames"; do
-      echo $d
-      clang_result=$(${chosen_clangformat_exe} -style=file -i "$d")
-    done
+  while read -r filename; do
+      echo "$filename"
+      clang_result=$(${chosen_clangformat_exe} -style=file -i "$filename")
   done
 }
 
@@ -74,7 +72,7 @@ if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then
   GOLDEN_RESULT_FILE="clang-format-6.0_clean_output.win.txt.disableattr"
 fi
 
-cd $FOLDER_UNDER_FORMAT_CONTROL
+cd "$FOLDER_UNDER_FORMAT_CONTROL"
 top_level_dirs=(*/)
 
 for dir in "${top_level_dirs[@]}"; do
@@ -86,7 +84,7 @@ for dir in "${top_level_dirs[@]}"; do
     # the option '-style=file' is a clang-format 'hardcode' ('file' is not a
     # variable nor a filename); it should cause clang-format to use
     # '.clang-format' from our git root.
-    find ${dir} \
+    find "${dir}" \
          \( -name '*.c' \
          -o -name '*.cc' \
          -o -name '*.cpp' \
