@@ -10,7 +10,7 @@ THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ln -sf ../../../src/libstyles/imports/libstyles/images src/lib_app/qml/images
 ln -sf .qmake.conf qmake.conf
 ln -sf .clang-format clang-format
-ln -sf macos dl_third_party/Qt_desktop/6.5.3/clang_64
+ln -sf macos dl_third_party/Qt_desktop/6.10.2/clang_64
 
 # the new repo is NOT a template. the new repo need not have a cookiecutter job:
 rm -f .github/workflows/cookiecutter.yml
@@ -27,8 +27,8 @@ git add -f dl_third_party/Qt_desktop/6.2.2/gcc_64/extrabin/qmlfmt
 git add -f dl_third_party/Qt_desktop/5.15.0/ios/mkspecs/qconfig.pri
 git add -f dl_third_party/Qt_desktop/5.15.0/msvc2019_64/mkspecs/qconfig.pri
 git add -f dl_third_party/android_kits/commandlinetools-linux-6200805_latest.zip.sha256
-git add -f dl_third_party/Qt_desktop/6.5.3/clang_64
-git add -f dl_third_party/Qt_desktop/6.5.3/README.txt
+git add -f dl_third_party/Qt_desktop/6.10.2/clang_64
+git add -f dl_third_party/Qt_desktop/6.10.2/README.txt
 
 git commit -m "init"
 

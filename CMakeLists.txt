@@ -57,6 +57,7 @@ if(NOT
     CONFIG
     REQUIRED
     COMPONENTS Core
+               CorePrivate
                Qml
                Quick
                QuickControls2
@@ -66,7 +67,7 @@ if(NOT
 
   qt_standard_project_setup(
     REQUIRES
-    6.5.3
+    6.10.2
   )
 else()
   find_package(

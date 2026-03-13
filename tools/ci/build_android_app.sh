@@ -40,21 +40,21 @@ source path_to_android_qmake.bash
 mkdir -p ${MYAPP_MOBILE_OUTPUT_PATH}/
 cd ${MYAPP_MOBILE_OUTPUT_PATH}/
 
-export QT_HOST_PATH=$DL_FOLDER/Qt_desktop/6.5.3/gcc_64
+export QT_HOST_PATH=$DL_FOLDER/Qt_desktop/6.10.2/gcc_64
 
-# Note: 25.1.8937393 is also known as Android NDK r25b.
-# Qt 6.5.3 requires r25b, per:
-#  https://wiki.qt.io/Qt_6.5_Tools_and_Versions#Software_configurations_for_Qt_6.5.3
+# Note: 27.2.12479018 is also known as Android NDK r27c.
+# Qt 6.10.2 requires r27c, per:
+#  https://wiki.qt.io/Qt_6.10_Tools_and_Versions#Software_configurations_for_Qt_6.10.2
 cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
   -DANDROID_ABI="arm64-v8a" \
-  -DANDROID_NDK_ROOT=$DL_FOLDER/android_kits/ndk/25.1.8937393/ \
+  -DANDROID_NDK_ROOT=$DL_FOLDER/android_kits/ndk/27.2.12479018/ \
   -DANDROID_SDK_ROOT=$DL_FOLDER/android_kits/ \
   -DCMAKE_BUILD_TYPE=Debug \
-  -DQT_HOST_PATH:PATH=$DL_FOLDER/Qt_desktop/6.5.3/gcc_64 \
-  -DCMAKE_FIND_ROOT_PATH:PATH=$DL_FOLDER/Qt_desktop/6.5.3/android_arm64_v8a \
-  -DCMAKE_PREFIX_PATH:PATH=$DL_FOLDER/Qt_desktop/6.5.3/android_arm64_v8a \
+  -DQT_HOST_PATH:PATH=$DL_FOLDER/Qt_desktop/6.10.2/gcc_64 \
+  -DCMAKE_FIND_ROOT_PATH:PATH=$DL_FOLDER/Qt_desktop/6.10.2/android_arm64_v8a \
+  -DCMAKE_PREFIX_PATH:PATH=$DL_FOLDER/Qt_desktop/6.10.2/android_arm64_v8a \
   -DCMAKE_SYSTEM_NAME=Android \
-  -DCMAKE_TOOLCHAIN_FILE=$DL_FOLDER/android_kits/ndk/25.1.8937393/build/cmake/android.toolchain.cmake \
+  -DCMAKE_TOOLCHAIN_FILE=$DL_FOLDER/android_kits/ndk/27.2.12479018/build/cmake/android.toolchain.cmake \
   -DQT_ANDROID_ABIS="armeabi-v7a;arm64-v8a;x86;x86_64" \
   -DQT_ANDROID_BUILD_ALL_ABIS=ON \
   -S $CUR_GUICODE_ROOT

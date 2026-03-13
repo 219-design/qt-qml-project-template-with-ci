@@ -28,14 +28,14 @@ pipx install aqtinstall
 
 aqt version # print version in CI log
 
-if [ -d $DL_FOLDER/Qt_desktop/6.5.3/gcc_64/bin ]; then
+if [ -d $DL_FOLDER/Qt_desktop/6.10.2/gcc_64/bin ]; then
     echo "no need to download qt for desktop"
 else
 
   # If we are doing Qt6, or if this is CI (which wants both)...
   if [[ -z ${MYAPP_TEMPLATE_QT5-} || -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.5.3 --modules \
+    aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.10.2 --modules \
      qtconnectivity \
      qtimageformats \
      qt5compat
@@ -58,7 +58,7 @@ else
 
     # we still need qt6 in order to execute qmlfmt.
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.5.3 --modules \
+    aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.10.2 --modules \
      qt5compat
   fi
 

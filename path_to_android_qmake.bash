@@ -12,11 +12,11 @@ source "${THISDIR}/tools/ci/rootdirhelper.bash"
 
 DL_FOLDER_ANDROID=$DL_FOLDER/android_kits
 
-# Note: 25.1.8937393 is also known as Android NDK r25b.
-# Qt 6.5.3 requires r25b, per:
-#  https://wiki.qt.io/Qt_6.5_Tools_and_Versions#Software_configurations_for_Qt_6.5.3
+# Note: 27.2.12479018 is also known as Android NDK r27c.
+# Qt 6.10.2 requires r27c, per:
+#  https://wiki.qt.io/Qt_6.10_Tools_and_Versions#Software_configurations_for_Qt_6.10.2
 
 export ANDROID_SDK_ROOT=$DL_FOLDER_ANDROID
-export ANDROID_NDK_ROOT=$DL_FOLDER_ANDROID/ndk/25.1.8937393/
+export ANDROID_NDK_ROOT=$DL_FOLDER_ANDROID/ndk/27.2.12479018/
 
-export PATH="$DL_FOLDER/Qt_desktop/6.5.3/android_armv7/bin/:$PATH"
+export PATH="$DL_FOLDER/Qt_desktop/6.10.2/android_armv7/bin/:$PATH"

@@ -36,7 +36,7 @@ mkdir "{{ cookiecutter.folder_name }}"
 rm src/lib_app/qml/images \
    qmake.conf \
    clang-format \
-   dl_third_party/Qt_desktop/6.5.3/clang_64
+   dl_third_party/Qt_desktop/6.10.2/clang_64
 
 git add "{{ cookiecutter.folder_name }}"
 shopt -s dotglob nullglob extglob # so hidden files move, too. https://unix.stackexchange.com/q/6393/11592

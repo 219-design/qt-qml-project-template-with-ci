@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath 'com.android.tools.build:gradle:8.1.1'
     }
 }
 
@@ -21,6 +21,13 @@ dependencies {
 }
 
 android {
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // For now, sign release as debug, so we can sideload a release apk:
+            signingConfig = signingConfigs.debug
+        }
+    }
     /*******************************************************
      * The following variables:
      * - androidBuildToolsVersion,
@@ -34,6 +41,7 @@ android {
      * Changing them manually might break the compilation!
      *******************************************************/
 
+    namespace "com.mycompany.myapp"
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion '28.0.3'
     ndkVersion androidNdkVersion
@@ -73,9 +81,10 @@ android {
     }
 
     defaultConfig {
+        applicationId "com.mycompany.myapp"
         resConfig "en"
         minSdkVersion qtMinSdkVersion
-        targetSdkVersion 33
+        targetSdkVersion 36
         ndk.abiFilters = qtTargetAbiList.split(",")
     }
 }

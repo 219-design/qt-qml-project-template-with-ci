@@ -12,4 +12,4 @@ source "${THISDIR}/tools/ci/rootdirhelper.bash"
 
 DL_FOLDER=$CUR_GUICODE_ROOT/dl_third_party
 
-export PATH="$DL_FOLDER/Qt_desktop/6.5.3/ios/bin/:$PATH"
+export PATH="$DL_FOLDER/Qt_desktop/6.10.2/ios/bin/:$PATH"

@@ -77,5 +77,5 @@ set_target_properties(
              QT_ANDROID_BUILD_ALL_ABIS
              ON
              QT_ANDROID_TARGET_SDK_VERSION
-             33
+             36
 )

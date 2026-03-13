@@ -28,17 +28,17 @@ pip3 install --break-system-packages -r ${DIR}/for_pip/requirements.txt # instal
 
 python3 -m aqt version # print version in CI log
 
-if [ -d $DL_FOLDER/Qt_desktop/6.5.3/macos/bin ]; then
+if [ -d $DL_FOLDER/Qt_desktop/6.10.2/macos/bin ]; then
     echo "no need to download qt for desktop"
 else
 
   # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-  python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop mac desktop 6.5.3 --modules \
+  python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop mac desktop 6.10.2 --modules \
    qtconnectivity \
    qtimageformats \
    qt5compat
 
-  python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop mac ios 6.5.3 --modules \
+  python3 -m aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop mac ios 6.10.2 --modules \
    qtconnectivity \
    qtimageformats \
    qt5compat

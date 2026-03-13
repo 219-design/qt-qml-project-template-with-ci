@@ -17,26 +17,26 @@ pip3 install -r ${THISDIR}/for_pip/requirements.txt # install aqtinstall
 
 python3 -m aqt version # print version in CI log
 
-if [ -d $DL_FOLDER/Qt_desktop/6.5.3/android_armv7/bin ]; then
+if [ -d $DL_FOLDER/Qt_desktop/6.10.2/android_armv7/bin ]; then
     echo "no need to download qt6 android"
 else
 
-  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.5.3 android_armv7 --autodesktop --modules \
+  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.10.2 android_armv7 --autodesktop --modules \
      qtconnectivity \
      qtimageformats \
      qt5compat
 
-  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.5.3 android_arm64_v8a --autodesktop --modules \
+  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.10.2 android_arm64_v8a --autodesktop --modules \
      qtconnectivity \
      qtimageformats \
      qt5compat
 
-  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.5.3 android_x86 --autodesktop --modules \
+  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.10.2 android_x86 --autodesktop --modules \
      qtconnectivity \
      qtimageformats \
      qt5compat
 
-  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.5.3 android_x86_64 --autodesktop --modules \
+  python3 -m aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux android 6.10.2 android_x86_64 --autodesktop --modules \
      qtconnectivity \
      qtimageformats \
      qt5compat
