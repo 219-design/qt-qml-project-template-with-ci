@@ -26,6 +26,8 @@ QTSIXMIRROR='http://ftp.fau.de/qtproject'
 
 pipx install aqtinstall
 
+aqt version # print version in CI log
+
 if [ -d $DL_FOLDER/Qt_desktop/6.5.3/gcc_64/bin ]; then
     echo "no need to download qt for desktop"
 else

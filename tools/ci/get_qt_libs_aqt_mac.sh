@@ -26,6 +26,8 @@ QTSIXMIRROR='http://ftp.fau.de/qtproject'
 #  https://github.com/actions/runner-images/issues/9966
 pip3 install --break-system-packages -r ${DIR}/for_pip/requirements.txt # install aqtinstall
 
+python3 -m aqt version # print version in CI log
+
 if [ -d $DL_FOLDER/Qt_desktop/6.5.3/macos/bin ]; then
     echo "no need to download qt for desktop"
 else

@@ -9,7 +9,8 @@ source "${DIR}/rootdirhelper.bash"
 DL_FOLDER=$CUR_GUICODE_ROOT/dl_third_party
 
 pip3 install -r "${DIR}/for_pip/requirements.txt"  # https://github.com/miurahr/aqtinstall
-#
+python3 -m aqt version # print version in CI log
+
 # NOTE: as of Nov 23, 2020, it is not clear whether 'win64_msvc2019_64' is the right ARCH
 # argument to pass to aqtinstall. We may need to try other options:
 #   win64_msvc2017_64, win64_msvc2019_winrt_x64 ?

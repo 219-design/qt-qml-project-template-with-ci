@@ -15,6 +15,8 @@ pip3 install --upgrade pip
 pip3 install setuptools
 pip3 install -r ${THISDIR}/for_pip/requirements.txt # install aqtinstall
 
+python3 -m aqt version # print version in CI log
+
 if [ -d $DL_FOLDER/Qt_desktop/6.5.3/android_armv7/bin ]; then
     echo "no need to download qt6 android"
 else
