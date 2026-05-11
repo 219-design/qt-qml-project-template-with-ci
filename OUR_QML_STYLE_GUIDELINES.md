@@ -85,13 +85,21 @@ width, anchors, x, y} at the outermost scope/braces!
 Item {  // THIS CODE SNIPPET USES A *BAD* PATTERN
   id: root
 
-  anchors.fill: parent //  NO NO NO NO!!  DO NOT PUT THIS IN YOUR ROOT ITEM.
+  anchors.fill: parent //  NO NO!!  (In general) DO NOT PUT THIS IN YOUR ROOT ITEM.
 ```
 
-Those types of sizing decisions should ALWAYS be left up to the user (aka at the
-instantiation site).
+Those types of sizing and position decisions should virtually always be left up
+to the user (aka at the instantiation site).
 
-However, for ease-of-use with `qmlscene`, we allow an exception, but remember to
+Don't configure size, anchors, position internally. Let outer/external "user
+code" do that work, except:
+
+   - If your design is indeed built around the idea that a certain button type (or other element) really is in charge of its own size...
+   - ... and especially if you use a lot of them and don't want to repeat size/position at each usage site
+   - then you probably have a good case for internal/inherent size.
+   - In this case, please use named constants for any sizes or proportions. Don't use "magic number" literals. See also: https://github.com/219-design/qt-qml-project-template-with-ci/blob/main/OUR_QML_STYLE_GUIDELINES.md#themes
+
+Also, for ease-of-use with `qmlscene`, we allow an exception, but remember to
 clearly label it with a comment:
 
 ```
@@ -206,7 +214,8 @@ Item {
 
 Extra help:
 
- - https://doc.qt.io/qt-5/qtquick-layouts-example.html
+ - https://doc.qt.io/qt-6/qtquick-layouts-example.html
+ - https://doc.qt.io/qt-6/qtquick-responsivelayouts-example.html
  - https://code.qt.io/cgit/qt/qtdeclarative.git/tree/examples/quick/layouts
 
 --------------------------------------------------------------------------------
