@@ -78,6 +78,10 @@ set_target_properties(
              TRUE
 )
 
+install(
+  TARGETS lib_app
+)
+
 set(lib_tests_sources
     navigation_test.cc
 )

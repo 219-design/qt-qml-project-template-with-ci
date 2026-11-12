@@ -104,8 +104,8 @@ pushd "${chosen_folder}"
 
   ${makecmd} ${MYAPP_JOBS}
 
-  # TODO
-  #${makecmd} install # puts necessary items side-by-side with app exe
+  # Puts necessary items side-by-side with app exe
+  cmake --install . --config "${chosen_buildtype}" --prefix "${chosen_folder}"/install
 
   # TODO?
   #if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]]; then

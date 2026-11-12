@@ -46,6 +46,10 @@ set_target_properties(
              TRUE
 )
 
+install(
+  TARGETS util
+)
+
 set(util_tests_sources
     tests/timer_service_test.cc
 )

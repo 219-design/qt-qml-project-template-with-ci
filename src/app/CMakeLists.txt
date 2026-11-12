@@ -79,3 +79,11 @@ set_target_properties(
              QT_ANDROID_TARGET_SDK_VERSION
              36
 )
+
+if(NOT
+   ANDROID
+)
+  install(
+    TARGETS app
+  )
+endif() # if(NOT ANDROID)

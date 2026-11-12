@@ -52,3 +52,7 @@ set_target_properties(
              OUTPUT_NAME
              "libstylesplugin" # to match old qmake DLL name for our sh scripts
 )
+
+install(
+  TARGETS libstyles
+)

@@ -19,3 +19,7 @@ set_target_properties(
   PROPERTIES BUILD_RPATH_USE_ORIGIN
              TRUE
 )
+
+install(
+  TARGETS lib_example
+)
