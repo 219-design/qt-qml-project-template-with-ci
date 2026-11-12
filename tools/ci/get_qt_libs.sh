@@ -4,10 +4,12 @@ set -Eeuxo pipefail # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Whoops! There is a SEPARATE script for Mac OSX. This one is linux-specific."
-  exit -1
+  exit 1
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# shellcheck disable=SC1091 # rootdirhelper.bash was not specified as input
 source "${DIR}/rootdirhelper.bash"
 
 DL_FOLDER=$CUR_GUICODE_ROOT/dl_third_party
@@ -28,14 +30,15 @@ pipx install aqtinstall
 
 aqt version # print version in CI log
 
-if [ -d $DL_FOLDER/Qt_desktop/6.10.2/gcc_64/bin ]; then
+if [ -d "$DL_FOLDER/Qt_desktop/6.10.2/gcc_64/bin" ]; then
     echo "no need to download qt for desktop"
 else
 
   # If we are doing Qt6, or if this is CI (which wants both)...
   if [[ -z ${MYAPP_TEMPLATE_QT5-} || -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    aqt install-qt --base "${QTSIXMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.10.2 --modules \
+    aqt install-qt --base "${QTSIXMIRROR}" --outputdir "$DL_FOLDER/Qt_desktop" \
+     linux desktop 6.10.2 --modules \
      qtconnectivity \
      qtimageformats \
      qt5compat
@@ -44,7 +47,8 @@ else
   # If we are doing Qt5, or if this is CI (which wants both 5 and 6)...
   if [[ -n ${MYAPP_TEMPLATE_QT5-} || -n ${UTILS_WE_ARE_RUNNING_IN_CI-} ]]; then
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 5.15.0 --archives \
+    aqt install-qt --base "${QTMIRROR}" --outputdir "$DL_FOLDER/Qt_desktop" \
+     linux desktop 5.15.0 --archives \
      icu \
      qtbase \
      qtconnectivity \
@@ -58,7 +62,7 @@ else
 
     # we still need qt6 in order to execute qmlfmt.
     # https://github.com/miurahr/aqtinstall/issues/126 "Installing smaller subset of the libraries"
-    aqt install-qt --base "${QTMIRROR}" --outputdir $DL_FOLDER/Qt_desktop linux desktop 6.10.2 --modules \
+    aqt install-qt --base "${QTMIRROR}" --outputdir "$DL_FOLDER/Qt_desktop" linux desktop 6.10.2 --modules \
      qt5compat
   fi
 

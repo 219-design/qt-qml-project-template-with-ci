@@ -20,7 +20,7 @@ source "${CUR_GUICODE_ROOT}/tools/ci/utils.bash" # for terminal colorization
 export LLVM_PROFILE_FILE="${CLANG_COVERAGE_DATA_DIR}/%p.profraw"
 
 # Clear any existing gcov data so it does not contribute to this run's coverage results.
-find "${BUILDOUT_DBG}" -name "*.gcda" -o -name "*.gcov" -delete
+find "${BUILDOUT_DBG}" \( -name "*.gcda" -o -name "*.gcov" \) -delete
 # Clear any existing llvm-cov data so it does not contribute to this run's coverage results.
 rm -rf "${CLANG_COVERAGE_DATA_DIR}/coverage_data/"
 
@@ -37,8 +37,8 @@ export UBSAN_OPTIONS="print_stacktrace=1"
 #  ^^ Until this is fixed: https://github.com/ros2/rclcpp/issues/2220
 
 run_a_test() {
-  while read filenames; do
-    for fl in "$filenames"; do
+  while read -r filenames; do
+    for fl in $filenames; do
       $fl
     done
   done

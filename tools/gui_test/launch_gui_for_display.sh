@@ -16,6 +16,7 @@ if [[ "$OSTYPE" != "darwin"* ]]; then
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# shellcheck disable=SC1091 # rootdirhelper.bash was not specified as input
 source "${DIR}/../ci/rootdirhelper.bash"
 
 # See docs on LLVM_PROFILE_FILE at: https://clang.llvm.org/docs/SourceBasedCodeCoverage.html
@@ -29,7 +30,7 @@ else
   APP_TO_LAUNCH="${BUILDOUT_DBG}"/stage/app
 fi
 
-cd $CUR_GUICODE_ROOT
+cd "$CUR_GUICODE_ROOT"
 rm -f gui_test.log # in C.I. there should never be a leftover file. but perhaps locally.
 
 if [[ -n ${BITBUCKET_REPO_OWNER-} ]]; then
@@ -42,7 +43,7 @@ elif [[ "$OSTYPE" != "darwin"* ]]; then
     # for more info, see: https://sourceware.org/bugzilla/show_bug.cgi?id=27125
     ASAN_OPTIONS=detect_leaks=0 gdb -n -batch -return-child-result \
         -ex "set args -g -v" -ex "run" -ex "bt" -ex "run" \
-        ${APP_TO_LAUNCH} 2>&1 | tee gui_test.log
+        "${APP_TO_LAUNCH}" 2>&1 | tee gui_test.log
 else
   "${BUILDOUT_DBG}"/src/app/app.app/Contents/MacOS/app -g 2>&1 | tee gui_test.log
 fi

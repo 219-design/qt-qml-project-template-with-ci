@@ -21,6 +21,7 @@ then
 fi
 
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# shellcheck disable=SC1091 # rootdirhelper.bash was not specified as input
 source "${THISDIR}/../ci/rootdirhelper.bash"
 
 DL_FOLDER=${CUR_GUICODE_ROOT}/dl_third_party
@@ -40,48 +41,49 @@ fi
 
 check_format() {
   if [ $only_report != 0 ]; then
-      while read filenames; do
-        for fl in "$filenames"; do
+      while read -r fl; do
           echo checking format of "$fl"
+          # shellcheck disable=SC2086 # intentionally unquoted args (we want splitting)
           result=$("$qml_formatter" -l "$fl" ${MY_FMT_EXTRAARGS})
           if [[ ! -z "$result" ]]; then
               # https://stackoverflow.com/a/34066473/10278 (find string in bash array)
+              # shellcheck disable=SC2068 # intentionally unquoted
               if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
                 echo "INTENTIONAL FORGIVENESS OF $fl"
               else
                 # If someone disables 'set -e', then explicitly fail here regardless:
                 echo "You need to qmlfmt this file:"
                 echo "$fl"
-                return -1
+                return 1
               fi
           fi
-        done
       done
 
       return 0
   fi
 
-  while read filenames; do
-    for fl in "$filenames"; do
-      echo $fl
+  while read -r fl; do
+      echo "$fl"
 
       # https://stackoverflow.com/a/34066473/10278 (find string in bash array)
+      # shellcheck disable=SC2068 # intentionally unquoted
       if echo ${the_exclusions[@]} | grep -q -w "$fl"; then
         echo "INTENTIONAL EXLUSION OF $fl"
       else
+        # shellcheck disable=SC2086 # intentionally unquoted args (we want splitting)
         "$qml_formatter" -w "$fl" ${MY_FMT_EXTRAARGS}
       fi
-    done
   done
 }
 
 if [ -f "${THISDIR}/enforce_qml_format.exclusions" ]; then
+  # shellcheck disable=SC2207 # intentionally unquoted
   the_exclusions=($(awk -F= '{print $0}' "${THISDIR}/enforce_qml_format.exclusions"))
 else
   the_exclusions=()
 fi
 
-cd $FOLDER_UNDER_FORMAT_CONTROL
+cd "$FOLDER_UNDER_FORMAT_CONTROL"
 top_level_dirs=(*/)
 
 for dir in "${top_level_dirs[@]}"; do
@@ -90,10 +92,12 @@ for dir in "${top_level_dirs[@]}"; do
   elif [ -f "${dir}/.do_not_format" ]; then
       echo "Refusing to format ${dir} - you marked it .do_not_format"
   else
-    # leaving the '-o' construct for future expansion guidance:
-    find ${dir%/} \
+    # Note: `-type f` to skip symlinks.
+    # Note: leaving the '-o' construct for future expansion guidance (we might want .js files):
+    find "${dir%/}" \
          \( -name '*.qml' \
          -o -name '*.qml' \) \
+         -type f \
          | check_format
   fi
 done
