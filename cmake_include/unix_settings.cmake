@@ -70,11 +70,6 @@ if(UNIX)
     )
     string(
       APPEND
-      CMAKE_STATIC_LINKER_FLAGS_DEBUG
-      "${MYAPP_UNIX_SANITIZER_FLAGS}"
-    )
-    string(
-      APPEND
       CMAKE_MODULE_LINKER_FLAGS_DEBUG
       "${MYAPP_UNIX_SANITIZER_FLAGS}"
     )
@@ -96,6 +91,7 @@ if(UNIX)
     # "-Wduplicated-branches -Wduplicated-cond" # conditionally added above
     "-Werror=switch"
     "-Wextra"
+    "-Wextra-semi"
     "-Wfloat-equal"
     "-Wformat-nonliteral"
     "-Wformat-security"
@@ -118,6 +114,7 @@ if(UNIX)
     # "-Wrestrict" # conditionally added above
     "-Wshadow"
     "-Wstack-protector"
+    "-Wsuggest-override"
     "-Wswitch-default"
     "-Wswitch-enum"
     "-Wundef"
