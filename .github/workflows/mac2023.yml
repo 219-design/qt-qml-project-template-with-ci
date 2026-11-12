@@ -1,6 +1,8 @@
 name: Mac2023_CI
 
-on: [push]
+on:
+  workflow_dispatch:
+  # push: # <---- failing. we need to update build scripts for newer Xcode
 
 jobs:
   build:
