@@ -1,0 +1,100 @@
+#
+# Copyright (c) 2020, 219 Design, LLC
+# See LICENSE.txt
+#
+# https://www.219design.com
+# Software | Electrical | Mechanical | Product Design
+#
+name: CMake_Linux_CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: compute nameid for this run
+      env:
+        nameidinput: "${{ '{{' }} github.head_ref || github.ref_name }}"
+      run: |
+        echo "our_nameid=${nameidinput//\//-}" >> $GITHUB_ENV
+
+    # Remove apt repos that are known to break from time to time
+    # See https://github.com/actions/virtual-environments/issues/323
+    - name: Remove broken apt repos
+      run: |
+        for apt_file in `grep -lr microsoft /etc/apt/sources.list.d/`; do sudo rm $apt_file; done
+
+    - if: runner.os == 'Linux'
+      # Fix (another kind) of azure ubuntu apt repo issue. (Unable to connect to azure.archive.ubuntu.com)
+      run: sed -e 's/azure.archive.ubuntu.com/us.archive.ubuntu.com/g' -e t -e d /etc/apt/sources.list | sudo tee /etc/apt/sources.list.d/nonazure.list
+
+    - name: run_all_tests_clang_qt5
+      env:
+        MYAPP_TEMPLATE_QT5: 1
+        MYAPP_TEMPLATE_COMPILERCHOICE_CLANG: 1
+      run: ./run_all_tests.sh
+
+    - name: upload_clang_qt5_coverage_reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: "${{ '{{' }} env.our_nameid }}.clang.qt5.coverage_reports"
+        path: coverage_reports/
+        if-no-files-found: error
+        retention-days: 7
+        overwrite: false
+
+    - name: clear_clang_qt5_coverage_reports
+      run: rm -rf coverage_reports
+
+    - name: run_all_tests_qt6_android
+      env:
+        MYAPP_TEMPLATE_BUILD_ANDROID: 1
+      run: ./run_all_tests.sh
+
+    - name: upload_qt6_android_coverage_reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: "${{ '{{' }} env.our_nameid }}.gcc.qt6.android.coverage_reports"
+        path: coverage_reports/
+        if-no-files-found: error
+        retention-days: 7
+        overwrite: false
+
+    - name: clear_qt6_android_coverage_reports
+      run: rm -rf coverage_reports
+
+    # Clang Qt6 build is the LAST one, so the artifact upload will have its commands:
+    - name: run_all_tests_clang
+      env:
+        # For a g++ (not clang) qt6 build, see: main.yml
+        MYAPP_TEMPLATE_COMPILERCHOICE_CLANG: 1
+      run: ./run_all_tests.sh
+
+    - name: upload_compile_commands_json_artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: "${{ '{{' }} env.our_nameid }}.clang.qt6.debug.compiler_info"
+        # Note: it is surprisingly tedious to interpolate "current date" into an
+        # artifact name here in yaml, so we make sure our own build scripts generate
+        # the file with a datestring already prefixed to it, and we upload a directory
+        # (instead of just the file), so that inside the dir, that datestring prefix
+        # is preserved on the file:
+        path: cbuild_Debug/compiler_info_artifacts/
+        if-no-files-found: error
+        retention-days: 7
+        # If overwrite==false, the action will fail if an artifact for the given name already exists.
+        overwrite: false
+
+    - name: upload_clang_coverage_reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: "${{ '{{' }} env.our_nameid }}.clang.qt6.coverage_reports"
+        path: coverage_reports/
+        if-no-files-found: error
+        retention-days: 7
+        overwrite: false
